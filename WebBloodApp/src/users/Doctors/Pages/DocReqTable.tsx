@@ -74,7 +74,7 @@ const onOpen = () =>{
           Request Page
         </div>
         <div className="flex">
-            <Table columns={columns} dataSource={DocRequestContext?.allRequest?.map(request=>({...request,id:request._id}))} className="w-full"/>
+            <Table columns={columns} dataSource={DocRequestContext?.allRequest?.map(request=>({...request,key:request._id}))} className="w-full"/>
         </div>
       </div>
         <RequestModal isModalOpen={isModalOpen} cancelModal={onCancel} selectedPatient={searchResult}/>
