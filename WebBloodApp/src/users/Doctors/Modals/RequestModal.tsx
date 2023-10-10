@@ -2,7 +2,7 @@ import {Modal} from 'antd'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Formik, Form, Field,ErrorMessage, FormikProps } from 'formik'
 import { validationSchemaForRequest } from '../schema/validationSchema'
-import { AddingPatientRequestInfo, PatientInfo } from '../Interface/Interface'
+import { AddingPatientRequestInfo, PatientInfo, PatientRequestValues } from '../Interface/Interface'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import { addNewRequest } from '../../../api/patientRequestApi'
 interface RequestModalProps{
     isModalOpen : boolean
     cancelModal:()=>void
-    selectedPatient :PatientInfo | ""
+    selectedPatient :PatientRequestValues | null
 }
 
 

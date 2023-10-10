@@ -6,7 +6,7 @@ import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } 
 
 
 const DocRequestPage = () => {
-  const [searchResult,setSearchResults] = useState<PatientRequestInfo | null>([])
+  const [selectedPatient,setSelectedPatient] = useState<PatientRequestValues | null>()
 
 
   const [isModalOpen,setIsModalOpen] = useState(false)
@@ -51,7 +51,7 @@ const DocRequestPage = () => {
       key:'actions',
       render: (text:string,record:PatientRequestValues)=>(
         <Space size="middle">
-          <Button onClick={()=>getValues(record)}>Make Request</Button>
+          <Button onClick={()=>getValues(record)}>Download File</Button>
         </Space>
 
       )
@@ -77,7 +77,7 @@ const onOpen = () =>{
             <Table columns={columns} dataSource={DocRequestContext?.allRequest?.map(request=>({...request,key:request._id}))} className="w-full"/>
         </div>
       </div>
-        <RequestModal isModalOpen={isModalOpen} cancelModal={onCancel} selectedPatient={searchResult}/>
+        
     </>
   );
 }
