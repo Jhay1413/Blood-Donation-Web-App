@@ -24,6 +24,7 @@ const connectDB = async()=>{
         process.exit(1);
     }
 }
+
 app.use('/api/fileRoute',fileRoutes);
 app.use('/api/authRoutes',authRoutes);
 app.use('/api/patientRoutes',patientRoutes);

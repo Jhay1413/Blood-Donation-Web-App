@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { PatientRequestValues } from '../users/Doctors/Interface/Interface';
 const RequestApi = import.meta.env.VITE_API_REQUESTROUTES
 export const addNewRequest = async (data:FormData)=>{
     try {
@@ -19,5 +20,26 @@ export const getRequestByPhysicianId = async (id:string)=>{
         return response
     } catch (error) {
         
+    }
+}
+export const downloadRequestFile = async (id:string)=>{
+    try {
+        console.log(id)
+        const response = await axios.get(`${RequestApi}/downloadRequestFile/${id}`, {
+            responseType: 'blob', // Ensure the response is treated as binary data
+          });
+          if(response){
+            const suggestedFilename = response.headers['x-suggested-filename']
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', suggestedFilename); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+          }
+       
+          return response
+    } catch (error) {
+        console.log(error)
     }
 }

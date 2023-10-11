@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import RequestModal from "../Modals/RequestModal";
 import {  getDocData } from "../context/DocDataContext";
 import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../Interface/Interface";
+import { downloadRequestFile } from "../../../api/patientRequestApi";
 
 
 const DocRequestPage = () => {
@@ -51,15 +52,23 @@ const DocRequestPage = () => {
       key:'actions',
       render: (text:string,record:PatientRequestValues)=>(
         <Space size="middle">
-          <Button onClick={()=>getValues(record)}>Download File</Button>
+          <Button onClick={()=>downloadFiles(record)}>Download File</Button>
         </Space>
 
       )
     }
 
   ];
-const getValues = (record:PatientRequestValues) =>{
-  console.log(record)
+const downloadFiles = async(record:PatientRequestValues) =>{
+  const {_id } = record;
+  try {
+    console.log(_id)
+    const response = await downloadRequestFile(_id);
+    
+    
+  } catch (error) {
+    console.log(error)
+  }
 }
 const onCancel = () =>{
   setIsModalOpen(!isModalOpen)

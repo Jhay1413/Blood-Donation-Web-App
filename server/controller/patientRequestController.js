@@ -2,11 +2,11 @@ const router = require('express').Router();
 const multer = require('multer')
 const PatientRequestModel = require('../Model/PatientRequest')
 const aws = require('aws-sdk');
-const { S3 } = require("@aws-sdk/client-s3");
+const { S3, GetObjectCommand } = require("@aws-sdk/client-s3");
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
-
+const fs = require('fs');
 
 const s3Client = new S3({
     forcePathStyle: false, // Configures to use subdomain/virtual calling format.
@@ -58,6 +58,43 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
         console.log(error)
     }
 })
+router.get('/downloadRequestFile/:id',async(req,res)=>{
+  const id = req.params.id
+ 
+  try {
+    const response = await PatientRequestModel.findById(id)
+    if(response){
+      
+    const bucketParams = {
+      Bucket: response.bucket,
+      Key: response.fileKey
+    };
+
+      const s3response = await s3Client.send(new GetObjectCommand(bucketParams));
+    
+    
+      if(s3response.Body){
+         /*
+      fs.writeFileSync(`./temp/${response.fileKey}`,data)*/
+    
+    
+     
+      res.setHeader('Access-Control-Expose-Headers', 'X-Suggested-Filename','Content-Type');
+
+      res.setHeader('X-Suggested-Filename',response.fileKey)
+      res.setHeader('Content-Type', s3response.ContentType);
+      // Pipe S3 object data directly to the response
+      s3response.Body.pipe(res);
+     
+      }
+     else{
+      console.log('The response does not have data');
+     }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+})
 router.get('/getAllRequest/:id',async (req,res)=>{
   try {
     const allRequestData = await PatientRequestModel.find({physician : req.params.id}).populate('patient').populate('physician')
@@ -67,4 +104,16 @@ router.get('/getAllRequest/:id',async (req,res)=>{
   }
 
 })
+
+
+
+const streamToString = (stream) => {
+  const chunks = [];
+  return new Promise((resolve, reject) => {
+    stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+    stream.on('error', (err) => reject(err));
+    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+  });
+};
+
 module.exports = router
