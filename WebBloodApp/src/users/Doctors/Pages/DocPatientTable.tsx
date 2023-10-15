@@ -1,6 +1,6 @@
 import { Button, Input, Space, Table } from "antd";
 import PatientModal from "../Modals/PatientModal";
-import { Patient, getDocData } from "../context/DocDataContext";
+import { getDocData } from "../context/DocDataContext";
 import RequestModal from "../Modals/RequestModal";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 import PatientEditModal from "../Modals/PatientEditModal";
@@ -22,8 +22,6 @@ const DocPatientPage = () => {
       age: '',
       contactNumber: '',
       address: '',
-      physician: '',
-
     })
     const [openRequestModal,setOpenRequestModal] = useState<boolean>(false);
     const [openEditModal,setOpenEditModal] = useState<boolean>(false);
@@ -94,7 +92,7 @@ const DocPatientPage = () => {
     //FUNCTIONS
       const requestBlood = (value:PatientInfo) =>{
         const physician = authContext?.userId || ''
-        setSelectedPatient({...value,physician})
+        setSelectedPatient(value)
         setOpenRequestModal(!openRequestModal)
       } 
       const editPatient = (value:PatientInfo)=>{
@@ -111,10 +109,9 @@ const DocPatientPage = () => {
           age: '',
           contactNumber: '',
           address: '',
-          physician: '',
         })
       }
-      const onDelete = async(record:Patient) =>{
+      const onDelete = async(record:PatientInfo) =>{
        
       }
       const onCloseAdd = () =>{
@@ -129,7 +126,7 @@ const DocPatientPage = () => {
      
     return ( 
         <>
-            <div className="w-full p-4 flex-col flex bg-white shadow-md">
+            <div className="w-full p-4 flex-col h-full flex bg-white shadow-md">
                 <div className="flex pb-4 flex-col space-y-4">
                     <div className="w-full flex justify-between">
                       <div className="w-full ">

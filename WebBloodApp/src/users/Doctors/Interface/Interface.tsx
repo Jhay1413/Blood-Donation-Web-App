@@ -31,8 +31,8 @@ export type PatientInfo = {
     age: number |'',
     contactNumber: number | '',
     address: string,
-} | null
-export type PatientInfoArray = PatientInfo[]
+}
+export type PatientInfoArray = PatientInfo[] | null
 
 export type PhysicianInfo = {
     contactNumber: string;

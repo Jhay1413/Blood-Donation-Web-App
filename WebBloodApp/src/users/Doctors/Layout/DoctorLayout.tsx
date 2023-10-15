@@ -8,14 +8,14 @@ type DoctorLayoutProps = {
 }
 const DoctorPageLayout = ({children}:DoctorLayoutProps) => {
     const [navBarState,setNavBarState] = useState<boolean>(true);
-    const divRef = useRef<HTMLDivElement | null>(null);
+    const divRef = useRef<HTMLDivElement | null>(null); 
 
     const changeNavbarState = () =>{
         setNavBarState(!navBarState)
     }
     return ( 
         <>
-            <div className="flex h-screen bg-gray-100 relative ">
+            <div className="flex min-h-screen bg-gray-100 relative ">
                 <ToastContainer/>
                 <div ref={divRef} className={`${navBarState ? 'absolute' : 'hidden'} w-64 lg:w-1/6 bg-white p-4 lg:flex lg:fixed h-full z-10`}>
                     <DoctorPageNavigation onClick={changeNavbarState}/>

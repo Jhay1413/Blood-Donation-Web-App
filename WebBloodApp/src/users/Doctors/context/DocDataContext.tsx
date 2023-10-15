@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
-import { AddingPatientInfo, PatientInfo, PatientRequestInfo} from "../Interface/Interface";
+import { AddingPatientInfo, PatientInfo, PatientInfoArray, PatientRequestInfo} from "../Interface/Interface";
 import { getAllPatientInfo } from "../../../api/patientApi";
 import { getRequestByPhysicianId } from "../../../api/patientRequestApi";
 
 
 
 type DocDataContextType = {
-    patientInfo : PatientInfo
+    patientInfo : PatientInfoArray | null
 } | null
 
 export const DocDataContext = createContext<DocDataContextType>(null)
@@ -22,7 +22,7 @@ type DocDataProps ={
     children : React.ReactNode
 }
 export const DocDataProvider = ({children}:DocDataProps) =>{
-    const[patientInfo,setPatientInfo] = useState<PatientInfo>(null)
+    const[patientInfo,setPatientInfo] = useState<PatientInfoArray | null>([])
    
     const [allRequest,setAllRequest] = useState<PatientRequestInfo | null>([])
    

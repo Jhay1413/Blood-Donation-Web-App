@@ -1,8 +1,7 @@
 import { Button, Space, Table } from "antd";
 import { useEffect, useState } from "react";
-import RequestModal from "../Modals/RequestModal";
 import {  getDocData } from "../context/DocDataContext";
-import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../Interface/Interface";
+import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../Interface/Interface";
 import { downloadRequestFile } from "../../../api/patientRequestApi";
 
 
