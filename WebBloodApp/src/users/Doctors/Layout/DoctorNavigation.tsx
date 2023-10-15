@@ -12,7 +12,6 @@ const DoctorPageNavigation = ({onClick}:DoctorPageNavigationProps) => {
                     <button onClick={onClick}>
                         <FaXmark/>
                     </button>
-                 
                 </div>
                 <div className="items-center flex p-4">
                     <h1 className="text-blue-900 font-bold text-4xl ">Doctor</h1>
@@ -54,7 +53,7 @@ const DoctorPageNavigation = ({onClick}:DoctorPageNavigationProps) => {
                                             < FaPerson/>
                                         </div>
                                         <div className="flex items-center justify-center">
-                                            <h1>Patient Table</h1>
+                                            <h1>Patient Page</h1>
                                         </div>
                                         
                                     </div>

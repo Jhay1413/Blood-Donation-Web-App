@@ -22,7 +22,6 @@ const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
                     </div> 
                 </div>
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
-                < IoMdChatboxes  />
            
                 <IoMdApps/>
                 <IoMdPerson/>

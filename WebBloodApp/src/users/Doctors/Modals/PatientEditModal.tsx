@@ -1,10 +1,11 @@
 import { Modal, Spin } from "antd";
 import { ErrorMessage, Field, Form, Formik, FormikProps, useFormik } from "formik";
-import { Patient } from "../context/DocDataContext";
 import {  validationSchemaForEditing } from "../schema/validationSchema";
 import { useEffect, useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import { PatientInfo } from "../Interface/Interface";
+import { editPatientInfo } from "../../../api/patientApi";
+import { getDocData } from "../context/DocDataContext";
 
 interface PatientEditModalProps {
     PatientInfo : PatientInfo
@@ -15,7 +16,7 @@ interface PatientEditModalProps {
 
 const PatientEditModal = ({PatientInfo,isModalOpen,cancelModal} : PatientEditModalProps)=>{
     const initialValues :PatientInfo = {
-        userId:"",
+        _id : '',
         firstName:   '',
         lastName: '',
         sex:  '',
@@ -23,6 +24,7 @@ const PatientEditModal = ({PatientInfo,isModalOpen,cancelModal} : PatientEditMod
         contactNumber: '',
         address:  '',
     }
+    const contextValue = getDocData();
     useEffect(()=>{
        formikRef.current?.setValues(PatientInfo)
     },[PatientInfo])
@@ -31,18 +33,21 @@ const PatientEditModal = ({PatientInfo,isModalOpen,cancelModal} : PatientEditMod
     const formikRef = useRef <FormikProps<PatientInfo> | null>(null)
 
     const handleSubmit = async (values:PatientInfo, {resetForm}:any) =>{
-        
-        
+        try {
+            const response = await editPatientInfo(values);
+            resetForm();
+            cancelModal();
+            contextValue?.handleSetIsLoading();
+            showToast();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const onCloseModal = () =>{
         formikRef.current?.resetForm();
         cancelModal();
-    }
-    const resetForms = () =>{
-        console.log("");
-        formikRef.current?.resetForm();
-      } 
+    } 
       const showToast = ()=>{
         toast.success("Success Update !")
       }

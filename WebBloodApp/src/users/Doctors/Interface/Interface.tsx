@@ -10,6 +10,10 @@ export interface AddingPatientInfo {
     password: string | "";
     confirmPassword: string | "";
 }
+export interface AddingPatientInfoWithUserRoles {
+    patientInfo:AddingPatientInfo
+    userRoles: string
+}
 export interface AddingPatientRequestInfo{
     _id:string,
     firstName:string,
@@ -20,7 +24,6 @@ export interface AddingPatientRequestInfo{
     address:string,
     bloodType:string,
     quantity:string
-   
     physician: string
 }
 export type PatientInfo = {

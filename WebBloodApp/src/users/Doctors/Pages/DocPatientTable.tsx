@@ -6,6 +6,7 @@ import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 import PatientEditModal from "../Modals/PatientEditModal";
 import { PatientInfo } from "../Interface/Interface";
 import { useState } from "react";
+import { deletePatientnfo } from "../../../api/patientApi";
 
 
 const DocPatientPage = () => {
@@ -25,13 +26,14 @@ const DocPatientPage = () => {
     })
     const [openRequestModal,setOpenRequestModal] = useState<boolean>(false);
     const [openEditModal,setOpenEditModal] = useState<boolean>(false);
-    const {DocPatientContext} = getDocData()
+    const contextValue = getDocData()
     const {authContext} = useAuth()
+  
    
     //FILTERED DATA FOR TABLE SEARCH
     const filteredPatients = searchedData 
-                              ? DocPatientContext?.patientInfo?.filter(patient=>String(patient?._id).toLowerCase().includes(searchedData) || String(patient?.firstName).toLowerCase().includes(searchedData)) || [] 
-                              : DocPatientContext?.patientInfo || []
+                              ? contextValue?.patientInfo?.filter(patient=>String(patient?._id).toLowerCase().includes(searchedData) || String(patient?.firstName).toLowerCase().includes(searchedData)) || [] 
+                              : contextValue?.patientInfo || []
    
     //TABLE COLUMNS
       const columns = [
@@ -80,7 +82,7 @@ const DocPatientPage = () => {
             <Space size="middle">
               <Button onClick={()=>requestBlood(record)}>Request</Button>
               <Button className="bg-green-500 text-white" onClick={()=>editPatient(record) } >Edit</Button>
-              <Button type="primary"onClick={()=>onDelete(record)} danger>Delete</Button>
+              <Button type="primary" onClick={()=>onDelete(record)} danger>Delete</Button>
             </Space>
 
           )
@@ -112,7 +114,12 @@ const DocPatientPage = () => {
         })
       }
       const onDelete = async(record:PatientInfo) =>{
-       
+        try {
+          const response = await deletePatientnfo(record._id);
+          contextValue?.handleSetIsLoading();
+        } catch (error) {
+          console.log(error);
+        }
       }
       const onCloseAdd = () =>{
         setIsModalOpen(!isModalOpen)

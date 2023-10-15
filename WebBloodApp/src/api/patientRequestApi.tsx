@@ -24,7 +24,6 @@ export const getRequestByPhysicianId = async (id:string)=>{
 }
 export const downloadRequestFile = async (id:string)=>{
     try {
-        console.log(id)
         const response = await axios.get(`${RequestApi}/downloadRequestFile/${id}`, {
             responseType: 'blob', // Ensure the response is treated as binary data
           });
@@ -41,5 +40,13 @@ export const downloadRequestFile = async (id:string)=>{
           return response
     } catch (error) {
         console.log(error)
+    }
+}
+export const deleteRequest = async (id:string)=>{
+    try {
+        const response = await axios.delete(`${RequestApi}/deleteRequest/${id}`);
+        return response;
+    } catch (error) {
+        console.log(error);
     }
 }

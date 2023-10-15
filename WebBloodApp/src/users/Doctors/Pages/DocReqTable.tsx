@@ -2,7 +2,7 @@ import { Button, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import {  getDocData } from "../context/DocDataContext";
 import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../Interface/Interface";
-import { downloadRequestFile } from "../../../api/patientRequestApi";
+import { deleteRequest, downloadRequestFile } from "../../../api/patientRequestApi";
 
 
 const DocRequestPage = () => {
@@ -10,11 +10,11 @@ const DocRequestPage = () => {
 
 
   const [isModalOpen,setIsModalOpen] = useState(false)
-  const {DocRequestContext} = getDocData()
+  const contextValue = getDocData()
 
 
   const onSearch = (value:string) =>{
-    const filteredPatiens = DocRequestContext?.allRequest?.find((req)=>req?._id.toLowerCase().includes(value.toLocaleLowerCase()))
+    const filteredPatiens = contextValue?.allRequest?.find((req)=>req?._id.toLowerCase().includes(value.toLocaleLowerCase()))
   }
 
   const columns = [
@@ -51,29 +51,29 @@ const DocRequestPage = () => {
       key:'actions',
       render: (text:string,record:PatientRequestValues)=>(
         <Space size="middle">
-          <Button onClick={()=>downloadFiles(record)}>Download File</Button>
+          <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
+          <Button type="primary" onClick={()=>deleteRecord(record._id)} danger>Delete File</Button>
         </Space>
 
       )
     }
 
   ];
-const downloadFiles = async(record:PatientRequestValues) =>{
-  const {_id } = record;
+const downloadFiles = async(id:string) =>{
+  
   try {
-    console.log(_id)
-    const response = await downloadRequestFile(_id);
-    
-    
+    const response = await downloadRequestFile(id);
   } catch (error) {
     console.log(error)
   }
 }
-const onCancel = () =>{
-  setIsModalOpen(!isModalOpen)
-}
-const onOpen = () =>{
-  setIsModalOpen(!isModalOpen)
+const deleteRecord =async(id:string)=>{
+  try {
+    const response = await deleteRequest(id);
+    contextValue?.handleSetIsLoading();
+  } catch (error) {
+    console.log(error);
+  }
 }
   return ( 
     <>
@@ -82,7 +82,7 @@ const onOpen = () =>{
           Request Page
         </div>
         <div className="flex">
-            <Table columns={columns} dataSource={DocRequestContext?.allRequest?.map(request=>({...request,key:request._id}))} className="w-full"/>
+            <Table columns={columns} dataSource={contextValue?.allRequest?.map(request=>({...request,key:request._id}))} className="w-full"/>
         </div>
       </div>
         
