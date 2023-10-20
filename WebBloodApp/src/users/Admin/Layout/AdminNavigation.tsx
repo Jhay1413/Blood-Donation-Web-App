@@ -81,6 +81,24 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                         </li>
                         <li className="w-full rounded-md hover:bg-gray-200 ">
                             <NavLink
+                                to="/admin/pendingRequestsPage"
+                                className={({ isActive}) =>
+                                    `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
+                                `}>
+                                    <div className="flex flex-row w-full justify-start items-center space-x-4">
+                                        <div className="flex items-center justify-center text-xl">
+                                            <  FaRegFolderOpen/>
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <h1>Pending Requests</h1>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                            </NavLink>
+                        </li>
+                        <li className="w-full rounded-md hover:bg-gray-200 ">
+                            <NavLink
                                to="/admin/physicianPage"
                                 className={({ isActive}) =>
                                     `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}

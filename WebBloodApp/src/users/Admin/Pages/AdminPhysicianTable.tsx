@@ -43,7 +43,7 @@ const AdminPhysicianPage = () => {
           key:'actions',
           render: (text:string,record:PhysicianInfo)=>(
             <Space size="middle">
-              <Button >Edit</Button>
+              <Button disabled>Edit</Button>
               <Button type="primary" onClick={()=> mutation.mutate(record._id)}danger>Delete</Button>
             </Space>
     

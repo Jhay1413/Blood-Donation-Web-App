@@ -65,7 +65,7 @@ const HistoryModal = ({isModalOpen,onClose,patientInfo}:Props) => {
           render: (text:string,record:PatientRequestValues)=>(
             <Space size="middle">
               <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
-              <Button type="primary" onClick={()=>deleteRecord(record._id)} danger>Delete File</Button>
+            
             </Space>
     
           )
