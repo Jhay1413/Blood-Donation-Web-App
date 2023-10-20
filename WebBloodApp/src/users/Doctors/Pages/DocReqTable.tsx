@@ -1,7 +1,7 @@
 import { Button, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import {  getDocData } from "../context/DocDataContext";
-import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../Interface/Interface";
+import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
 import { deleteRequest, downloadRequestFile } from "../../../api/patientRequestApi";
 
 
@@ -30,6 +30,12 @@ const DocRequestPage = () => {
       render: ((patient:PatientInfo) =>patient?.firstName)
     },
     {
+      title: 'Last Name',
+      dataIndex: 'patient',
+      key: 'patient.lastName',
+      render: ((patient:PatientInfo) =>patient?.lastName)
+    },
+    {
       title: 'Blood Type',
       dataIndex: 'bloodType',
       key: 'bloodType',
@@ -40,10 +46,20 @@ const DocRequestPage = () => {
       key: 'bloodQuantity',
     },
     {
+      title: 'Status', 
+      dataIndex: 'status',
+      key: 'status',
+    },
+    {
       title: 'Physician',
       dataIndex: 'physician',
       key: 'physician.firstName',
       render: ((physician:PhysicianInfo) =>physician?.firstName)
+    },
+    {
+      title: 'Date', 
+      dataIndex: 'Date',
+      key: 'Date',
     },
     {
       title : 'Actions',

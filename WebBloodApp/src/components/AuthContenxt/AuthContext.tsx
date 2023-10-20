@@ -44,6 +44,8 @@ export const AuthProvider = ({children}:AuthProviderProps)=>{
                 }else{
                     localStorage.removeItem('token')
                 }   
+        }else{
+            setAuthContextData(null)
         }
         setIsLoading(false);
     },[isLoading])

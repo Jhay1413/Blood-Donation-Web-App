@@ -8,14 +8,15 @@ const upload = multer({storage});
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const fs = require('fs');
 
+
 const s3Client = new S3({
-    forcePathStyle: false, // Configures to use subdomain/virtual calling format.
-    endpoint: process.env.BUCKET_ENDPOINT,
-    region: "SGP1",
-    credentials: {
-      accessKeyId: process.env.BUCKET_ACCESS_KEY,
-      secretAccessKey: process.env.BUCKET_PRIVATE_KEY
-    }
+  forcePathStyle: false, // Configures to use subdomain/virtual calling format.
+  endpoint: process.env.BUCKET_ENDPOINT,
+  region: "SGP1",
+  credentials: {
+    accessKeyId: process.env.BUCKET_ACCESS_KEY,
+    secretAccessKey: process.env.BUCKET_PRIVATE_KEY
+  }
 });
 
 
@@ -24,7 +25,7 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
     const {patientId,bloodType,quantity,physicianId} = req.body
     try {
       if(!file){
-        return res.status (400).send('No file uploaded.')
+        return res.status(400).send('No file uploaded.')
       }
       const params = {
         Bucket:'blood-donation-bucket',
@@ -42,6 +43,7 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
                 fileKey : file.originalname,
                 bucket: 'blood-donation-bucket',
                 physician:physicianId,
+                status:'Pending',
                 patient:patientId
             })
             if (newRequest){
@@ -85,7 +87,6 @@ router.get('/downloadRequestFile/:id',async(req,res)=>{
       res.setHeader('Content-Type', s3response.ContentType);
       // Pipe S3 object data directly to the response
       s3response.Body.pipe(res);
-     
       }
      else{
       console.log('The response does not have data');

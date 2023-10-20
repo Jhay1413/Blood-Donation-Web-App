@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
+import {  createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
-import { AddingPatientInfo, PatientInfo, PatientInfoArray, PatientRequestInfo} from "../Interface/Interface";
+import {PatientInfoArray, PatientRequestInfo} from "../../../components/Interface/Interface";
 import { getAllPatientInfo } from "../../../api/patientApi";
 import { getRequestByPhysicianId } from "../../../api/patientRequestApi";
 
@@ -20,7 +20,6 @@ type DocDataProps ={
 }
 export const DocDataProvider = ({children}:DocDataProps) =>{
     const[patientInfo,setPatientInfo] = useState<PatientInfoArray | null>([])
-   
     const [allRequest,setAllRequest] = useState<PatientRequestInfo | null>([])
     const [isLoading,setIsLoading] = useState<boolean>(true)
 

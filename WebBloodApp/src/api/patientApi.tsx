@@ -1,11 +1,13 @@
 import axios from 'axios'
-import { AddingPatientInfo, AddingPatientInfoWithUserRoles, PatientInfo } from '../users/Doctors/Interface/Interface';
+import { AddingPatientInfo, AddingPatientInfoWithUserRoles, PatientInfo } from '../components/Interface/Interface';
 const PatientApi = import.meta.env.VITE_API_PATIENTROUTES
+
+
 export const insertPatientInfo = async(data:AddingPatientInfoWithUserRoles)=>{
     try {
       
         const response = await axios.post(`${PatientApi}/insertPatientInfo`,data);
-        return response
+        return response.data
     } catch (error) {
         console.log('Error on insertPatient Api !')
     }

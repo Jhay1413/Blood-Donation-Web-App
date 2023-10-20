@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Form, Formik, FormikProps, useFormik } from "formi
 import {  validationSchemaForEditing } from "../schema/validationSchema";
 import { useEffect, useRef, useState } from "react";
 import { toast } from 'react-toastify';
-import { PatientInfo } from "../Interface/Interface";
+import { PatientInfo } from "../../../components/Interface/Interface";
 import { editPatientInfo } from "../../../api/patientApi";
 import { getDocData } from "../context/DocDataContext";
 

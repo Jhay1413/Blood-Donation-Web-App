@@ -7,6 +7,9 @@ const authRoutes = require('./controller/Auth')
 const patientRoutes = require('./controller/patientController')
 const patientRequestRoutes = require('./controller/patientRequestController')
 const physicianRoutes = require('./controller/physician')
+const patientAdminRoutes = require('./controller/AdminServices/PatientAdminController')
+const patientRequestAdminRoutes = require('./controller/AdminServices/PatientRequestController')
+const physicianAdminRoutes = require('./controller/AdminServices/PhysicianAdminController')
 const app = express();
 
 
@@ -31,6 +34,10 @@ app.use('/api/patientRoutes',patientRoutes);
 app.use('/api/patientRequestRoutes',patientRequestRoutes)
 app.use('/api/physicianRoutes',physicianRoutes)
 
+//ADMIN ROUTES
+app.use('/admin/api/patientRoutes',patientAdminRoutes);
+app.use('/admin/api/patientRequestRoutes',patientRequestAdminRoutes);
+app.use('/admin/api/physicianRoutes',physicianAdminRoutes);
 
 connectDB().then(() => {
     app.listen(PORT, () => {

@@ -1,12 +1,13 @@
-import {Modal} from 'antd'
+import {Modal, Spin} from 'antd'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Formik, Form, Field,ErrorMessage, FormikProps } from 'formik'
 import { validationSchemaForRequest } from '../schema/validationSchema'
-import { AddingPatientRequestInfo, PatientInfo } from '../Interface/Interface'
+import { AddingPatientRequestInfo, PatientInfo } from '../../../components/Interface/Interface'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../../components/AuthContenxt/AuthContext'
 import { addNewRequest } from '../../../api/patientRequestApi'
+import { getDocData } from '../context/DocDataContext'
 interface RequestModalProps{
     isModalOpen : boolean
     cancelModal:()=>void
@@ -33,6 +34,7 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
     }
     const [file,setFile] = useState<null | File>(null)
     const{authContext} = useAuth();
+    const contextValue = getDocData();
     const userId = authContext?.userId || '';
 
     useEffect(()=>{
@@ -49,13 +51,17 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
            
             if(values){
                 if(file){
+                    setIsLoading(true);
+
                     formData.append('file',file)
                     formData.append('patientId',values._id)
                     formData.append('bloodType',values.bloodType)
                     formData.append('quantity',values.quantity)
                     formData.append('physicianId',userId)
                     const response = await addNewRequest(formData);
-                    console.log(response)
+                    setIsLoading(false)
+                    cancelModal();
+                    contextValue?.handleSetIsLoading()
                 }
             }
         } catch (error) {
@@ -150,7 +156,8 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
                                         </div>
                                     </div>
                                     <div className="pt-4 w-full flex justify-end">
-                                        <button className="px-4 py-2 bg-violet-500 text-white rounded-md" type="submit">Submit</button>
+
+                                        <button className="px-4 py-2 bg-violet-500 text-white rounded-md" type="submit">{isLoading ? <Spin/> : 'Submit'}</button>
                                     </div>
                                 </div>
                             </Form>

@@ -1,11 +1,20 @@
+import { FaArrowRightToBracket } from 'react-icons/fa6';
 import { IoMdChatboxes,IoMdSearch,IoMdApps,IoMdPerson,IoIosList} from 'react-icons/io';
+import { getDocData } from '../context/DocDataContext';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderPageProps{
     
     onClick : ()=> void;
 }
 const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
-
+ 
+    const contextValue = getDocData();
+    const logout = () =>{
+        localStorage.removeItem('token')
+        contextValue?.handleSetIsLoading()
+        window.location.reload();
+    }
 
     return ( 
         <>
@@ -24,7 +33,7 @@ const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
            
                 <IoMdApps/>
-                <IoMdPerson/>
+                <button onClick={logout}><FaArrowRightToBracket/></button>
 
                 </div>
           

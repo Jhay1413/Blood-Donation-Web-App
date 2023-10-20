@@ -3,6 +3,7 @@ import { useAuth } from '../AuthContenxt/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../api/AuthApi';
 import jwtDecode from 'jwt-decode';
+import loginSideImg from '../../assets/side-image.jpg'
 
 interface LoginFormProps{
 }
@@ -22,6 +23,7 @@ interface JWTPayload {
         email: '',
         password: ''
     });
+    const [roles,setRoles] = useState<string>("");
     const {authContext,loadingContext} = useAuth() 
     const navigate = useNavigate();
     
@@ -29,22 +31,35 @@ interface JWTPayload {
         if(authContext?.userRoles == 'Doctor'){
             navigate('/doc')
         }
+        else if(authContext?.userRoles == 'Admin'){
+            navigate('/admin')
+        }
     },[authContext])
 
     const submitLogin = async(e:any) => {
         e.preventDefault()
         try {
-            const response = await loginUser(credential);
-            if(response){
-                localStorage.setItem('token',response.data.token);
-
-                loadingContext?.setIsLoading(!loadingContext.isLoading)
-                const tokenDecoded:JWTPayload = await jwtDecode(response?.data.token)
-                if(tokenDecoded.userRoles == "Doctor"){
+            if(roles === "Doctor"){
+                const response = await loginUser({...credential,roles});
+                if(response){
+                    localStorage.setItem('token',response.data.token);
+                    loadingContext?.setIsLoading(!loadingContext.isLoading)
                     navigate('/doc')
                 }
             }
-              
+            else if(roles === "HealthCenter"){
+
+            }
+            else if(roles === "Admin"){
+                const response = await loginUser({...credential,roles});
+                if(response){
+                    console.log(response.data)
+                    localStorage.setItem('token',response.data.token);
+                    loadingContext?.setIsLoading(!loadingContext.isLoading)
+                    navigate('/admin')
+                }
+            }
+    
         } catch (error) {
             console.log(error)
         }
@@ -53,24 +68,43 @@ interface JWTPayload {
     
     const handleOnchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-
         setCredential(prev => ({
             ...prev,
             [name]: value
         }));
     };
+    const handleRolesChange = (e:React.ChangeEvent<HTMLSelectElement>)=>{
+        setRoles(e.target.value)
+    }
     return (
 
         <>
-            <div className="h-screen w-full items-center justify-center flex bg-gray-100 ">
-                <div className="w-2/4 mx-auto grid grid-rows-2 flex bg-white w-full p-10 rounded-lg">
-                    <div className="flex items-center justify-center w-full">
-                        <h1 className="text-4xl">Login Page</h1>
+            <div className='min-h-screen w-full bg-gray-100 flex items-center justify-center'>
+                <div className='w-3/4 grid grid-cols-2 shadow-lg'>
+                    <div className='rounded-lg '>
+                        <img src={loginSideImg} />
                     </div>
-                    <div className="w-2/4 mx-auto flex flex-col items-center justify-center space-y-4">
-                        <input className="w-full p-2 border-2 rounded-lg" name="email" type="text" placeholder="Username" onChange={handleOnchange} />
-                        <input className="w-full p-2 border-2 rounded-lg" name="password" type="password" placeholder="Password" onChange={handleOnchange} />
-                        <button className="w-full p-2 border-2 rounded-lg bg-green-500 text-white" onClick={submitLogin}>Login</button>
+                    <div className='flex flex-col items-center justify-center space-y-4 bg-white w-full'>
+                        <div className="flex flex-col items-center justify-center space-y-2">
+                            <h1 className='text-2xl text-red-600 font-bold'>LOGIN ACCOUNT</h1>
+                            <p className='text-sm text-gray-500'>Secure Login to Your Account</p>
+                        </div>
+                        <div className='flex flex-col items-center justify-center space-y-4 w-3/4'>
+                            <input type='text' name ="email"className='p-2 w-full rounded-md bg-gray-100' onChange={handleOnchange}  placeholder="Email" disabled = {roles === ""}/>
+                            <input type='password' name ="password" className='p-2 w-full rounded-md bg-gray-100' onChange={handleOnchange} placeholder='Password' disabled = {roles === ""}/>
+
+                        </div>
+                        <div className='flex justify-start w-3/4'>
+                        <select className='text-gray-700 p-1 rounded-md bg-gray-100' name="roles" onChange={handleRolesChange}>
+                                <option value="">Select Roles</option>
+                                <option value="Admin">Admin</option>
+                                <option value="HealthCenter">Health Center</option>
+                                <option value="Doctor">Doctor</option>
+                            </select>
+                        </div>
+                        <div className='w-3/4'>
+                            <button className="w-full p-2 border-2 rounded-lg bg-green-500 text-white" onClick={submitLogin}>Login</button>
+                        </div>
                     </div>
                 </div>
             </div>

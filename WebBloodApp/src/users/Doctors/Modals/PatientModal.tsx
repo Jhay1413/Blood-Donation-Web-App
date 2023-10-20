@@ -7,7 +7,7 @@ import { AuthContextType } from "../../../components/AuthContenxt/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getDocData } from "../context/DocDataContext";
-import { AddingPatientInfo } from "../Interface/Interface";
+import { AddingPatientInfo, AddingPatientInfoWithUserRoles } from "../../../components/Interface/Interface";
 import { insertPatientInfo } from "../../../api/patientApi";
 
 
@@ -37,7 +37,9 @@ const PatientModal = ({isModalOpen,cancelModal,authData}:PatientModalProps) => {
     const handleSubmit = async (values:AddingPatientInfo,{resetForm} : any) =>{
         try {
             setIsLoading(true);
-            const patientInfoWithRoles = {...values,userRoles:'Patient'}
+          
+            const patientInfoWithRoles:AddingPatientInfoWithUserRoles = {...values,userRoles:'Patient'}
+           
             const response = await insertPatientInfo(patientInfoWithRoles);
             console.log(response)
             showToast();

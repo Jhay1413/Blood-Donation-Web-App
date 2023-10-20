@@ -4,7 +4,7 @@ import { getDocData } from "../context/DocDataContext";
 import RequestModal from "../Modals/RequestModal";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 import PatientEditModal from "../Modals/PatientEditModal";
-import { PatientInfo } from "../Interface/Interface";
+import { PatientInfo } from "../../../components/Interface/Interface";
 import { useState } from "react";
 import { deletePatientnfo } from "../../../api/patientApi";
 

@@ -16,7 +16,7 @@ export const registerUser = async (data:UserInfo)=>{
         console.log("Error on Registration API")
     }
 }
-export const loginUser = async(data:UserInfo)=>{
+export const loginUser = async(data:any)=>{
     try {
         const response = await axios.post(`${AuthApi}/login`,data);
         return response
