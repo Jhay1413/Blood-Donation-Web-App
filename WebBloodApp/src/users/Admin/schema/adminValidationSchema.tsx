@@ -12,3 +12,9 @@ import * as Yup from 'yup';
    
   });
 
+export const validationSchemaForHealthCneter = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    address: Yup.string().required('Address is required'),
+    contact: Yup.string().required('Contact is required'),
+    
+});

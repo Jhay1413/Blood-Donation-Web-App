@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { FaHouseChimney, FaRegFolderOpen,FaPerson, FaXmark,FaUserDoctor,FaRectangleList,FaHouseMedicalCircleCheck} from "react-icons/fa6";
+import { useState } from "react";
 
 interface AdminPageNavigationProps {
     onClick : ()=>void
 }
 const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
+    const [showDropdown,setShowDropdown] = useState(false)
     return ( 
         <>
            <div className="w-full h-full flex-col">
@@ -22,6 +24,7 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                         <li className="w-full rounded-md hover:bg-gray-200 ">
                             <NavLink
                                 to="/admin/"
+                             
                                 className={({ isActive}) =>
                                     `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
                                 `}>
@@ -30,7 +33,7 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                                             < FaHouseChimney/>
                                         </div>
                                         <div className="flex items-center justify-center">
-                                            <h1>Dashboard</h1>
+                                            <h1>Home</h1>
                                         </div>
                                         
                                     </div>
@@ -61,12 +64,12 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                                     
                             </NavLink>
                         </li>   
-                        <li className="w-full rounded-md hover:bg-gray-200 ">
+                        <li className="w-full rounded-md ">
                             <NavLink
-                                to="/admin/requestsPage"
-                                className={({ isActive}) =>
-                                    `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
-                                `}>
+                                to=""
+                                onClick = {()=>setShowDropdown(!showDropdown)}
+                                className="w-full p-2 block"
+                                >
                                     <div className="flex flex-row w-full justify-start items-center space-x-4">
                                         <div className="flex items-center justify-center text-xl">
                                             <  FaRegFolderOpen/>
@@ -78,25 +81,41 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                                     </div>
                                     
                             </NavLink>
-                        </li>
-                        <li className="w-full rounded-md hover:bg-gray-200 ">
-                            <NavLink
-                                to="/admin/pendingRequestsPage"
-                                className={({ isActive}) =>
-                                    `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
-                                `}>
-                                    <div className="flex flex-row w-full justify-start items-center space-x-4">
-                                        <div className="flex items-center justify-center text-xl">
-                                            <  FaRegFolderOpen/>
-                                        </div>
-                                        <div className="flex items-center justify-center">
-                                            <h1>Pending Requests</h1>
-                                        </div>
+                            {showDropdown && (
+                                <ul className="w-full flex flex-col text-gray-400 text-md space-y-2 pl-10">
+                                    <li className="w-full rounded-md hover:bg-gray-200 ">
+                                        <NavLink
+                                            to="/admin/requestsPage"
+                                  
+                                            className={({ isActive}) =>
+                                                `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
+                                        `}>
+                                            <div className="flex flex-row w-full justify-start items-center space-x-4">
+                                                <div className="flex items-center justify-center text-md">
+                                                    <h1>All Requests</h1>
+                                                </div>
+                                            </div>
                                         
-                                    </div>
-                                    
-                            </NavLink>
+                                        </NavLink>
+                                    </li>
+                                    <li className="w-full rounded-md hover:bg-gray-200 ">
+                                        <NavLink
+                                            to="/admin/pendingRequestsPage"
+                                        
+                                            className={({ isActive}) =>
+                                                `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
+                                        `}>
+                                            <div className="flex flex-row w-full justify-start items-center space-x-4">                                           
+                                                <div className="flex items-center justify-center text-md">
+                                                    <h1>Pending Requests</h1>
+                                                </div>
+                                            </div>                                            
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            )}
                         </li>
+                       
                         <li className="w-full rounded-md hover:bg-gray-200 ">
                             <NavLink
                                to="/admin/physicianPage"
@@ -150,6 +169,7 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                                     
                             </NavLink>
                         </li>         
+                       
                     </ul>
                     <div className="w-full py-4 pl-2 ">
                         <h1 className="text-gray-400 text-xs">Others</h1>

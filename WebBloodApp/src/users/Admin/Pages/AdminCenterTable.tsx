@@ -1,53 +1,64 @@
-import { Table } from "antd";
+import { Button, Space, Table } from "antd";
+import HealthCenterModal from "../Modal/AddHealthCenter";
+import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { HealthCenterInfo, healthCenterInfoArray } from "../../../components/Interface/Interface";
+import StocksModal from "../Modal/StocksModal";
 
 
 const AdminCenterPage = () => {
+  const queryClient = useQueryClient();
+  const healthCenterData = queryClient.getQueryData<healthCenterInfoArray>(['healthCenterInfo']);
+  const [isModalOpen,setIsModalOpen] = useState(false);
+  const [isModalStockOpen,setIsModalStockOpen] = useState(false);
+  const [selectedData,setSelectedData] = useState<HealthCenterInfo>()
 
-
+  const cancelModal = () =>{
+    setIsModalOpen(!isModalOpen)
+  }
+  const cancelStockModal = () =>{
+    setIsModalStockOpen(!isModalStockOpen)
+  }
    
     //TABLE COLUMNS
       const columns = [
         {
-          title: 'Patient ID',
+          title: 'Health Center ID',
           dataIndex: '_id',
           key: '_id',
         },
         {
-          title: 'First Name',
-          dataIndex: 'firstName',
-          key: 'firstName',
-        },
-        {
-          title: 'Last Name',
-          dataIndex: 'lastName',
-          key: 'lastName',
-        },
-        {
-          title: 'Sex',
-          dataIndex: 'sex',
-          key: 'sex',
-        },
-
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          title: ' Name',
+          dataIndex: 'name',
+          key: 'name',
         },
         {
           title: 'Contact Number',
-          dataIndex: 'contactNumber',
-          key: 'contactNumber',
+          dataIndex: 'contact',
+          key: 'contact',
         },
         {
           title: 'Address',
           dataIndex: 'address',
           key: 'address',
         },
-
-
-
+        {
+          title : 'Actions',
+          dataIndex : 'actions',
+          key:'actions',
+          render: (text:string,record:HealthCenterInfo)=>(
+            <Space size="middle">
+              <Button onClick={()=>handleSelectData(record)}>View Stocks</Button>
+              <Button type="primary" danger  disabled>Delete</Button>
+            </Space>
+    
+          )
+        }
       ];
-
+      const handleSelectData = (record:HealthCenterInfo) =>{
+        setSelectedData(record)
+        setIsModalStockOpen(!isModalStockOpen)
+      }
 
     
     return ( 
@@ -56,24 +67,22 @@ const AdminCenterPage = () => {
                 <div className="flex pb-4 flex-col space-y-4">
                     <div className="w-full flex justify-between">
                       <div className="w-full ">
-                        <h1 className="text-xl">List of Patients</h1>
+                        <h1 className="text-xl">List of Health Center</h1>
                       </div>
                       <div className="w-full flex justify-end">
-                        <button className="p-2 bg-violet-500 text-sm rounded-sm text-white">Add Patient</button>
+                        <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {cancelModal}>Add New</button>
                       </div>
                     
                     </div>
                   
-                    <div className="w-full">
-    
-                    </div>
-                    
+                  
                 </div>
                 <div className="flex w-full">
-                    <Table  columns={columns} className="w-full overflow-scroll"/>
+                    <Table  columns={columns} dataSource={ healthCenterData?.map((healthCenter)=>({...healthCenter,key:healthCenter?._id}))} className="w-full overflow-scroll"/>
                 </div>
             </div>
-         
+            <HealthCenterModal isModalOpen={isModalOpen} onClose={cancelModal}/>
+            <StocksModal isModalOpen={isModalStockOpen} onClose={cancelStockModal} data ={selectedData}/>
         </>
      );
 }

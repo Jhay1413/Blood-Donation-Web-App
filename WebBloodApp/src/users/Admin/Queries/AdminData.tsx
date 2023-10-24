@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getAllPatientInfo } from "../../../api/AdminAPI/AdminPatientService"
 import { getAllPatientRequest } from "../../../api/AdminAPI/AdminRequestService"
 import { getAllPhysician } from "../../../api/AdminAPI/AdminPhysicianRequest"
+import { getAllCenterInfo } from "../../../api/AdminAPI/AdminHealthCenterServices"
 
 type Props ={
     children : React.ReactNode
@@ -22,8 +23,12 @@ const queryClient = useQueryClient();
         queryKey:['physicianInfo'],
         queryFn:getAllPhysician
     })
+    const healthCenterData = useQuery({
+        queryKey:['healthCenterInfo'],
+        queryFn:getAllCenterInfo
+    })
 
-    if ((patientData.isLoading || requestData.isLoading || physicianData.isLoading) || (patientData.isError || requestData.isError)) {
+    if ((healthCenterData.isLoading ||patientData.isLoading || requestData.isLoading || physicianData.isLoading) || (healthCenterData.isError || patientData.isError || requestData.isError || physicianData.error)) {
         return null; // Render nothing while loading or on error
       }
     return <>{children}</>

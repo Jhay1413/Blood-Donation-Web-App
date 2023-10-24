@@ -84,3 +84,37 @@ export type AccountInfo = {
 }
 export type AccountArray = AccountInfo[] | null
 
+export type PreHealthCenterInfo = {
+   
+    name : string,
+    address:string,
+    contact:string,
+    bloodTypeInventory: {
+        A_positive:number | null | undefined
+        A_negative:number | null | undefined
+        B_positive:number | null | undefined
+        B_negative:number | null | undefined
+        AB_positive:number | null | undefined
+        AB_negative:number | null | undefined
+        O_positive:number | null | undefined
+        O_negative:number | null | undefined
+    },
+}
+export type HealthCenterInfo = {
+    _id:string
+    name : string,
+    address:string,
+    contact:string,
+    bloodTypeInventory: {
+        A_positive:number | null | undefined
+        A_negative:number | null | undefined
+        B_positive:number | null | undefined
+        B_negative:number | null | undefined
+        AB_positive:number | null | undefined
+        AB_negative:number | null | undefined
+        O_positive:number | null | undefined
+        O_negative:number | null | undefined
+    },
+}
+export type healthCenterInfoArray = HealthCenterInfo[]| null
+

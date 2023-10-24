@@ -24,6 +24,8 @@ const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
         assignedAt:''
     }
     const [isLoading,setIsLoading] = useState<boolean>(false)
+
+    
     const mutation = useMutation({
         mutationFn: async (newPhysician:addingPhysicianInfo) => {
             setIsLoading(true)
