@@ -43,11 +43,18 @@ const AdminPendingRequestPage = () => {
         key: 'status',
       },
       {
+        title: 'Physician Id',
+        dataIndex: 'physician',
+        key: 'physician._id',
+        render: ((physician:PhysicianInfo) =>physician?._id)
+        },
+      {
         title: 'Physician',
         dataIndex: 'physician',
         key: 'physician.firstName',
         render: ((physician:PhysicianInfo) =>physician?.firstName)
       },
+     
       {
         title: 'Date', 
         dataIndex: 'Date',

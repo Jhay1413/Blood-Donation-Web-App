@@ -48,6 +48,12 @@ const HistoryModal = ({isModalOpen,onClose,patientInfo}:Props) => {
         key: 'status',
       },
       {
+        title: 'Physician Id',
+        dataIndex: 'physician',
+        key: 'physician._id',
+        render: ((physician:PhysicianInfo) =>physician?._id)
+        },
+      {
         title: 'Physician',
         dataIndex: 'physician',
         key: 'physician.firstName',
@@ -84,26 +90,30 @@ const HistoryModal = ({isModalOpen,onClose,patientInfo}:Props) => {
       }
     return ( 
         <>
+          
             <Modal open={isModalOpen} onCancel={onClose} width='80%' footer={null}>
-            <h1 className="text-2xl font-bold p-4">Patient Information</h1>
-                    <div className="grid grid-rows-3 p-4 gap-4 w-full">
-                        
-                        <div className=" grid grid-cols-4 gap-4">
-                            
-                            <input type="text" value={patientInfo?.firstName} className="col-span-2 p-2" placeholder="Firstname" disabled/>
-                            <input type="text" value={patientInfo?.lastName} className="col-span-2 p-2" placeholder="Lastname" disabled/>
-                            <input type="text" value={patientInfo?.age} className="p-2" placeholder="Age" disabled/>
-                            <input type="text" value={patientInfo?.sex} className="p-2" placeholder="Sex" disabled/>
-                            <input type="text" value={patientInfo?.contactNumber} className="col-span-2 p-2" placeholder="Contact Number" disabled/>
-                            <input type="text" value={patientInfo?.address} className="col-span-4 p-2" placeholder="Address" disabled/>
-                        </div>
-                        <div className="row-span-2 w-full">
-                            <h1 className="text-2xl font-bold p-4">Patient History</h1>
-                            <Table  columns={columns} dataSource = {historyData?.map((data)=>({...data,key:data._id}))} className="w-full overflow-scroll"/>
-            
-                        </div>
-                    </div>
-            </Modal>    
+              <h1 className="text-2xl font-bold p-4">Patient Information</h1>
+                      <div className="grid grid-rows-3 p-4 gap-4 w-full">
+                          
+                          <div className=" grid grid-cols-4 gap-4">
+                              
+                              <input type="text" value={patientInfo?.firstName} className="col-span-2 p-2" placeholder="Firstname" disabled/>
+                              <input type="text" value={patientInfo?.lastName} className="col-span-2 p-2" placeholder="Lastname" disabled/>
+                              <input type="text" value={patientInfo?.age} className="p-2" placeholder="Age" disabled/>
+                              <input type="text" value={patientInfo?.sex} className="p-2" placeholder="Sex" disabled/>
+                              <input type="text" value={patientInfo?.contactNumber} className="col-span-2 p-2" placeholder="Contact Number" disabled/>
+                              <input type="text" value={patientInfo?.address} className="col-span-4 p-2" placeholder="Address" disabled/>
+                          </div>
+                          <div className="row-span-2 min-w-full">
+                              <h1 className="text-2xl font-bold p-4">Patient History</h1>
+                              <div className="max-w-full overflow-x-auto">
+                                <Table  columns={columns} dataSource = {historyData?.map((data)=>({...data,key:data._id}))} />
+                              </div>
+              
+                          </div>
+                      </div>
+              </Modal>    
+       
         
         </> 
     );

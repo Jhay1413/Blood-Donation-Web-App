@@ -78,7 +78,7 @@ const AdminCenterPage = () => {
                   
                 </div>
                 <div className="flex w-full">
-                    <Table  columns={columns} dataSource={ healthCenterData?.map((healthCenter)=>({...healthCenter,key:healthCenter?._id}))} className="w-full overflow-scroll"/>
+                    <Table  columns={columns} dataSource={ healthCenterData?.map((healthCenter)=>({...healthCenter,key:healthCenter?._id}))} className="w-full overflow-scroll "/>
                 </div>
             </div>
             <HealthCenterModal isModalOpen={isModalOpen} onClose={cancelModal}/>

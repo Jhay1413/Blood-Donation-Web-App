@@ -84,10 +84,12 @@ const StocksModal = ({isModalOpen,onClose,data}:Props) => {
                             <input type="text" value={data?.address} className="col-span-2 p-2" placeholder="Age" disabled/>
                            
                         </div>
-                        <div className="row-span-2 w-full">
-                            <h1 className="text-2xl font-bold p-4">Blood Inventory</h1>
-                            <Table  columns={columns} dataSource = {datasource.map((data)=>({...data.data,key:data.data?._id}))} className="w-full overflow-scroll"/>
-            
+                        <div className="row-span-2 min-w-full">
+                              <h1 className="text-2xl font-bold p-4">Blood Inventory</h1>
+                              <div className="max-w-full overflow-x-auto">
+                                <Table  columns={columns} dataSource = {datasource.map((data)=>({...data.data,key:data.data?._id}))} className="w-full overflow-scroll"/>
+                            </div>
+                    
                         </div>
                     </div>
             </Modal>    

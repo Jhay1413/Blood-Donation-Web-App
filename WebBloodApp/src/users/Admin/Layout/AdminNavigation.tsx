@@ -6,7 +6,7 @@ interface AdminPageNavigationProps {
     onClick : ()=>void
 }
 const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
-    const [showDropdown,setShowDropdown] = useState(false)
+    const [showDropdownRequests,setsShowDropdownRequests] = useState(false)
     return ( 
         <>
            <div className="w-full h-full flex-col">
@@ -67,7 +67,7 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                         <li className="w-full rounded-md ">
                             <NavLink
                                 to=""
-                                onClick = {()=>setShowDropdown(!showDropdown)}
+                                onClick = {()=>setsShowDropdownRequests(!showDropdownRequests)}
                                 className="w-full p-2 block"
                                 >
                                     <div className="flex flex-row w-full justify-start items-center space-x-4">
@@ -81,7 +81,7 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                                     </div>
                                     
                             </NavLink>
-                            {showDropdown && (
+                            {showDropdownRequests && (
                                 <ul className="w-full flex flex-col text-gray-400 text-md space-y-2 pl-10">
                                     <li className="w-full rounded-md hover:bg-gray-200 ">
                                         <NavLink
