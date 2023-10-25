@@ -145,7 +145,7 @@ const AdminPageNavigation = ({onClick}:AdminPageNavigationProps) => {
                                             <FaHouseMedicalCircleCheck/>
                                         </div>
                                         <div className="flex items-center justify-center">
-                                            <h1>Health Centers</h1>
+                                            <h1>Blood Centers</h1>
                                         </div>
                                         
                                     </div>

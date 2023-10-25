@@ -1,56 +1,49 @@
 import { Table } from "antd";
 import { useState } from "react";
+import RegisterCenterModal from "../Modal/AddNewCenterAccount";
+import { useQueryClient } from "@tanstack/react-query";
+import { HealthCenterAccountArray, HealthCenterInfo, healthCenterInfoArray } from "../../../components/Interface/Interface";
 
 
 const AdminAccountPage = () => {
-
+    const queryClient = useQueryClient();
+    const healthCenterData = queryClient.getQueryData<healthCenterInfoArray>(['healthCenterInfo']);
+    const healthCenterAccount = queryClient.getQueryData<HealthCenterAccountArray>(['healthCenterAccount']);
     const [tableValue,setTableValue] = useState<String>("PatientTable")
-
-   
+    const [isModalOpen,setIsModalOpen] = useState<boolean>(false)
     //TABLE COLUMNS
-      const columns = [
+      const healthCenterColumns = [
         {
-          title: 'Patient ID',
+          title: 'Account ID',
           dataIndex: '_id',
           key: '_id',
         },
         {
-          title: 'First Name',
-          dataIndex: 'firstName',
-          key: 'firstName',
+          title: 'Email',
+          dataIndex: 'email',
+          key: 'email',
         },
         {
-          title: 'Last Name',
-          dataIndex: 'lastName',
-          key: 'lastName',
-        },
-        {
-          title: 'Sex',
-          dataIndex: 'sex',
-          key: 'sex',
+          title: 'Password',
+          dataIndex: 'password',
+          key: 'password',
         },
 
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          title: 'Blood Center Name',
+          dataIndex: 'userId',
+          key: 'userId.name',
+          render: ((healthcenter:HealthCenterInfo) =>healthcenter?.name)
         },
-        {
-          title: 'Contact Number',
-          dataIndex: 'contactNumber',
-          key: 'contactNumber',
-        },
-        {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-        },
+       
 
-
-
+      
       ];
       const handleSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) =>{
         setTableValue(event.target.value)
+      }
+      const cancelModal = ()=>{
+        setIsModalOpen(!isModalOpen)
       }
 
     
@@ -82,7 +75,7 @@ const AdminAccountPage = () => {
               </div>
             </div>
             <div className="flex w-full">
-              <Table  columns={columns} className="w-full overflow-scroll"/>
+              <Table  columns={healthCenterColumns} className="w-full overflow-scroll"/>
             </div>
           </div>
           }
@@ -104,7 +97,7 @@ const AdminAccountPage = () => {
               </div>
             </div>
             <div className="flex w-full">
-              <Table  columns={columns} className="w-full overflow-scroll"/>
+              <Table  columns={healthCenterColumns} className="w-full overflow-scroll"/>
             </div>
           </div>
           }
@@ -113,10 +106,10 @@ const AdminAccountPage = () => {
             <div className="flex pb-4 flex-col space-y-4">
               <div className="w-full flex justify-between">
                 <div className="w-full ">
-                  <h1 className="text-xl">Health Center Accounts</h1>
+                  <h1 className="text-xl">Blood Center Accounts</h1>
                 </div>
                 <div className="w-full flex justify-end">
-                  <button className="p-2 bg-violet-500 text-sm rounded-sm text-white">Add New</button>
+                  <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {()=>setIsModalOpen(!isModalOpen)}>Add New</button>
                 </div>
               
               </div>
@@ -126,9 +119,11 @@ const AdminAccountPage = () => {
               </div>
             </div>
             <div className="flex w-full">
-              <Table  columns={columns} className="w-full overflow-scroll"/>
+              <Table  columns={healthCenterColumns} dataSource={ healthCenterAccount?.map((accocunt)=>({...accocunt,key:accocunt?._id}))} className="w-full overflow-scroll"/>
             </div>
+            <RegisterCenterModal isModalOpen={isModalOpen} onClose={cancelModal} datalist = {healthCenterData}/>
           </div>
+         
           }
           
         </>

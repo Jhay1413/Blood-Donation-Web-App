@@ -18,3 +18,8 @@ export const validationSchemaForHealthCneter = Yup.object().shape({
     contact: Yup.string().required('Contact is required'),
     
 });
+export const validationSchemaForRegister = Yup.object({
+  email: Yup.string().email('Invalid email address'),
+  password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match'),
+});

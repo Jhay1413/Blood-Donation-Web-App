@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const PhysicianAccount = require('../Model/PhysicianAccount')
 const AdminAccount = require('../Model/AdminAccount')
+const healthCenterAccount = require('../Model/HealthCenterAccount')
 
 router.post('/register',async (req,res)=>{
     try {
@@ -78,7 +79,21 @@ router.post('/login',async(req,res)=>{
             }
         }
         else if(roles == "HealthCenter"){
-            const user = await PhysicianAccount.findOne({email});
+            const user = await healthCenterAccount.findOne({email});
+            if(user && (await bcrypt.compare(password, user.password))){
+                const payload = {
+                    accountId: user._id,
+                    userRoles: user.userRoles,
+                }
+                res.json({
+                    _id:user._id,
+                    email:user.email,
+                    token:generateToken(payload)
+                })
+            }
+            else{
+                res.json("Incorrect username or password")
+            }
         }
         else if(roles == "Admin"){
             const user = await AdminAccount.findOne({email});

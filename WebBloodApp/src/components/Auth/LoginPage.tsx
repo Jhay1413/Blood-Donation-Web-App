@@ -34,6 +34,9 @@ interface JWTPayload {
         else if(authContext?.userRoles == 'Admin'){
             navigate('/admin')
         }
+        else if(authContext?.userRoles == 'BloodCenter'){
+            navigate('/center')
+        }
     },[authContext])
 
     const submitLogin = async(e:any) => {
@@ -48,7 +51,13 @@ interface JWTPayload {
                 }
             }
             else if(roles === "HealthCenter"){
-
+                const response = await loginUser({...credential,roles});
+                if(response){
+                    console.log(response.data)
+                    localStorage.setItem('token',response.data.token);
+                    loadingContext?.setIsLoading(!loadingContext.isLoading)
+                    navigate('/center')
+                }
             }
             else if(roles === "Admin"){
                 const response = await loginUser({...credential,roles});

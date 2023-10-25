@@ -4,10 +4,10 @@ import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
 import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
 
 
-const CenterRequestPage = () => {
+const CenterPendingRequestPage = () => {
   const queryClient = useQueryClient();
   const requestData = queryClient.getQueryData<PatientRequestInfo>(['allRequest']);
-   
+    const filteredData =requestData?.filter((request)=>request.status === "Pending")
     //TABLE COLUMNS
     const columns = [
       {
@@ -43,11 +43,18 @@ const CenterRequestPage = () => {
         key: 'status',
       },
       {
+        title: 'Physician Id',
+        dataIndex: 'physician',
+        key: 'physician._id',
+        render: ((physician:PhysicianInfo) =>physician?._id)
+        },
+      {
         title: 'Physician',
         dataIndex: 'physician',
         key: 'physician.firstName',
         render: ((physician:PhysicianInfo) =>physician?.firstName)
       },
+     
       {
         title: 'Date', 
         dataIndex: 'Date',
@@ -61,7 +68,12 @@ const CenterRequestPage = () => {
           <Space size="middle">
             <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
             
-            
+            {record.status === 'Approved' ? (
+              <Button disabled>Approve</Button>
+            ) : (
+              <Button onClick={() => mutation.mutate(record._id)}>Approve</Button>
+            )}
+           
           </Space>
   
         )
@@ -78,7 +90,34 @@ const CenterRequestPage = () => {
     const deleteRecord = async (id:string) =>{
 
     }
-   
+    const mutation = useMutation({
+      mutationFn: async (newTodo:string) => {
+        // Log the data before making the API call
+        console.log('Data to be sent to the API:', newTodo);
+  
+        // Make the API call to post the new todo
+        const response = await approveRequestAPI(newTodo);
+  
+        // Check for a successful response
+        if (response) {
+          // Invalidate and refetch
+          queryClient.invalidateQueries({ queryKey: ['allRequest'] });
+          return response; // Return the response data if needed
+        } else {
+          // Handle the API error
+          throw new Error('Failed to update data');
+        }
+      },
+      onSuccess: (data) => {
+       
+        console.log('Mutation response data:', data);
+      },
+      onError: (error) => {
+        // Log and handle the error
+        console.error('Mutation error:', error);
+      },
+    });
+  
   
 
     
@@ -99,7 +138,7 @@ const CenterRequestPage = () => {
                     
                 </div>
                 <div className="flex w-full">
-                    <Table  columns={columns} dataSource={requestData?.map((request) =>({...request,key:request._id}))} className="w-full overflow-scroll"/>
+                    <Table  columns={columns} dataSource={filteredData?.map((request) =>({...request,key:request._id}))} className="w-full overflow-scroll"/>
                 </div>
             </div>
          
@@ -107,4 +146,4 @@ const CenterRequestPage = () => {
      );
 }
  
-export default CenterRequestPage;
+export default CenterPendingRequestPage;

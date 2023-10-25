@@ -8,12 +8,14 @@ import InsideDoctorRoutes from './components/Routes/InsideDoctorRoutes'
 import UnauthorizedPage from './components/Routes/UnauthorizedPage'
 import InsideAdminRoutes from './components/Routes/InsideAdminRoutes'
 import RegistrationPage from './components/Auth/RegisterPage'
+import InsideCenterRoutes from './components/Routes/InsideCenterRoutes'
 
 function App() {
  
   const allowedRoles = {
     user:"Doctor",
-    admin:"Admin"
+    admin:"Admin",
+    healthCenter:"BloodCenter"
   }
   return (
     <>
@@ -29,6 +31,9 @@ function App() {
           </Route>
           <Route element={<RequireAuth roles = {allowedRoles.admin}/>}>
             <Route path="/admin/*" element={<InsideAdminRoutes/>}/>
+          </Route>
+          <Route element={<RequireAuth roles = {allowedRoles.healthCenter}/>}>
+            <Route path="/center/*" element={<InsideCenterRoutes/>}/>
           </Route>
           
         </Route>

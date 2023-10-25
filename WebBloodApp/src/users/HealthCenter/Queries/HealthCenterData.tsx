@@ -7,7 +7,7 @@ import { getAllCenterAccount, getAllCenterInfo } from "../../../api/AdminAPI/Adm
 type Props ={
     children : React.ReactNode
 }
-const AdminDataProvider = ({children}:Props) =>{
+const CenterDataProvider = ({children}:Props) =>{
 
 const queryClient = useQueryClient();
 
@@ -47,4 +47,4 @@ const queryClient = useQueryClient();
       }  
     return <>{children}</>
 }
-export default AdminDataProvider
+export default CenterDataProvider

@@ -68,11 +68,7 @@ const AdminPendingRequestPage = () => {
           <Space size="middle">
             <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
             
-            {record.status === 'Approved' ? (
-              <Button disabled>Approve</Button>
-            ) : (
-              <Button onClick={() => mutation.mutate(record._id)}>Approve</Button>
-            )}
+           
            
           </Space>
   

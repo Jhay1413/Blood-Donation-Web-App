@@ -1,3 +1,4 @@
+import { FaArrowRightToBracket } from 'react-icons/fa6';
 import { IoMdChatboxes,IoMdSearch,IoMdApps,IoMdPerson,IoIosList} from 'react-icons/io';
 
 interface HeaderPageProps{
@@ -5,7 +6,11 @@ interface HeaderPageProps{
     onClick : ()=> void;
 }
 const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
-
+    const logout = () =>{
+        localStorage.removeItem('token')
+       
+        window.location.reload();
+    }
 
     return ( 
         <>
@@ -19,18 +24,12 @@ const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
                     </div>
                     <div className="py-2 px-2">
                         <IoMdSearch/>
-                    </div>
-            
-                
-                    
-                    
-                    
+                    </div> 
                 </div>
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
-                < IoMdChatboxes  />
            
                 <IoMdApps/>
-                <IoMdPerson/>
+                <button onClick={logout}><FaArrowRightToBracket/></button>
 
                 </div>
           

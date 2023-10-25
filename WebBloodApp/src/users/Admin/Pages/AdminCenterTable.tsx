@@ -23,7 +23,7 @@ const AdminCenterPage = () => {
     //TABLE COLUMNS
       const columns = [
         {
-          title: 'Health Center ID',
+          title: 'Blood Center ID',
           dataIndex: '_id',
           key: '_id',
         },
@@ -67,7 +67,7 @@ const AdminCenterPage = () => {
                 <div className="flex pb-4 flex-col space-y-4">
                     <div className="w-full flex justify-between">
                       <div className="w-full ">
-                        <h1 className="text-xl">List of Health Center</h1>
+                        <h1 className="text-xl">List of Blood Center</h1>
                       </div>
                       <div className="w-full flex justify-end">
                         <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {cancelModal}>Add New</button>
@@ -82,7 +82,7 @@ const AdminCenterPage = () => {
                 </div>
             </div>
             <HealthCenterModal isModalOpen={isModalOpen} onClose={cancelModal}/>
-            <StocksModal isModalOpen={isModalStockOpen} onClose={cancelStockModal} data ={selectedData}/>
+            <StocksModal isModalOpen={isModalStockOpen} onClose={cancelStockModal} data ={selectedData} />
         </>
      );
 }

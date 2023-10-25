@@ -118,3 +118,19 @@ export type HealthCenterInfo = {
 }
 export type healthCenterInfoArray = HealthCenterInfo[]| null
 
+export type preHealthCenterAccount = {
+    email: string | "";
+    password: string | "";
+    confirmPassword: string | "";
+    userRoles: string
+    userId: string
+}
+export type postHealthCenterAccount = {
+    _id: string
+    email: string | "";
+    password: string | "";
+    userRoles: string
+    userId: string
+}
+export type HealthCenterAccountArray = postHealthCenterAccount [] | null
+
