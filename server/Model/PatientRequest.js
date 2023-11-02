@@ -20,6 +20,10 @@ const PatientRequestSchema = new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref:'Patients'
     },
+    approvedBy:{
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:'HealthCenter'
+    },
     Date:{
         type:Date,
         default:getPhilippineTime

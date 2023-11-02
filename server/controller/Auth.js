@@ -32,8 +32,6 @@ router.post('/register',async (req,res)=>{
     } catch (error) {
         console.log(error)
     }
-
-
 })
 /*router.post('/registerAdmin',async(req,res)=>{
     try {
@@ -84,6 +82,7 @@ router.post('/login',async(req,res)=>{
                 const payload = {
                     accountId: user._id,
                     userRoles: user.userRoles,
+                    userId : user.userId
                 }
                 res.json({
                     _id:user._id,

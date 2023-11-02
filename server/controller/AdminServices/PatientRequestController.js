@@ -97,7 +97,7 @@ router.get('/downloadRequestFile/:id',async(req,res)=>{
 })
 router.get('/getAllRequest/',async (req,res)=>{
   try {
-    const allRequestData = await PatientRequestModel.find({}).populate('patient').populate('physician')
+    const allRequestData = await PatientRequestModel.find({}).populate('patient').populate('physician').populate('approvedBy');
     res.status(200).json(allRequestData)
   } catch (error) {
     console.log(error)
@@ -119,8 +119,10 @@ router.delete('/deleteRequest/:id',async (req,res)=>{
 router.put('/approvedRequest/:id',async (req,res)=>{
   try {
     const {id} = req.params
-   
-    const approveDocument = await PatientRequestModel.findByIdAndUpdate(id,{$set:{status:'Approved'}},{new:true})
+    const {userId} = req.body
+    console.log(userId)
+    
+    const approveDocument = await PatientRequestModel.findByIdAndUpdate(id,{$set:{status:'Approved',approvedBy:userId}},{new:true})
 
     if(approveDocument) {
     

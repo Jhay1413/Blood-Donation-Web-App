@@ -39,6 +39,7 @@ export const AuthProvider = ({children}:AuthProviderProps)=>{
             authTokenDecoded = jwtDecode(authToken);
             const currentTime = Math.floor(Date.now()/1000);
                 if(authTokenDecoded && authTokenDecoded.exp > currentTime){
+                    console.log(authTokenDecoded);
                     setAuthContextData(authTokenDecoded)
                     
                 }else{

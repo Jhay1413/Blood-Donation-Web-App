@@ -1,5 +1,5 @@
 import { Button, Space, Table } from "antd";
-import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
+import { HealthCenterInfo, PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
 import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
 import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
 
@@ -7,7 +7,7 @@ import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/Ad
 const CenterRequestPage = () => {
   const queryClient = useQueryClient();
   const requestData = queryClient.getQueryData<PatientRequestInfo>(['allRequest']);
-   
+  console.log(requestData);
     //TABLE COLUMNS
     const columns = [
       {
@@ -49,6 +49,12 @@ const CenterRequestPage = () => {
         render: ((physician:PhysicianInfo) =>physician?.firstName)
       },
       {
+        title: 'Approved By',
+        dataIndex: 'approvedBy',
+        key: 'approvedBy.name',
+        render: ((healthCenter:HealthCenterInfo) =>healthCenter?.name)
+      },
+      {
         title: 'Date', 
         dataIndex: 'Date',
         key: 'Date',
@@ -68,9 +74,9 @@ const CenterRequestPage = () => {
       }
   
     ];
-    const downloadFiles = async(id:string) =>{
+    const downloadFiles = (id:string) =>{
       try {
-        const response = await downloadRequestFile(id);
+        const response =  downloadRequestFile(id);
       } catch (error) {
         console.log(error)
       }

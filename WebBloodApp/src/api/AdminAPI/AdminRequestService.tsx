@@ -28,9 +28,10 @@ export const downloadRequestFile = async (id:string)=>{
         console.log(error)
     }
 }
-export const approveRequestAPI = async(id:string)=>{
+export const approveRequestAPI = async(id:string,userId:string)=>{
     try {
-        const response = await axios.put(`${RequestApi}/approvedRequest/${id}`);
+       
+        const response = await axios.put(`${RequestApi}/approvedRequest/${id}`,{userId});
         return response
     } catch (error) {
         return error

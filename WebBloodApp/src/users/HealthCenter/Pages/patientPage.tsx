@@ -11,7 +11,6 @@ const CenterPatientPage = () => {
   const patientData = queryClient.getQueryData<PatientInfoArray>(['patientInfo']);
   const [isModalOpen,setIsModalOpen] = useState<boolean>(false);
   const [selectedRecord ,setSelectedRecord ] = useState<PatientInfo | null>(null)
-  console.log(patientData)
       const columns = [
         {
           title: 'Patient ID',

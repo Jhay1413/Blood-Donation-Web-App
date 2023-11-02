@@ -7,6 +7,8 @@ import CenterDataProvider from "../../users/HealthCenter/Queries/HealthCenterDat
 import CenterRequestPage from "../../users/HealthCenter/Pages/ReqTable";
 import CenterPatientPage from "../../users/HealthCenter/Pages/patientPage";
 import CenterPendingRequestPage from "../../users/HealthCenter/Pages/centerPendingRequest";
+import DonorPage from "../../users/HealthCenter/Pages/DonorPage";
+import ActivityPage from "../../users/HealthCenter/Pages/ActivityPage";
 
 
 const queryClient = new QueryClient()
@@ -22,6 +24,8 @@ const InsideCenterRoutes = () => {
                         <Route path="/patientsPage" element={<CenterPatientPage/>}/>
                         <Route path="/requestsPage" element={<CenterRequestPage/>}/>
                         <Route path="/pendingRequestsPage" element={<CenterPendingRequestPage/>}/>
+                        <Route path="/donorPage" element={<DonorPage/>}/>
+                        <Route path="/Activities" element={<ActivityPage/>}/>
                     </Routes>
                 </CenterDataProvider>
             </CenterPageLayout>

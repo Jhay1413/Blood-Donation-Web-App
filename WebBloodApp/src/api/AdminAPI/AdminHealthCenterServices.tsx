@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { HealthCenterInfo, PreHealthCenterInfo,preHealthCenterAccount } from '../../components/Interface/Interface';
+import { HealthCenterInfo, PreHealthCenterInfo,preActivityInfo,preDonorInfo,preHealthCenterAccount } from '../../components/Interface/Interface';
 const centersApi = import.meta.env.VITE_ADMIN_API_HEALTHCENTERROUTES
 
 
@@ -35,5 +35,40 @@ export const getAllCenterAccount = async() =>{
         return response.data;
     } catch (error) {
         
+    }
+}
+//Activities services
+export const addNewActivities = async(data:preActivityInfo)=>{
+    try {
+        const response = await axios.post(`${centersApi}/addNewActivity`,data)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+export const getAllActivities= async()=>{
+    try {
+        const response = await axios.get(`${centersApi}/getActivities`)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+//Donor services
+
+export const addNewDonorInfo = async(data:preDonorInfo)=>{
+    try {
+        const response = await axios.post(`${centersApi}/addNewDonor`,data)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+export const getAllDonorInfo= async()=>{
+    try {
+        const response = await axios.get(`${centersApi}/getDonors`)
+        return response.data
+    } catch (error) {
+        return error
     }
 }

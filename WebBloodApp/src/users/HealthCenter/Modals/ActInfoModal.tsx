@@ -1,0 +1,122 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Modal, Spin } from "antd";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useState } from "react";
+import { ActivityInfoArray, preActivityInfo } from "../../../components/Interface/Interface";
+import { addNewActivities } from "../../../api/AdminAPI/AdminHealthCenterServices";
+import { validationSchemaForAddingActivity } from "../schema/validationSchema";
+
+interface ActivityModalProps{
+    isModalOpen : boolean
+    cancelModal:()=>void
+   
+} 
+const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
+    const queryClient = useQueryClient();
+    
+    const[isLoading,setIsLoading] = useState(false)
+    const initialValues : preActivityInfo = {
+        activity:"",
+        location:"",
+        time:"",
+        date: "",
+        status:"",
+    }
+   
+    const clearForm = () =>{
+     
+        cancelModal();
+    }
+    const mutation = useMutation({
+        mutationFn: async (activityInfo:preActivityInfo) => {
+          // Log the data before making the API call
+          console.log('Data to be sent to the API:', activityInfo);
+    
+          // Make the API call to post the new todo
+          const response = await addNewActivities(activityInfo);
+    
+          // Check for a successful response
+          if (response) {
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ['activityInfo'] });
+            return response; // Return the response data if needed
+          } else {
+            // Handle the API error
+            throw new Error('Failed to update data');
+          }
+        },
+        onSuccess: (data) => {
+
+            queryClient.setQueryData(['activityInfo'], (existingData:ActivityInfoArray) => {
+                return existingData?.concat(data);
+              });
+            setIsLoading(false);
+            cancelModal();
+          console.log('Mutation response data:', data);
+        },
+        onError: (error) => {
+          // Log and handle the error
+          console.error('Mutation error:', error);
+        },
+      });
+    
+      return ( 
+        <>
+            <div className="w-full">
+                <Modal open={isModalOpen} onCancel={clearForm} width='50%' footer={null}>
+                    <div className='w-full'>
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchemaForAddingActivity}
+                            onSubmit={(values:preActivityInfo) => {
+                                setIsLoading(true);
+                                
+                                // Call the mutation function when the form is submitted
+                                mutation.mutate(values)
+                              }}
+                            >
+                             
+                            <Form>
+                                <div className="flex flex-col">
+                                    <h1 className='py-4 text-2xl '>Donor Information</h1>
+                                    <div className='grid grid-cols-4 gap-4'>
+                                        <div className="flex flex-col col-span-2">
+                                            <label>Activity</label>
+                                            <Field type="text" name="activity" className="p-2 border-2 rounded-lg" placeholder="Activity" />
+                                            <ErrorMessage name="activity" component="div" className="text-red-500" />
+                                        </div>
+                                        <div className="flex flex-col col-span-2">
+                                            <label>Location</label>
+                                            <Field type="text" name="location" className="p-2 border-2 rounded-lg" placeholder="Location" />
+                                            <ErrorMessage name="location" component="div" className="text-red-500" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label>Time</label>
+                                            <Field type="text" name="time" className="p-2 border-2 rounded-lg" placeholder="time" />
+                                            <ErrorMessage name="time" component="div" className="text-red-500" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label>Date</label>
+                                            <Field type="date" name="date" className="p-2 border-2 rounded-lg" placeholder="Donor date" />
+                                            <ErrorMessage name="age" component="div" className="text-red-500" />
+                                        </div>
+                                        <div className="flex flex-col col-span-2">
+                                            <label>Status</label>
+                                            <Field type="text" name="status" className="p-2 border-2 rounded-lg" placeholder="Status" />
+                                            <ErrorMessage name="status" component="div" className="text-red-500" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="pt-4 w-full flex justify-end">
+                                    <button className="px-4 py-2 bg-violet-500 text-white rounded-md" type="submit">{isLoading?<Spin/> : "Submit"}</button>
+                                </div>
+                            </Form>
+                        </Formik>
+                    </div>
+                </Modal>
+            </div>
+        </>
+     );
+}
+ 
+export default ActivityInfoModal;

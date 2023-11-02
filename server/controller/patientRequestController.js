@@ -44,7 +44,8 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
                 bucket: 'blood-donation-bucket',
                 physician:physicianId,
                 status:'Pending',
-                patient:patientId
+                patient:patientId,
+                approvedBy: null,
             })
             if (newRequest){
                 res.status(201).json({message:'Request Created'});

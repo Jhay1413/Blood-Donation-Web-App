@@ -70,6 +70,7 @@ export type PatientRequestValues = {
     fileKey: string,
     patient : PatientInfo,
     physician:PhysicianInfo,
+    approvedBy:HealthCenterInfo
     Date :string | "",
     status : string | ""
 } 
@@ -134,3 +135,47 @@ export type postHealthCenterAccount = {
 }
 export type HealthCenterAccountArray = postHealthCenterAccount [] | null
 
+export type preDonorInfo = {
+  
+    firstName:string,
+    lastName:string,
+    contactNumber:string,
+    address: string,
+    age: number | "",
+    sex:string,
+    DOB:string,
+    bloodType:string,
+    email: string,
+    password: string,
+    confirmPassword: string,
+}
+export type postDonorInfo = {
+    _id:string,
+    firstName:string,
+    lastName:string,
+    contactNumber:string,
+    address: string,
+    age: number | "",
+    sex:string,
+    DOB:string,
+    bloodType:string,
+}
+
+export type DonorInfoArray = postDonorInfo [] | null
+
+export type preActivityInfo = {
+    activity:string
+    location:string
+    time:string
+    date:string
+    status:string
+}
+export type postActivityInfo = {
+    _id:string,
+    activity:string
+    location:string
+    time:string
+    date:string
+    status:string
+}
+export type ActivityInfoArray = postActivityInfo[] | null

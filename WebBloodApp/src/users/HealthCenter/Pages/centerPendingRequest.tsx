@@ -2,12 +2,16 @@ import { Button, Space, Table } from "antd";
 import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
 import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
 import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
+import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 
 
 const CenterPendingRequestPage = () => {
   const queryClient = useQueryClient();
   const requestData = queryClient.getQueryData<PatientRequestInfo>(['allRequest']);
-    const filteredData =requestData?.filter((request)=>request.status === "Pending")
+    const filteredData =requestData?.filter((request)=>request.status === "Pending");
+    const{authContext} = useAuth();
+    const userId = authContext?.userId || '';
+
     //TABLE COLUMNS
     const columns = [
       {
@@ -96,7 +100,7 @@ const CenterPendingRequestPage = () => {
         console.log('Data to be sent to the API:', newTodo);
   
         // Make the API call to post the new todo
-        const response = await approveRequestAPI(newTodo);
+        const response = await approveRequestAPI(newTodo,userId);
   
         // Check for a successful response
         if (response) {
