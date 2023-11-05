@@ -56,22 +56,34 @@ router.post('/addNewActivity',async(req,res)=>{
 
     const {
         activity,
-        location,
         time,
         date,
         status,
+        location:{
+            latitude,
+            longitude
+        },
+        bloodCenter
     } = req.body
     try {
         const newActivity = await BloodLettingActivityModel.create({
             activity,
-            location,
             time,
             date,
             status,
+            location:{
+                latitude,
+                longitude
+            },
+            bloodCenter
         })
 
         if(newActivity){
-           res.status(201).json(newActivity)
+            const populatedDoc = await BloodLettingActivityModel.findById(newActivity._id).populate('bloodCenter');
+            if(populatedDoc){
+                res.status(201).json(populatedDoc)
+            }
+         
         }
     } catch (error) {
         console.log(error);
@@ -79,7 +91,7 @@ router.post('/addNewActivity',async(req,res)=>{
 })
 router.get('/getActivities',async(req,res)=>{
     try {
-        const activities = await BloodLettingActivityModel.find({});
+        const activities = await BloodLettingActivityModel.find({}).populate('bloodCenter');
         if(activities){
             res.status(200).json(activities);
         }

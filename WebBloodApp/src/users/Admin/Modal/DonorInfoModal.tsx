@@ -1,6 +1,6 @@
 import { Modal, Spin } from "antd";
 import { ErrorMessage, Field, Formik,Form, FormikProps} from "formik";
-import {  validationSchemaForAdding } from "../schema/validationSchema";
+
 import { AuthContextType } from "../../../components/AuthContenxt/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +8,7 @@ import { DonorInfoArray, postDonorInfo, preDonorInfo } from "../../../components
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addNewDonorInfo } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import { useState } from "react";
+import { validationSchemaForAdding } from "../schema/adminValidationSchema";
 
 
 interface DonorModalProps{

@@ -30,10 +30,17 @@ const ActivityPage = () => {
             key: 'time',
         },
         {
-            title: 'Location',
-            dataIndex: 'location',
-            key: 'location',
-        },
+            title: 'Latitude',
+            dataIndex: ['location', 'latitude'], // You can use the dataIndex property with an array path to access nested data
+            key: 'latitude',
+
+          },
+          {
+            title: 'Longitude',
+            dataIndex: ['location', 'longitude'], // You can use the dataIndex property with an array path to access nested data
+            key: 'longitude',
+
+          },
         {
             title: 'Date',
             dataIndex: 'date',
@@ -44,7 +51,11 @@ const ActivityPage = () => {
             dataIndex: 'status',
             key: 'status',
         },
-
+        {
+            title: 'Blood Center',
+            dataIndex: ['bloodCenter', 'name'],
+            key: 'name',
+        },
     ] 
     return ( 
         <>

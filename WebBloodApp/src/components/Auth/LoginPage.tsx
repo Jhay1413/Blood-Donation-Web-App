@@ -107,7 +107,7 @@ interface JWTPayload {
                         <select className='text-gray-700 p-1 rounded-md bg-gray-100' name="roles" onChange={handleRolesChange}>
                                 <option value="">Select Roles</option>
                                 <option value="Admin">Admin</option>
-                                <option value="HealthCenter">Health Center</option>
+                                <option value="HealthCenter">Blood Center</option>
                                 <option value="Doctor">Doctor</option>
                             </select>
                         </div>

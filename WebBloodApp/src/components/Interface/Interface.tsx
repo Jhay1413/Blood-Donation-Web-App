@@ -165,17 +165,26 @@ export type DonorInfoArray = postDonorInfo [] | null
 
 export type preActivityInfo = {
     activity:string
-    location:string
+   
     time:string
     date:string
     status:string
+    location:{
+        latitude:number | ""
+        longitude:number | ""
+    }
+    bloodCenter:string
 }
 export type postActivityInfo = {
     _id:string,
     activity:string
-    location:string
     time:string
     date:string
     status:string
+    location:{
+        latitude:number | ""
+        longitude:number | ""
+    }
+    bloodCenter:HealthCenterInfo
 }
 export type ActivityInfoArray = postActivityInfo[] | null

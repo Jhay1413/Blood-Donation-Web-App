@@ -1,9 +1,10 @@
 import { Table } from "antd";
-import DonorInfoModal from "../Modals/DonorInfoModal";
+
 import { useState } from "react";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { DonorInfoArray, postDonorInfo } from "../../../components/Interface/Interface";
+import DonorInfoModal from "../Modal/DonorInfoModal";
 
 const DonorPage = () => {
 

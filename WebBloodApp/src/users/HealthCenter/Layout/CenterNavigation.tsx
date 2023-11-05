@@ -114,24 +114,7 @@ const CenterPageNavigation = ({onClick}:CenterPageNavigationProps) => {
                                 </ul>
                             )}
                         </li>
-                        <li className="w-full rounded-md hover:bg-gray-200 ">
-                            <NavLink
-                                to="/center/donorPage"
-                                className={({ isActive}) =>
-                                    `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
-                                `}>
-                                    <div className="flex flex-row w-full justify-start items-center space-x-4">
-                                        <div className="flex items-center justify-center text-xl">
-                                            < FaPerson/>
-                                        </div>
-                                        <div className="flex items-center justify-center">
-                                            <h1>Donor</h1>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                            </NavLink>
-                        </li>   
+                        
                         <li className="w-full rounded-md hover:bg-gray-200 ">
                             <NavLink
                                 to="/center/Activities"

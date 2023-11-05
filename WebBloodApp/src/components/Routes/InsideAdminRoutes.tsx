@@ -13,6 +13,7 @@ import {
   } from '@tanstack/react-query'
 import AdminDataProvider from "../../users/Admin/Queries/AdminData";
 import AdminPendingRequestPage from "../../users/Admin/Pages/AdminPendingRequestPage";
+import DonorPage from "../../users/Admin/Pages/DonorPage";
 const queryClient = new QueryClient()
 
 const InsideAdminRoutes = () => {
@@ -28,6 +29,7 @@ const InsideAdminRoutes = () => {
                         <Route path="/centersPage" element={<AdminCenterPage/>}/>
                         <Route path="/accountsPage" element={<AdminAccountPage/>}/>
                         <Route path="/pendingRequestsPage" element={<AdminPendingRequestPage/>}/>
+                        <Route path="/donorPage" element={<DonorPage/>}/>
                     </Routes>
                 </AdminDataProvider>
                 

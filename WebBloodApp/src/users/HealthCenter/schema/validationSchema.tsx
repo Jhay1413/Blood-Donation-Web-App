@@ -37,7 +37,10 @@ export const validationSchemaForAdding = Yup.object({
   });
   export const validationSchemaForAddingActivity = Yup.object({
     activity: Yup.string().required('activity is required'),
-    location: Yup.string().required('location is required'),
+    location: Yup.object().shape({
+      latitude: Yup.string().required('Latitude is required'),
+      longitude: Yup.string().required('Longitude is required')
+    }),
     time: Yup.string().required('time is required'),
     date: Yup.date(),
     status: Yup.string().required('status Number is required'),
