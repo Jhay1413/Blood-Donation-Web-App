@@ -61,7 +61,7 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
           }
         },
         onSuccess: (data) => {
-
+            
             queryClient.setQueryData(['activityInfo'], (existingData:ActivityInfoArray) => {
                 return existingData?.concat(data);
               });

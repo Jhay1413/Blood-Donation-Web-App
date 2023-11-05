@@ -2,6 +2,7 @@ import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from "@react-google-map
 import { Modal } from "antd";
 import { useState } from "react";
 
+const google_key = import.meta.env.VITE_MAP_KEY
 interface MarkerPosition {
     lat:number;
     lng:number;
@@ -23,7 +24,7 @@ const containerStyle = {
   
 const MapComponent = ({ isModalOpen, cancelModal, setFieldValue }: ActivityModalProps & { setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void }) =>{
     const {isLoaded} = useJsApiLoader({
-        googleMapsApiKey: "AIzaSyA6X4HhJuTblcAeK6Jid8Tjei_4udYE8EQ"
+        googleMapsApiKey: google_key
     })
     const [markerPosition, setMarkerPosition] = useState<MarkerPosition | null>(null);
     const [showInfoWindow, setShowInfoWindow] = useState(false);
