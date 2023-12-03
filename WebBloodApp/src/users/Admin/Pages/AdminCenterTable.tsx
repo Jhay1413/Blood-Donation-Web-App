@@ -1,4 +1,4 @@
-import { Button, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import HealthCenterModal from "../Modal/AddHealthCenter";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -12,6 +12,7 @@ const AdminCenterPage = () => {
   const [isModalOpen,setIsModalOpen] = useState(false);
   const [isModalStockOpen,setIsModalStockOpen] = useState(false);
   const [selectedData,setSelectedData] = useState<HealthCenterInfo>()
+  const [searchedData,setSearchData] = useState("");
 
   const cancelModal = () =>{
     setIsModalOpen(!isModalOpen)
@@ -26,6 +27,15 @@ const AdminCenterPage = () => {
           title: 'Blood Center ID',
           dataIndex: '_id',
           key: '_id',
+          filteredValue: [searchedData],
+      onFilter:(value:any,record:any)=>{
+        return (
+          String(record.name)
+          .toLowerCase()
+          .includes(value.toLowerCase()))
+      }
+      
+
         },
         {
           title: ' Name',
@@ -68,6 +78,15 @@ const AdminCenterPage = () => {
                     <div className="w-full flex justify-between">
                       <div className="w-full ">
                         <h1 className="text-xl">List of Blood Center</h1>
+                      </div>
+                      <div className="w-full justify-center items-center flex">
+                        <Input.Search 
+                          placeholder='searchbox'
+                          onChange={(e)=>{
+                            setSearchData(e.target.value.toLowerCase());
+                          }}
+                          className='md:w-52 p-2'
+                        />
                       </div>
                       <div className="w-full flex justify-end">
                         <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {cancelModal}>Add New</button>

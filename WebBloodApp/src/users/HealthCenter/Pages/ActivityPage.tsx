@@ -3,12 +3,13 @@ import { useState } from "react";
 import ActivityInfoModal from "../Modals/ActInfoModal";
 import { useQueryClient } from "@tanstack/react-query";
 import { ActivityInfoArray } from "../../../components/Interface/Interface";
+import moment from 'moment';
 
 const ActivityPage = () => {
     const queryClient = useQueryClient();
     const activities = queryClient.getQueryData<ActivityInfoArray>(['activityInfo']);
     const [isModalOpen,setIsModalOpen] = useState(false);
-
+    
 
     const onCloseAdd = () =>{
         setIsModalOpen(false);
@@ -45,6 +46,7 @@ const ActivityPage = () => {
             title: 'Date',
             dataIndex: 'date',
             key: 'date',
+            sorter: (a:any, b:any) => moment(a.date).unix() - moment(b.date).unix(),
         },
         {
             title: 'Status',

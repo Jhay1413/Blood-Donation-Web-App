@@ -28,7 +28,7 @@ const InsideAdminRoutes = () => {
                         <Route path="/physicianPage" element={<AdminPhysicianPage/>}/>
                         <Route path="/centersPage" element={<AdminCenterPage/>}/>
                         <Route path="/accountsPage" element={<AdminAccountPage/>}/>
-                        <Route path="/pendingRequestsPage" element={<AdminPendingRequestPage/>}/>
+                       
                         <Route path="/donorPage" element={<DonorPage/>}/>
                     </Routes>
                 </AdminDataProvider>

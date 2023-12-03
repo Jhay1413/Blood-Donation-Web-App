@@ -1,18 +1,17 @@
-import { Button, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import { useEffect, useState } from "react";
 import {  getDocData } from "../context/DocDataContext";
 import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
 import { deleteRequest, downloadRequestFile } from "../../../api/patientRequestApi";
-
-
+import moment from 'moment';
 const DocRequestPage = () => {
   const [selectedPatient,setSelectedPatient] = useState<PatientRequestValues | null>()
-
+  const [searchedData,setSearchData] = useState("");
 
   const [isModalOpen,setIsModalOpen] = useState(false)
   const contextValue = getDocData()
 
-
+  
   const onSearch = (value:string) =>{
     const filteredPatiens = contextValue?.allRequest?.find((req)=>req?._id.toLowerCase().includes(value.toLocaleLowerCase()))
   }
@@ -22,6 +21,20 @@ const DocRequestPage = () => {
       title: 'Request ID',
       dataIndex: '_id',
       key: '_id',
+      filteredValue: [searchedData],
+      onFilter:(value:any,record:any)=>{
+        return (
+          String(record.patient.firstName)
+          .toLowerCase()
+          .includes(value.toLowerCase()) ||
+          String(record.lastName)
+          .toLowerCase()
+          .includes(value.toLowerCase()) ||
+          String(record.status)
+          .toLowerCase()
+          .includes(value.toLowerCase()))
+      }
+      
     },
     {
       title: 'First Name',
@@ -60,6 +73,7 @@ const DocRequestPage = () => {
       title: 'Date', 
       dataIndex: 'Date',
       key: 'Date',
+      sorter: (a:any, b:any) => moment(a.Date).unix() - moment(b.Date).unix(),
     },
     {
       title : 'Actions',
@@ -94,9 +108,19 @@ const deleteRecord =async(id:string)=>{
   return ( 
     <>
       <div className="w-full p-4 flex-col flex  bg-white shadow-md">
-        <div className="flex pb-4">
-          Request Page
-        </div>
+      <div className="w-full flex justify-between">
+                      <div className="w-full ">
+                        <h1 className="text-xl">List of Request</h1>
+                      </div>
+                      <Input.Search 
+                    placeholder='searchbox'
+                    onChange={(e)=>{
+                      setSearchData(e.target.value.toLowerCase());
+                    }}
+                    className='md:w-52 p-2'
+                    />
+                    </div>
+        
         <div className="flex">
             <Table columns={columns} dataSource={contextValue?.allRequest?.map(request=>({...request,key:request._id}))} className="w-full"/>
         </div>

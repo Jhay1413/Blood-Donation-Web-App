@@ -13,6 +13,7 @@ const physicianAdminRoutes = require('./controller/AdminServices/PhysicianAdminC
 const healthCenterAdminRoutes = require('./controller/AdminServices/HealthCenterAdminController')
 const appRequestRoutes = require('./controller/AppController/AppRequest')
 const appAuthRoutes = require('./controller/AppController/AppAuth')
+const accountRoutes = require('./controller/AdminServices/AccountController');
 const app = express();
 
 
@@ -44,9 +45,12 @@ app.use('/admin/api/physicianRoutes',physicianAdminRoutes);
 app.use('/admin/api/healthCenterRoutes',healthCenterAdminRoutes);
 
 //APP ROUTES
-
 app.use('/api/requestRoutes',appRequestRoutes);
 app.use('/api/appAuthRoutes',appAuthRoutes);
+
+//ACCOUNT ROUTES
+
+app.use('/api/accountRoutes',accountRoutes);
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log("listening for requests");

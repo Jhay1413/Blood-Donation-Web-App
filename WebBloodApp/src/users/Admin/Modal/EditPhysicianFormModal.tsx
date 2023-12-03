@@ -1,76 +1,32 @@
-import { Modal, Spin } from "antd";
-import {validationSchemaForPhysician} from "../schema/adminValidationSchema"
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { PhysicianInfo, addingPhysicianInfo, physicianInfoArray } from "../../../components/Interface/Interface";
+import { ErrorMessage, Field, Formik } from "formik";
+import { validationSchemaForPhysician } from "../schema/adminValidationSchema";
+import { PhysicianInfo, addingPhysicianInfo } from "../../../components/Interface/Interface";
 import { useState } from "react";
-import { addNewPhysician } from "../../../api/AdminAPI/AdminPhysicianRequest";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Modal, Spin } from "antd";
 
 interface Props {
 
-    isModalOpen:boolean
+    isEditModalOpen:boolean
     onClose : ()=>void
+    selectedData : PhysicianInfo
 
 }
-
-
-const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
-    const queryClient = useQueryClient();
-    const initialValues : addingPhysicianInfo = {
-        firstName:   '',
-        lastName: '',
-        sex:  '',
-        contactNumber: '',
-        assignedAt:''
-    }
-    const [isLoading,setIsLoading] = useState<boolean>(false)
-
-    
-    const addData = useMutation({
-        mutationFn: async (newPhysician:addingPhysicianInfo) => {
-            setIsLoading(true)
-          // Log the data before making the API call
-          console.log('Data to be sent to the API:', newPhysician);
-    
-          // Make the API call to post the new todo
-          const response = await addNewPhysician(newPhysician);
-    
-          // Check for a successful response
-          if (response) {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['physicianInfo'] });
-            return response; // Return the response data if needed
-          } else {
-            // Handle the API errors
-          }
-        },
-        onSuccess: (data) => {
-          // Log the response data from the mutation
-          queryClient.setQueryData(['physicianInfo'], (existingData:physicianInfoArray) => {
-            return existingData?.concat(data);
-          });
-          setIsLoading(false)
-          onClose();
-          console.log('Mutation response data:', data);
-        },
-        onError: (error) => {
-          // Log and handle the error
-          console.error('Mutation error:', error);
-        },
-      });
+const EditPhysicianModal = ({isEditModalOpen,onClose,selectedData}:Props)  => {
+    const [isLoading,setIsLoading] = useState(false);
+   
     return ( 
         <>
             <div className="w-full">
-            <Modal open={isModalOpen} onCancel={onClose} width='50%' footer={null}>
+            <Modal open={isEditModalOpen} onCancel={onClose} width='50%' footer={null}>
                     <div className="w-full">
                         <Formik
-                            initialValues={initialValues}
+                            initialValues={selectedData}
                             validationSchema={validationSchemaForPhysician}
-                            onSubmit={(values:addingPhysicianInfo) => {
+                            onSubmit={(values:PhysicianInfo) => {
                                 setIsLoading(true);
                 
                                 // Call the mutation function when the form is submitted
-                                addData.mutate(values)
+                          
                               }}
                         >
                             <Form>
@@ -79,7 +35,7 @@ const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
                                     <div className='grid grid-cols-4 gap-4'>
                                         <div className="flex flex-col col-span-2">
                                             <label>First Name</label>
-                                            <Field type="text" name="firstName" className="p-2 border-2 rounded-lg" placeholder="First Name" />
+                                            <Field type="text" name="firstName" value = {selectedData.firstName}className="p-2 border-2 rounded-lg" placeholder="First Name" />
                                             <ErrorMessage name="firstName" component="div" className="text-red-500" />
                                         </div>
                                         <div className="flex flex-col col-span-2">
@@ -117,4 +73,4 @@ const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
      );
 }
  
-export default AddPhysicianModal;
+export default EditPhysicianModal;

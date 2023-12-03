@@ -1,21 +1,48 @@
-import { Button, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import { PhysicianInfo, physicianInfoArray } from "../../../components/Interface/Interface";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import AddPhysicianModal from "../Modal/AddphysicianInfoModal";
 import { deletePhysician } from "../../../api/AdminAPI/AdminPhysicianRequest";
+import EditPhysicianModal from "../Modal/EditPhysicianFormModal";
 
 
 const AdminPhysicianPage = () => {
   const queryClient = useQueryClient();
   const physicianData = queryClient.getQueryData<physicianInfoArray>(['physicianInfo']);
   const [isModalOpen,setIsModalOpen] = useState<boolean>(false)
+  const [searchedData,setSearchData] = useState("");
+  const [selectedData,setSelectedData]= useState<PhysicianInfo>({
+    contactNumber: "",
+    firstName: "",
+    lastName: "",
+    sex:"",
+    assignedAt:"",
+    _id: "",
+});
+  const [isEditModalOpen,setEditModalIsOpen] = useState(false);
     //TABLE COLUMNS
       const columns = [
         {
           title: 'Physician ID',
           dataIndex: '_id',
           key: '_id',
+          
+          filteredValue: [searchedData],
+          onFilter:(value:any,record:any)=>{
+            return (
+              String(record.firstName)
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+              String(record.lastName)
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+              String(record.status)
+              .toLowerCase()
+              .includes(value.toLowerCase()))
+          }
+ 
+
         },
         {
           title: 'First Name',
@@ -43,7 +70,7 @@ const AdminPhysicianPage = () => {
           key:'actions',
           render: (text:string,record:PhysicianInfo)=>(
             <Space size="middle">
-              <Button disabled>Edit</Button>
+              <Button onClick={()=>editData(record)} >Edit</Button>
               <Button type="primary" onClick={()=> mutation.mutate(record._id)}danger>Delete</Button>
             </Space>
     
@@ -53,6 +80,14 @@ const AdminPhysicianPage = () => {
 
 
       ];
+      const onCloseEditModal = () =>{
+        setEditModalIsOpen(false);
+      }
+    
+      const editData  = (record:PhysicianInfo) =>{
+        setSelectedData(record);
+        setEditModalIsOpen(true);
+      }
       const onCloseModal = () =>{
         setIsModalOpen(false)
       } 
@@ -100,6 +135,16 @@ const AdminPhysicianPage = () => {
                       <div className="w-full ">
                         <h1 className="text-xl">List of Patients</h1>
                       </div>
+                      <div className="w-full justify-center items-center flex">
+                        <Input.Search 
+                          placeholder='searchbox'
+                          onChange={(e)=>{
+                            setSearchData(e.target.value.toLowerCase());
+                          }}
+                          className='md:w-52 p-2'
+                        />
+                      </div>
+                     
                       <div className="w-full flex justify-end">
                         <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={()=>setIsModalOpen(!isModalOpen)}>Add Physician</button>
                       </div>
@@ -116,6 +161,7 @@ const AdminPhysicianPage = () => {
                 </div>
             </div>
             <AddPhysicianModal isModalOpen={isModalOpen} onClose={onCloseModal}/>
+            <EditPhysicianModal isEditModalOpen={isEditModalOpen} onClose={onCloseEditModal} selectedData = {selectedData} />
          
         </>
      );

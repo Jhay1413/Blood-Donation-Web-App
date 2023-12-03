@@ -2,6 +2,16 @@ import axios from 'axios'
 import { PhysicianInfo, addingPhysicianInfo } from '../../components/Interface/Interface';
 
 const RequestApi = import.meta.env.VITE_ADMIN_API_PHYSICIANROUTES
+
+
+export const getAllPhysicianAccount = async () =>{
+    try {
+        const response = await axios.get(`${RequestApi}/getAllPhysicianAccount`)
+        return response.data
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const getAllPhysician = async () =>{
     try {
         const response = await axios.get(`${RequestApi}/getAllPhysician`);

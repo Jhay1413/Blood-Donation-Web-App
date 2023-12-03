@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const Physician = require('../../Model/Physician')
+const Physician = require('../../Model/Physician');
+const physicianAccountModel = require('../../Model/PhysicianAccount');
 router.get('/getAllPhysician',async (req,res)=>{
     try {
         const response = await Physician.find({});
@@ -69,6 +70,14 @@ router.delete('/deletePhysicianInfo/:id',async(req,res)=>{
         if(deletePhysician){
             res.status(201).json(deletePhysician)
         }
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.get('/getAllPhysicianAccount', async (req,res)=>{
+    try {
+        const accounts = await physicianAccountModel.find({});
+        res.status(201).json(accounts);
     } catch (error) {
         console.log(error);
     }

@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Input, Table } from "antd";
 
 import { useState } from "react";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
@@ -12,7 +12,7 @@ const DonorPage = () => {
     const queryClient = useQueryClient();
     const donorInfos = queryClient.getQueryData<DonorInfoArray>(['donorInfo']);
     console.log(donorInfos);
-
+    const [searchedData,setSearchData] = useState("");
     const onCloseAdd = () =>{
         setIsModalOpen(false);
     }
@@ -21,6 +21,17 @@ const DonorPage = () => {
             title: 'Donor ID',
             dataIndex: '_id',
             key: '_id',
+            filteredValue: [searchedData],
+            onFilter:(value:any,record:any)=>{
+              return (
+                String(record.firstName)
+                .toLowerCase()
+                .includes(value.toLowerCase()) ||
+                String(record.lastName)
+                .toLowerCase()
+                .includes(value.toLowerCase()))
+            }
+            
         },
         {
             title: 'First Name',
@@ -62,6 +73,15 @@ const DonorPage = () => {
                         <div className="w-full ">
                             <h1 className="text-xl">List of Request</h1>
                         </div>
+                        <div className="w-full justify-center items-center flex">
+                        <Input.Search 
+                          placeholder='searchbox'
+                          onChange={(e)=>{
+                            setSearchData(e.target.value.toLowerCase());
+                          }}
+                          className='md:w-52 p-2'
+                        />
+                      </div>
                         <div className="w-full flex justify-end">
                             <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={()=>setIsModalOpen(true)}>Add Donor</button>
                         </div>

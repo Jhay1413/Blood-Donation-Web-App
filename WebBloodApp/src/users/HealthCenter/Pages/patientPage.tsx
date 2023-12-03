@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import { PatientInfo, PatientInfoArray } from "../../../components/Interface/Interface";
 import { useEffect, useState } from "react";
 
@@ -11,11 +11,22 @@ const CenterPatientPage = () => {
   const patientData = queryClient.getQueryData<PatientInfoArray>(['patientInfo']);
   const [isModalOpen,setIsModalOpen] = useState<boolean>(false);
   const [selectedRecord ,setSelectedRecord ] = useState<PatientInfo | null>(null)
+  const [searchedData,setSearchData] = useState("");  
       const columns = [
         {
           title: 'Patient ID',
           dataIndex: '_id',
           key: '_id',
+          filteredValue: [searchedData],
+          onFilter:(value:any,record:any)=>{
+            return (
+              String(record.firstName)
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+              String(record.lastName)
+              .toLowerCase()
+              .includes(value.toLowerCase()))
+          }
         },
         {
           title: 'First Name',
@@ -77,9 +88,15 @@ const CenterPatientPage = () => {
                   <div className="w-full ">
                     <h1 className="text-xl">List of Patients</h1>
                   </div>
-                 
-                
+                  <Input.Search 
+                    placeholder='searchbox'
+                    onChange={(e)=>{
+                      setSearchData(e.target.value.toLowerCase());
+                    }}
+                    className='md:w-52 p-2'
+                    />
                 </div>
+                
                 <div className="w-full">
 
                 </div>
