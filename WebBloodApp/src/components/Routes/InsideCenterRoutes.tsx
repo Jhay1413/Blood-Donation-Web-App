@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import CenterPageLayout from "../../users/HealthCenter/Layout/CenterLayout";
-import AdminDataProvider from "../../users/Admin/Queries/AdminData";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CenterDashboardPage from "../../users/HealthCenter/Pages/Dashboard";
 import CenterDataProvider from "../../users/HealthCenter/Queries/HealthCenterData";

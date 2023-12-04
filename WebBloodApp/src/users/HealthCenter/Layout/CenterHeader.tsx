@@ -1,5 +1,5 @@
 import { FaArrowRightToBracket } from 'react-icons/fa6';
-import { IoMdChatboxes,IoMdSearch,IoMdApps,IoMdPerson,IoIosList} from 'react-icons/io';
+import { IoMdSearch,IoMdApps,IoIosList} from 'react-icons/io';
 
 interface HeaderPageProps{
     

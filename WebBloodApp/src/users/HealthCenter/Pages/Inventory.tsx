@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { FaChild, FaWpforms } from "react-icons/fa6";
+
 import { DonationInfoArray } from "../../../components/Interface/Interface";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 
@@ -19,7 +19,7 @@ const BloodInventory = () => {
     const abPositive =filteredDonation?.filter(donor => donor.bloodType === 'AB+');
     const abNegative =filteredDonation?.filter(donor => donor.bloodType === 'AB-');
 
-    const abQuantityPositive = abPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0);
+ 
 
 
     console.log(abPositive);

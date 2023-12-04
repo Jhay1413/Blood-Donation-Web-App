@@ -3,7 +3,6 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Formik, Form, Field,ErrorMessage, FormikProps } from 'formik'
 import { validationSchemaForRequest } from '../schema/validationSchema'
 import { AddingPatientRequestInfo, PatientInfo } from '../../../components/Interface/Interface'
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../../../components/AuthContenxt/AuthContext'
 import { addNewRequest } from '../../../api/patientRequestApi'
@@ -59,6 +58,7 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
                     formData.append('quantity',values.quantity)
                     formData.append('physicianId',userId)
                     const response = await addNewRequest(formData);
+                    console.log(response)
                     setIsLoading(false)
                     cancelModal();
                     contextValue?.handleSetIsLoading()
@@ -73,9 +73,7 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
         formikRef.current?.resetForm()
         cancelModal();
     }
-    const showToast = () =>{
-        toast.success("Request Submitted ! ")
-    }
+ 
     return ( 
         <>
             <div className="w-full">

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PhysicianInfo, addingPhysicianInfo } from '../../components/Interface/Interface';
+import { addingPhysicianInfo } from '../../components/Interface/Interface';
 
 const RequestApi = import.meta.env.VITE_ADMIN_API_PHYSICIANROUTES
 

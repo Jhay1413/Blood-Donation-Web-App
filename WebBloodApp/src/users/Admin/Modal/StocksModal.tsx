@@ -7,18 +7,7 @@ type Props ={
     onClose:()=>void
     data:HealthCenterInfo | null | undefined
 }
-type bloodQuantity = {
-  
-        A_positive: null,
-        A_negative: null,
-        B_positive: null,
-        B_negative: null,
-        AB_positive: null,
-        AB_negative: null,
-        O_positive: null,
-        O_negative: null,
-    
-}
+
 const StocksModal = ({isModalOpen,onClose,data}:Props) => {
     const datasource = [{data}]
    
@@ -42,7 +31,7 @@ const StocksModal = ({isModalOpen,onClose,data}:Props) => {
             title: 'A Positive',
             dataIndex: 'bloodTypeInventory',
             key: 'A_positive',
-            render: (() =>oPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
+            render: (() =>aPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         
         {

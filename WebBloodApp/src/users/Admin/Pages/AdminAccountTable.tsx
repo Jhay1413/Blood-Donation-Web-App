@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { useState } from "react";
 import RegisterCenterModal from "../Modal/AddNewCenterAccount";
 import { useQueryClient } from "@tanstack/react-query";
-import { AccountArray, HealthCenterAccountArray, HealthCenterInfo, healthCenterInfoArray } from "../../../components/Interface/Interface";
+import { AccountArray, HealthCenterAccountArray, healthCenterInfoArray } from "../../../components/Interface/Interface";
 
 
 const AdminAccountPage = () => {

@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery} from "@tanstack/react-query"
 import { getAllPatientInfo } from "../../../api/AdminAPI/AdminPatientService"
 import { getAllPatientRequest } from "../../../api/AdminAPI/AdminRequestService"
 import { getAllPhysician } from "../../../api/AdminAPI/AdminPhysicianRequest"
@@ -10,7 +10,6 @@ type Props ={
 }
 const CenterDataProvider = ({children}:Props) =>{
 
-const queryClient = useQueryClient();
 
     const patientData = useQuery({
         queryKey:['patientInfo'],

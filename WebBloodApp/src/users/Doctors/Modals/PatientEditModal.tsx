@@ -1,5 +1,5 @@
 import { Modal, Spin } from "antd";
-import { ErrorMessage, Field, Form, Formik, FormikProps, useFormik } from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
 import {  validationSchemaForEditing } from "../schema/validationSchema";
 import { useEffect, useRef, useState } from "react";
 import { toast } from 'react-toastify';
@@ -35,10 +35,12 @@ const PatientEditModal = ({PatientInfo,isModalOpen,cancelModal} : PatientEditMod
     const handleSubmit = async (values:PatientInfo, {resetForm}:any) =>{
         try {
             const response = await editPatientInfo(values);
+            console.log(response)
             resetForm();
             cancelModal();
             contextValue?.handleSetIsLoading();
             showToast();
+            setIsLoading(false);
         } catch (error) {
             console.log(error);
         }

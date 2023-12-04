@@ -59,7 +59,7 @@ const AdminCenterPage = () => {
           render: (text:string,record:HealthCenterInfo)=>(
             <Space size="middle">
               <Button onClick={()=>handleSelectData(record)}>View Stocks</Button>
-              <Button type="primary" danger  disabled>Delete</Button>
+              <Button type="primary" danger key ={text} disabled>Delete</Button>
             </Space>
     
           )

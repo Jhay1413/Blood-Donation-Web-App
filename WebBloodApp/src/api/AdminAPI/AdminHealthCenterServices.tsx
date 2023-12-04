@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { HealthCenterInfo, PreHealthCenterInfo,preActivityInfo,preDonorInfo,preHealthCenterAccount } from '../../components/Interface/Interface';
+import { PreHealthCenterInfo,preActivityInfo,preDonorInfo,preHealthCenterAccount } from '../../components/Interface/Interface';
 const centersApi = import.meta.env.VITE_ADMIN_API_HEALTHCENTERROUTES
 
 

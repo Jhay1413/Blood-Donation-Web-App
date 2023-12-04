@@ -1,7 +1,7 @@
 import { Modal, Spin } from "antd";
 import {validationSchemaForPhysician} from "../schema/adminValidationSchema"
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { PhysicianInfo, addingPhysicianInfo, physicianInfoArray } from "../../../components/Interface/Interface";
+import { addingPhysicianInfo, physicianInfoArray } from "../../../components/Interface/Interface";
 import { useState } from "react";
 import { addNewPhysician } from "../../../api/AdminAPI/AdminPhysicianRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

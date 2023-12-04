@@ -1,7 +1,7 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {  useQueryClient } from "@tanstack/react-query";
 import { Button, Input, Space, Table } from "antd";
 import { PatientInfo, PatientInfoArray } from "../../../components/Interface/Interface";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 import HistoryModalCenter from "../Modals/HistoryModal";
 
@@ -65,7 +65,7 @@ const CenterPatientPage = () => {
           key:'actions',
           render: (text:string,record:PatientInfo)=>(
             <Space size="middle">
-              <Button onClick={()=>openHistory(record)}>View History</Button>
+              <Button onClick={()=>openHistory(record)} key={text}>View History</Button>
             </Space>
     
           )

@@ -1,10 +1,10 @@
 import {  Modal, Spin } from "antd";
 import {Form, ErrorMessage, Field, Formik } from "formik";
 import { useState } from "react";
-import { validationSchemaForHealthCneter, validationSchemaForRegister } from "../schema/adminValidationSchema";
+import {validationSchemaForRegister } from "../schema/adminValidationSchema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addNewAccount, addNewCenterInfo } from "../../../api/AdminAPI/AdminHealthCenterServices";
-import { HealthCenterAccountArray, HealthCenterInfo, PreHealthCenterInfo, healthCenterInfoArray, preHealthCenterAccount } from "../../../components/Interface/Interface";
+import { addNewAccount} from "../../../api/AdminAPI/AdminHealthCenterServices";
+import { HealthCenterAccountArray, healthCenterInfoArray, preHealthCenterAccount } from "../../../components/Interface/Interface";
 
 interface Props  {
     isModalOpen:boolean

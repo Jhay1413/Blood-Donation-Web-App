@@ -12,7 +12,7 @@ import {
     QueryClientProvider,
   } from '@tanstack/react-query'
 import AdminDataProvider from "../../users/Admin/Queries/AdminData";
-import AdminPendingRequestPage from "../../users/Admin/Pages/AdminPendingRequestPage";
+
 import DonorPage from "../../users/Admin/Pages/DonorPage";
 const queryClient = new QueryClient()
 

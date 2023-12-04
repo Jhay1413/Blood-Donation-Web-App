@@ -11,7 +11,7 @@ type Props ={
 }
 const AdminDataProvider = ({children}:Props) =>{
 
-const queryClient = useQueryClient();
+
 
     const patientData = useQuery({
         queryKey:['patientInfo'],

@@ -1,6 +1,6 @@
 import { Button, Space, Table } from "antd";
 import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
-import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
+import {  useMutation, useQueryClient } from "@tanstack/react-query";
 import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 
@@ -70,7 +70,7 @@ const CenterPendingRequestPage = () => {
         key:'actions',
         render: (text:string,record:PatientRequestValues)=>(
           <Space size="middle">
-            <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
+            <Button onClick={()=>downloadFiles(record._id)} key={text}>Download File</Button>
             
             {record.status === 'Approved' ? (
               <Button disabled>Approve</Button>
@@ -87,13 +87,12 @@ const CenterPendingRequestPage = () => {
     const downloadFiles = async(id:string) =>{
       try {
         const response = await downloadRequestFile(id);
+        console.log(response);
       } catch (error) {
         console.log(error)
       }
     }
-    const deleteRecord = async (id:string) =>{
-
-    }
+ 
     const mutation = useMutation({
       mutationFn: async (newTodo:string) => {
         // Log the data before making the API call

@@ -1,7 +1,7 @@
 import { Button, Space, Table } from "antd";
 import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
-import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
-import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
+import { useQueryClient } from "@tanstack/react-query";
+import {  downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
 
 
 const AdminPendingRequestPage = () => {
@@ -66,7 +66,7 @@ const AdminPendingRequestPage = () => {
         key:'actions',
         render: (text:string,record:PatientRequestValues)=>(
           <Space size="middle">
-            <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
+            <Button onClick={()=>downloadFiles(record._id)} key={text}>Download File</Button>
             
            
            
@@ -79,42 +79,12 @@ const AdminPendingRequestPage = () => {
     const downloadFiles = async(id:string) =>{
       try {
         const response = await downloadRequestFile(id);
+        console.log(response)
       } catch (error) {
         console.log(error)
       }
     }
-    const deleteRecord = async (id:string) =>{
-
-    }
-    const mutation = useMutation({
-      mutationFn: async (newTodo:string) => {
-        // Log the data before making the API call
-        console.log('Data to be sent to the API:', newTodo);
-  
-        // Make the API call to post the new todo
-        const response = await approveRequestAPI(newTodo);
-  
-        // Check for a successful response
-        if (response) {
-          // Invalidate and refetch
-          queryClient.invalidateQueries({ queryKey: ['allRequest'] });
-          return response; // Return the response data if needed
-        } else {
-          // Handle the API error
-          throw new Error('Failed to update data');
-        }
-      },
-      onSuccess: (data) => {
-       
-        console.log('Mutation response data:', data);
-      },
-      onError: (error) => {
-        // Log and handle the error
-        console.error('Mutation error:', error);
-      },
-    });
-  
-  
+    
 
     
     return ( 

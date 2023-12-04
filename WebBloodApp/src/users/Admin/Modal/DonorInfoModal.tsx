@@ -1,7 +1,7 @@
 import { Modal, Spin } from "antd";
-import { ErrorMessage, Field, Formik,Form, FormikProps} from "formik";
+import { ErrorMessage, Field, Formik,Form} from "formik";
 
-import { AuthContextType } from "../../../components/AuthContenxt/AuthContext";
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { DonorInfoArray, postDonorInfo, preDonorInfo } from "../../../components/Interface/Interface";
@@ -19,7 +19,7 @@ interface DonorModalProps{
 
 const DonorInfoModal = ({isModalOpen,cancelModal}:DonorModalProps) => {
     const queryClient = useQueryClient();
-    const donorInfo = queryClient.getQueryData<postDonorInfo>(['donorInfo']);
+  
 
     const[isLoading,setIsLoading] = useState(false)
     const initialValues : preDonorInfo = {
@@ -35,9 +35,7 @@ const DonorInfoModal = ({isModalOpen,cancelModal}:DonorModalProps) => {
         password: '',
         confirmPassword: '',
     }
-    const showToast  = () =>{
-        toast.success('Data Successfully inserted !');
-    }
+   
     const clearForm = () =>{
      
         cancelModal();

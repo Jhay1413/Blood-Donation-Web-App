@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AddingPatientInfo, AddingPatientInfoWithUserRoles, PatientInfo } from '../components/Interface/Interface';
+import {  AddingPatientInfoWithUserRoles, PatientInfo } from '../components/Interface/Interface';
 const PatientApi = import.meta.env.VITE_API_PATIENTROUTES
 
 

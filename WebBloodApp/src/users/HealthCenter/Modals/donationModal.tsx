@@ -1,12 +1,12 @@
-import { Modal, Spin ,Form, Input, List, Button, DatePicker} from "antd";
-import { Field, Formik } from "formik";
+import { Modal,Form, Input, List, Button} from "antd";
+
 
 import { DonationInfo, DonationInfoArray, DonorInfoArray, postDonorInfo } from "../../../components/Interface/Interface";
-import { ChangeEvent, useState } from "react";
+import {  useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 import { addNewDonation } from "../../../api/donationApi";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 type props ={
@@ -16,29 +16,30 @@ type props ={
 
 }
 const DonationModalHistory = ({isModalOpen,onClose,initialValues}:props) => {
+    console.log(initialValues);
     const queryClient = useQueryClient();
 
     const donorInfos = queryClient.getQueryData<DonorInfoArray>(['donorInfo']);
     const{authContext} = useAuth();
     const userId = authContext?.userId || '';
     const [isLoading,setIsLoading] = useState(false)
+    console.log(isLoading);
     const [openSearchModal,setOpenSearchModal] = useState(false);
     const [searchResults, setSearchResults] = useState<DonorInfoArray>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedDonor,setSelectedDonor] = useState<postDonorInfo>();
 
  
-    const [donor,setDonor] = useState("");
+
     const [bloodType,setBloodType] = useState("");
+    console.log(bloodType)
     const [quantity,setQuantity] = useState("");
     const [date,setDate] = useState("");
 
     const cancelSearchModal = () =>{
         setOpenSearchModal(false);
     }
-    const addDonation = () =>{
-
-    }
+ 
     const handleSearch = (value:string) => {
         const results =donorInfos?.filter(item =>
           item.firstName.toLowerCase().includes(value.toLowerCase())
@@ -91,7 +92,7 @@ const DonationModalHistory = ({isModalOpen,onClose,initialValues}:props) => {
               console.log('Mutation response data:', data);
               },
               onError: (error) => {
-                // Log and handle the error
+               console.log(error)
             
               },
 

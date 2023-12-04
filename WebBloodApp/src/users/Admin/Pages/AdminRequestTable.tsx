@@ -1,7 +1,7 @@
 import { Button, Input, Space, Table } from "antd";
 import { PatientInfo, PatientRequestInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
-import { Mutation, useMutation, useQueryClient } from "@tanstack/react-query";
-import { approveRequestAPI, downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
+import {  useQueryClient } from "@tanstack/react-query";
+import { downloadRequestFile } from "../../../api/AdminAPI/AdminRequestService";
 import { useState } from "react";
 
 import moment from 'moment';
@@ -77,7 +77,7 @@ const AdminRequestPage = () => {
         key:'actions',
         render: (text:string,record:PatientRequestValues)=>(
           <Space size="middle">
-            <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
+            <Button key={text} onClick={()=>downloadFiles(record._id)}>Download File</Button>
             
             
           </Space>
@@ -89,14 +89,12 @@ const AdminRequestPage = () => {
     const downloadFiles = async(id:string) =>{
       try {
         const response = await downloadRequestFile(id);
+        console.log(response)
       } catch (error) {
         console.log(error)
       }
     }
-    const deleteRecord = async (id:string) =>{
-
-    }
-   
+  
   
 
     

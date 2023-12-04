@@ -1,21 +1,17 @@
 import { Button, Input, Space, Table } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {  getDocData } from "../context/DocDataContext";
 import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
 import { deleteRequest, downloadRequestFile } from "../../../api/patientRequestApi";
 import moment from 'moment';
 const DocRequestPage = () => {
-  const [selectedPatient,setSelectedPatient] = useState<PatientRequestValues | null>()
+
   const [searchedData,setSearchData] = useState("");
 
-  const [isModalOpen,setIsModalOpen] = useState(false)
+
   const contextValue = getDocData()
 
   
-  const onSearch = (value:string) =>{
-    const filteredPatiens = contextValue?.allRequest?.find((req)=>req?._id.toLowerCase().includes(value.toLocaleLowerCase()))
-  }
-
   const columns = [
     {
       title: 'Request ID',
@@ -81,7 +77,7 @@ const DocRequestPage = () => {
       key:'actions',
       render: (text:string,record:PatientRequestValues)=>(
         <Space size="middle">
-          <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
+          <Button onClick={()=>downloadFiles(record._id)} key={text}>Download File</Button>
           <Button type="primary" onClick={()=>deleteRecord(record._id)} danger>Delete File</Button>
         </Space>
 
@@ -93,6 +89,7 @@ const downloadFiles = async(id:string) =>{
   
   try {
     const response = await downloadRequestFile(id);
+    console.log(response);
   } catch (error) {
     console.log(error)
   }
@@ -100,6 +97,7 @@ const downloadFiles = async(id:string) =>{
 const deleteRecord =async(id:string)=>{
   try {
     const response = await deleteRequest(id);
+    console.log(response);
     contextValue?.handleSetIsLoading();
   } catch (error) {
     console.log(error);

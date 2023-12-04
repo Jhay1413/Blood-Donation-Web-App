@@ -1,11 +1,11 @@
 import { Button, Input, Space, Table } from "antd";
 import { useState } from "react";
 import { DonationInfo, DonationInfoArray, postDonationInfo, postDonorInfo } from "../../../components/Interface/Interface";
-import DonationModal from "../Modals/donationModal";
+
 import DonationModalHistory from "../Modals/donationModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDonationById } from "../../../api/donationApi";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const DonationHistory = () => {
   const queryClient = useQueryClient();
@@ -20,6 +20,7 @@ const DonationHistory = () => {
       bloodCenter:""
     })
     const [loading,setIsLoading] = useState(false);
+    console.log(loading)
     const onClose = () =>{
       setIsModalOpen(false);
     }
@@ -73,7 +74,7 @@ const DonationHistory = () => {
           key:'actions',
           render: (text:string,record:postDonationInfo)=>(
             <Space size="middle">
-              <Button onClick={()=>deleteRecord(record)} danger>Delete</Button>
+              <Button onClick={()=>deleteRecord(record)} danger key={text}>Delete</Button>
             </Space>
     
           )
@@ -103,7 +104,13 @@ const DonationHistory = () => {
             },
             onSuccess: (data) => {
               console.log(data);
-              
+              setInitialValues({
+                donor:"",
+                bloodType:"",
+                quantity:"",
+                date:"",
+                bloodCenter:""
+              })
               queryClient.setQueryData(['donationList'], (existingData:DonationInfoArray) => {
                 return existingData?.filter(item => item._id !== data.data._id);
               });

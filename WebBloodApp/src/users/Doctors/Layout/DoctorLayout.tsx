@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import DoctorHeaderPage from "./DoctorHeader";
 import DoctorPageNavigation from "./DoctorNavigation";
 import { ToastContainer } from "react-toastify";

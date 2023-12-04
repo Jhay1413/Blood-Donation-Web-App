@@ -2,21 +2,15 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../AuthContenxt/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../api/AuthApi';
-import jwtDecode from 'jwt-decode';
+
 import loginSideImg from '../../assets/side-image.jpg'
 
-interface LoginFormProps{
-}
+
 export interface Credentials {
     email:string,
     password:string
 }
-interface JWTPayload {
-    userId: string,
-    userRoles: string,
-    iat: string
-    exp:number
-}
+
 
  const LoginPage = () => {
     const [credential, setCredential] = useState<Credentials>({

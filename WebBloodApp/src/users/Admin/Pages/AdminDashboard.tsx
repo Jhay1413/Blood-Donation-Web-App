@@ -1,6 +1,6 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {  useQueryClient } from "@tanstack/react-query";
 import { FaChild ,FaHandHoldingHeart,FaHouseMedicalFlag,FaPerson,FaUserDoctor,FaWpforms} from "react-icons/fa6";
-import { getAllPatientInfo } from "../../../api/AdminAPI/AdminPatientService";
+
 import { DonationInfoArray, DonorInfoArray, PatientInfoArray, PatientRequestInfo, healthCenterInfoArray, physicianInfoArray } from "../../../components/Interface/Interface";
 const AdminDashboardPage = () => {
  

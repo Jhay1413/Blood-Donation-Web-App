@@ -1,7 +1,7 @@
 import { FaArrowRightToBracket } from 'react-icons/fa6';
-import { IoMdChatboxes,IoMdSearch,IoMdApps,IoMdPerson,IoIosList} from 'react-icons/io';
+import { IoMdSearch,IoMdApps,IoIosList} from 'react-icons/io';
 import { getDocData } from '../context/DocDataContext';
-import { useNavigate } from 'react-router-dom';
+
 
 interface HeaderPageProps{
     

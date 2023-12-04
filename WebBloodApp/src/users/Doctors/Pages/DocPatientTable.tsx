@@ -93,7 +93,7 @@ const DocPatientPage = () => {
 
     //FUNCTIONS
       const requestBlood = (value:PatientInfo) =>{
-        const physician = authContext?.userId || ''
+      
         setSelectedPatient(value)
         setOpenRequestModal(!openRequestModal)
       } 
@@ -116,6 +116,7 @@ const DocPatientPage = () => {
       const onDelete = async(record:PatientInfo) =>{
         try {
           const response = await deletePatientnfo(record._id);
+          console.log(response)
           contextValue?.handleSetIsLoading();
         } catch (error) {
           console.log(error);

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PatientRequestValues } from '../components/Interface/Interface';
+
 const RequestApi = import.meta.env.VITE_API_REQUESTROUTES
 export const addNewRequest = async (data:FormData)=>{
     try {

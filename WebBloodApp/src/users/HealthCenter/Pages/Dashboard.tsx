@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import { FaChild ,FaHandHoldingHeart,FaHouseMedical,FaWpforms} from "react-icons/fa6";
-import { DonationInfoArray, HealthCenterInfo, PatientInfo, PatientInfoArray, PatientRequestInfo, PatientRequestValues, PhysicianInfo, postDonorInfo } from "../../../components/Interface/Interface";
+import { DonationInfoArray, PatientInfo, PatientInfoArray, PatientRequestInfo, postDonorInfo } from "../../../components/Interface/Interface";
 import { useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";

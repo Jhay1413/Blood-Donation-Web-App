@@ -1,6 +1,6 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode,  useRef, useState } from "react";
 import CenterHeaderPage from "./CenterHeader";
-import DoctorPageNavigation from "./CenterNavigation";
+
 import CenterPageNavigation from "./CenterNavigation";
 
 type CenterLayoutProps = {

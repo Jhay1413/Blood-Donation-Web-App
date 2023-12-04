@@ -1,8 +1,8 @@
 import { Modal, Spin } from "antd";
-import { ErrorMessage, Field, Formik,Form, FormikProps} from "formik";
+import { ErrorMessage, Field, Formik,Form} from "formik";
 import {  validationSchemaForAdding } from "../schema/validationSchema";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useEffect,useRef,useState } from "react";
+
+import { useState } from "react";
 import { AuthContextType } from "../../../components/AuthContenxt/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,6 +18,7 @@ interface PatientModalProps{
 }   
 
 const PatientModal = ({isModalOpen,cancelModal,authData}:PatientModalProps) => {
+    console.log(authData)
     const[isLoading,setIsLoading] = useState(false)
     const initialValues : AddingPatientInfo = {
         firstName:   '',

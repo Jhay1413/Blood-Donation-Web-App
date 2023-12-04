@@ -1,6 +1,5 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
-import DoctorHeaderPage from "./AdminHeader";
-import DoctorPageNavigation from "./AdminNavigation";
+import { ReactNode,useRef, useState } from "react";
+
 import AdminPageNavigation from "./AdminNavigation";
 import AdminHeaderPage from "./AdminHeader";
 

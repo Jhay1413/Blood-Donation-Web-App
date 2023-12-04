@@ -70,7 +70,7 @@ const HistoryModalCenter = ({isModalOpen,onClose,patientInfo}:Props) => {
           key:'actions',
           render: (text:string,record:PatientRequestValues)=>(
             <Space size="middle">
-              <Button onClick={()=>downloadFiles(record._id)}>Download File</Button>
+              <Button onClick={()=>downloadFiles(record._id)} key={text}>Download File</Button>
             
             </Space>
     
@@ -81,13 +81,12 @@ const HistoryModalCenter = ({isModalOpen,onClose,patientInfo}:Props) => {
       const downloadFiles = async(id:string) =>{
         try {
           const response = await downloadRequestFile(id);
+          console.log(response);
         } catch (error) {
           console.log(error)
         }
       }
-      const deleteRecord = async (id:string) =>{
-  
-      }
+ 
     return ( 
         <>
           

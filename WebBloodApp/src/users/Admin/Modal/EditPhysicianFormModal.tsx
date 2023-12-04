@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Formik } from "formik";
 import { validationSchemaForPhysician } from "../schema/adminValidationSchema";
-import { PhysicianInfo, addingPhysicianInfo } from "../../../components/Interface/Interface";
+import { PhysicianInfo} from "../../../components/Interface/Interface";
 import { useState } from "react";
 import { Form, Modal, Spin } from "antd";
 
@@ -24,6 +24,7 @@ const EditPhysicianModal = ({isEditModalOpen,onClose,selectedData}:Props)  => {
                             validationSchema={validationSchemaForPhysician}
                             onSubmit={(values:PhysicianInfo) => {
                                 setIsLoading(true);
+                                console.log(values);
                 
                                 // Call the mutation function when the form is submitted
                           

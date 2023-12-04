@@ -5,14 +5,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ActivityInfoArray, postActivityInfo } from "../../../components/Interface/Interface";
 import moment from 'moment';
 import { deleteActivitiesById } from "../../../api/AdminAPI/AdminHealthCenterServices";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const ActivityPage = () => {
     const queryClient = useQueryClient();
     const activities = queryClient.getQueryData<ActivityInfoArray>(['activityInfo']);
     const [isModalOpen,setIsModalOpen] = useState(false);
     const [isLoading,setIsLoading]= useState(false);
-    
+    console.log(isLoading)
 
     const onCloseAdd = () =>{
         setIsModalOpen(false);
@@ -67,7 +67,7 @@ const ActivityPage = () => {
             key:'actions',
             render: (text:string,record:postActivityInfo)=>(
               <Space size="middle">
-                <Button onClick={()=>deleteRecord(record)} danger>Delete</Button>
+                <Button onClick={()=>deleteRecord(record)} key={text} danger>Delete</Button>
               </Space>
       
             )
