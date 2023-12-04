@@ -1,9 +1,9 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery} from "@tanstack/react-query"
 import { getAllPatientInfo } from "../../../api/AdminAPI/AdminPatientService"
 import { getAllPatientRequest } from "../../../api/AdminAPI/AdminRequestService"
 import { getAllPhysician, getAllPhysicianAccount } from "../../../api/AdminAPI/AdminPhysicianRequest"
 import { getAllCenterAccount, getAllCenterInfo, getAllDonorInfo } from "../../../api/AdminAPI/AdminHealthCenterServices"
-import { getAllAccountInfo } from "../../../api/AdminAPI/Accounts"
+
 import { getAllDonation } from "../../../api/donationApi"
 
 type Props ={

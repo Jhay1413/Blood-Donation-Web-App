@@ -11,21 +11,7 @@ interface Props  {
     onClose: ()=>void
     datalist : healthCenterInfoArray | undefined
 }
-interface HealthCenter {
-    name:   string,
-    address: string,
-    contact: string,
-    bloodTypeInventory: {
-        A_positive: number | null,
-        A_negative: number | null,
-        B_positive: number | null,
-        B_negative: number | null,
-        AB_positive: number | null,
-        AB_negative: number | null,
-        O_positive: number | null,
-        O_negative: number | null,
-    },
-}
+
 
 const RegisterCenterModal = ({isModalOpen,onClose,datalist}:Props) =>{
     const queryClient = useQueryClient();

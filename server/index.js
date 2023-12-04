@@ -15,12 +15,13 @@ const appRequestRoutes = require('./controller/AppController/AppRequest')
 const appAuthRoutes = require('./controller/AppController/AppAuth')
 const accountRoutes = require('./controller/AdminServices/AccountController');
 const donationRoutes = require('./controller/donation')
+const path = require('path');
 const app = express();
 
 
 app.use(express.json())
 app.use(cors())
-
+app.use(express.static('dist'));
 const PORT = 3001
 
 const connectDB = async()=>{
@@ -54,6 +55,9 @@ app.use('/api/appAuthRoutes',appAuthRoutes);
 app.use('/api/donationRoutes', donationRoutes )
 
 app.use('/api/accountRoutes',accountRoutes);
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'dist/index.html'));
+});
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log("listening for requests");

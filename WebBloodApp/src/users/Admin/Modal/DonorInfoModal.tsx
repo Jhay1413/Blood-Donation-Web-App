@@ -2,9 +2,9 @@ import { Modal, Spin } from "antd";
 import { ErrorMessage, Field, Formik,Form} from "formik";
 
 
-import { toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
-import { DonorInfoArray, postDonorInfo, preDonorInfo } from "../../../components/Interface/Interface";
+import { DonorInfoArray,  preDonorInfo } from "../../../components/Interface/Interface";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addNewDonorInfo } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import { useState } from "react";
