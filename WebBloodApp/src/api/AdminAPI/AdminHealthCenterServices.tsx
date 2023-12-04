@@ -54,6 +54,14 @@ export const getAllActivities= async()=>{
         return error
     }
 }
+export const deleteActivitiesById = async (id:string) =>{
+    try {
+        const response = await axios.delete(`${centersApi}/deleteActivities/${id}`);
+        return response.data
+    } catch (error) {
+      console.log(error);  
+    }
+}
 //Donor services
 
 export const addNewDonorInfo = async(data:preDonorInfo)=>{

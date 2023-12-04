@@ -4,6 +4,7 @@ import { getAllPatientRequest } from "../../../api/AdminAPI/AdminRequestService"
 import { getAllPhysician, getAllPhysicianAccount } from "../../../api/AdminAPI/AdminPhysicianRequest"
 import { getAllCenterAccount, getAllCenterInfo, getAllDonorInfo } from "../../../api/AdminAPI/AdminHealthCenterServices"
 import { getAllAccountInfo } from "../../../api/AdminAPI/Accounts"
+import { getAllDonation } from "../../../api/donationApi"
 
 type Props ={
     children : React.ReactNode
@@ -40,6 +41,10 @@ const queryClient = useQueryClient();
         queryKey:['physicianAccounts'],
         queryFn:getAllPhysicianAccount
     })
+    const DonationList = useQuery({
+        queryKey:['donationList'],
+        queryFn:getAllDonation
+    })
    
     const dataSources = [
         healthCenterAccount,
@@ -49,6 +54,7 @@ const queryClient = useQueryClient();
         physicianData,
         DonorInfo,
         physicianAccounts,
+        DonationList
    
        
       ];

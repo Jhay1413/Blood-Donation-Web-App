@@ -14,6 +14,7 @@ const healthCenterAdminRoutes = require('./controller/AdminServices/HealthCenter
 const appRequestRoutes = require('./controller/AppController/AppRequest')
 const appAuthRoutes = require('./controller/AppController/AppAuth')
 const accountRoutes = require('./controller/AdminServices/AccountController');
+const donationRoutes = require('./controller/donation')
 const app = express();
 
 
@@ -48,7 +49,9 @@ app.use('/admin/api/healthCenterRoutes',healthCenterAdminRoutes);
 app.use('/api/requestRoutes',appRequestRoutes);
 app.use('/api/appAuthRoutes',appAuthRoutes);
 
-//ACCOUNT ROUTES
+//Donation Routes
+
+app.use('/api/donationRoutes', donationRoutes )
 
 app.use('/api/accountRoutes',accountRoutes);
 connectDB().then(() => {

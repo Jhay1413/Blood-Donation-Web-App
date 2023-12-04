@@ -2,7 +2,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getAllPatientInfo } from "../../../api/AdminAPI/AdminPatientService"
 import { getAllPatientRequest } from "../../../api/AdminAPI/AdminRequestService"
 import { getAllPhysician } from "../../../api/AdminAPI/AdminPhysicianRequest"
-import { getAllActivities, getAllCenterAccount, getAllCenterInfo } from "../../../api/AdminAPI/AdminHealthCenterServices"
+import { getAllActivities, getAllCenterAccount, getAllCenterInfo, getAllDonorInfo } from "../../../api/AdminAPI/AdminHealthCenterServices"
+import { getAllDonation } from "../../../api/donationApi"
 
 type Props ={
     children : React.ReactNode
@@ -36,13 +37,23 @@ const queryClient = useQueryClient();
         queryKey:['activityInfo'],
         queryFn:getAllActivities
     })
+    const DonorInfo = useQuery({
+        queryKey:['donorInfo'],
+        queryFn:getAllDonorInfo
+    })
+    const DonationList = useQuery({
+        queryKey:['donationList'],
+        queryFn:getAllDonation
+    })
     const dataSources = [
         healthCenterAccount,
         healthCenterData,
         patientData,
         requestData,
         physicianData,
-        ActivityInfo
+        ActivityInfo,
+        DonorInfo,
+        DonationList
       ];
       
       const isLoading = dataSources.some((source) => source.isLoading);

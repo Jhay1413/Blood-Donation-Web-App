@@ -188,3 +188,20 @@ export type postActivityInfo = {
     bloodCenter:HealthCenterInfo
 }
 export type ActivityInfoArray = postActivityInfo[] | null
+
+export type DonationInfo = {
+    donor:string,
+    bloodType:string,
+    quantity:string,
+    date:string,
+    bloodCenter:string
+}
+export type postDonationInfo = {
+    _id:string,
+    donor:postDonorInfo,
+    bloodType:string,
+    quantity:string,
+    date:string,
+    bloodCenter:HealthCenterInfo
+}
+export type DonationInfoArray = postDonationInfo[] | null

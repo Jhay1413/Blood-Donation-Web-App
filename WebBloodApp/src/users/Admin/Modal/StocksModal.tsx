@@ -1,5 +1,6 @@
 import { Modal, Table } from "antd";
-import { HealthCenterInfo } from "../../../components/Interface/Interface";
+import { DonationInfoArray, HealthCenterInfo } from "../../../components/Interface/Interface";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props ={
     isModalOpen:boolean
@@ -20,55 +21,71 @@ type bloodQuantity = {
 }
 const StocksModal = ({isModalOpen,onClose,data}:Props) => {
     const datasource = [{data}]
+   
+    const queryClient = useQueryClient();
+    const donationData = queryClient.getQueryData<DonationInfoArray>(['donationList']);
+   
+    const filteredDonation = donationData?.filter(datas=>datas.bloodCenter._id === data?._id);
+
+    const oPositive =filteredDonation?.filter(donor => donor.bloodType === 'O+');
+    const oNegative =filteredDonation?.filter(donor => donor.bloodType === 'O-');
+    const aPositive=filteredDonation?.filter(donor => donor.bloodType === 'A+');
+    const aNegative =filteredDonation?.filter(donor => donor.bloodType === 'A-');
+    const bPositive =filteredDonation?.filter(donor => donor.bloodType === 'B+');
+    const bNegative =filteredDonation?.filter(donor => donor.bloodType === 'B-');
+    const abPositive =filteredDonation?.filter(donor => donor.bloodType === 'AB+');
+    const abNegative =filteredDonation?.filter(donor => donor.bloodType === 'AB-');
+
+   
     const columns = [
         {
             title: 'A Positive',
             dataIndex: 'bloodTypeInventory',
             key: 'A_positive',
-            render: ((bloodType:bloodQuantity) =>bloodType.A_positive ? bloodType.A_positive : 'Out of Stock')
+            render: (() =>oPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         
         {
             title: 'A Negative',
             dataIndex: 'bloodTypeInventory',
             key: 'A_negative',
-            render: ((bloodType:bloodQuantity) =>bloodType.A_negative ? bloodType.A_negative : 'Out of Stock')
+            render: (() =>aNegative?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         {
             title: 'B Positive',
             dataIndex: 'bloodTypeInventory',
             key: 'B_positive',
-            render: ((bloodType:bloodQuantity) =>bloodType.B_positive ? bloodType.B_positive : 'Out of Stock')
+            render: (() =>bPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         {
             title: 'B Negative',
             dataIndex: 'bloodTypeInventory',
             key: 'B_negative',
-            render: ((bloodType:bloodQuantity) =>bloodType.B_negative ? bloodType.B_negative : 'Out of Stock')
+            render: (() =>bNegative?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         {
             title: 'AB Positive',
             dataIndex: 'bloodTypeInventory',
             key: 'AB_positive',
-            render: ((bloodType:bloodQuantity) =>bloodType.AB_positive ? bloodType.AB_positive : 'Out of Stock')
+            render: (() =>abPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         {
             title: 'AB Negative',
             dataIndex: 'bloodTypeInventory',
             key: 'AB_negative',
-            render: ((bloodType:bloodQuantity) =>bloodType.AB_negative ? bloodType.AB_negative : 'Out of Stock')
+            render: (() =>abNegative?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         {
             title: 'O Positive',
             dataIndex: 'bloodTypeInventory',
             key: 'O_positive',
-            render: ((bloodType:bloodQuantity) =>bloodType.O_positive ? bloodType.O_positive : 'Out of Stock')
+            render: (() =>oPositive?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
         {
             title: 'O Negative',
             dataIndex: 'bloodTypeInventory',
             key: 'O_negative',
-            render: ((bloodType:bloodQuantity) =>bloodType.O_negative? bloodType.O_negative : 'Out of Stock')
+            render: (() =>oNegative?.reduce((sum, item) => sum +  parseInt(item.quantity, 10), 0))
         },
     ]
     return ( 

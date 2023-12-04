@@ -10,6 +10,8 @@ import InsideAdminRoutes from './components/Routes/InsideAdminRoutes'
 import RegistrationPage from './components/Auth/RegisterPage'
 import InsideCenterRoutes from './components/Routes/InsideCenterRoutes'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
  
   const allowedRoles = {
@@ -19,6 +21,7 @@ function App() {
   }
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route path = '/' element={<Layout/>}>
           {/* Public Route*/}

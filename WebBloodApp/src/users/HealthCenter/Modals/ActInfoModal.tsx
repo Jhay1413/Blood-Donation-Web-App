@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { ActivityInfoArray, preActivityInfo } from "../../../components/Interface/Interface";
 import { addNewActivities } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import { validationSchemaForAddingActivity } from "../schema/validationSchema";
-import {  useJsApiLoader,GoogleMap, Marker, InfoWindow} from '@react-google-maps/api';
-import { FaRegMap} from "react-icons/fa6";
 
+import { FaRegMap} from "react-icons/fa6";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './style.css'
 import MapComponent from "./MapsComponent";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
+
 interface ActivityModalProps{
     isModalOpen : boolean
     cancelModal:()=>void
@@ -65,6 +67,7 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
             queryClient.setQueryData(['activityInfo'], (existingData:ActivityInfoArray) => {
                 return existingData?.concat(data);
               });
+              toast.success("Data Successfully Inserted ! ");
             setIsLoading(false);
             cancelModal();
           console.log('Mutation response data:', data);
@@ -77,6 +80,7 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
     
       return ( 
         <>
+          
             <div className="w-full">
                 <Modal open={isModalOpen} onCancel={clearForm} width='50%' footer={null}>
                     <div className='w-full'>

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaHouseChimney, FaRegFolderOpen,FaPerson, FaXmark} from "react-icons/fa6";
+import { FaHouseChimney, FaRegFolderOpen,FaPerson, FaXmark, FaCalendarPlus, FaDatabase, FaHandHoldingMedical} from "react-icons/fa6";
 import { useState } from "react";
 
 interface CenterPageNavigationProps {
@@ -109,10 +109,46 @@ const CenterPageNavigation = ({onClick}:CenterPageNavigationProps) => {
                                 `}>
                                     <div className="flex flex-row w-full justify-start items-center space-x-4">
                                         <div className="flex items-center justify-center text-xl">
-                                            < FaPerson/>
+                                            < FaHandHoldingMedical />
                                         </div>
                                         <div className="flex items-center justify-center">
                                             <h1>Activities</h1>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                            </NavLink>
+                        </li>   
+                        <li className="w-full rounded-md hover:bg-gray-200 ">
+                            <NavLink
+                                to="/center/DonationHistory"
+                                className={({ isActive}) =>
+                                    `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
+                                `}>
+                                    <div className="flex flex-row w-full justify-start items-center space-x-4">
+                                        <div className="flex items-center justify-center text-xl">
+                                            < FaCalendarPlus />
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <h1>Donations</h1>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                            </NavLink>
+                        </li>  
+                        <li className="w-full rounded-md hover:bg-gray-200 ">
+                            <NavLink
+                                to="/center/Inventory"
+                                className={({ isActive}) =>
+                                    `w-full p-2 block ${isActive ? "bg-violet-200 text-violet-500 w-full rounded-md" : ""}
+                                `}>
+                                    <div className="flex flex-row w-full justify-start items-center space-x-4">
+                                        <div className="flex items-center justify-center text-xl">
+                                            <FaDatabase/>
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <h1>Inventory</h1>
                                         </div>
                                         
                                     </div>

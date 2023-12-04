@@ -112,6 +112,17 @@ router.get('/getDonors',async(req,res)=>{
         console.log(error)
     }
 })
+router.delete('/deleteActivities/:id',async(req,res)=>{
+    const id = req.params.id;
+    try {
+        const deletedActivity = await BloodLettingActivityModel.findByIdAndDelete(id);
+        if(deletedActivity){
+            res.status(201).json({message:"Deleted Successfully",data: deletedActivity});
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
 router.post('/addNewDonor',async(req,res)=>{
     const {
         firstName,

@@ -1,14 +1,17 @@
-import { Table } from "antd";
+import { Button, Space, Table } from "antd";
 import { useState } from "react";
 import ActivityInfoModal from "../Modals/ActInfoModal";
-import { useQueryClient } from "@tanstack/react-query";
-import { ActivityInfoArray } from "../../../components/Interface/Interface";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ActivityInfoArray, postActivityInfo } from "../../../components/Interface/Interface";
 import moment from 'moment';
-
+import { deleteActivitiesById } from "../../../api/AdminAPI/AdminHealthCenterServices";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ActivityPage = () => {
     const queryClient = useQueryClient();
     const activities = queryClient.getQueryData<ActivityInfoArray>(['activityInfo']);
     const [isModalOpen,setIsModalOpen] = useState(false);
+    const [isLoading,setIsLoading]= useState(false);
     
 
     const onCloseAdd = () =>{
@@ -58,9 +61,57 @@ const ActivityPage = () => {
             dataIndex: ['bloodCenter', 'name'],
             key: 'name',
         },
+        {
+            title : 'Actions',
+            dataIndex : 'actions',
+            key:'actions',
+            render: (text:string,record:postActivityInfo)=>(
+              <Space size="middle">
+                <Button onClick={()=>deleteRecord(record)} danger>Delete</Button>
+              </Space>
+      
+            )
+          }
+         
     ] 
+    const deleteRecord = async (record:postActivityInfo) =>{
+       deleteMutation.mutate(record._id);
+    }
+    const deleteMutation = useMutation({
+        mutationFn: async(data:string)=>{
+            setIsLoading(true);
+            
+            const response = await deleteActivitiesById(data);
+
+            if (response) {
+                // Invalidate and refetch
+                queryClient.invalidateQueries({ queryKey: ['activityInfo'] });
+                return response; // Return the response data if needed
+              } else {
+                // Handle the API error
+                throw new Error('Failed to update data');
+              }
+            },
+            onSuccess: (data) => {
+                // Log the response data from the mutation
+             
+           
+                queryClient.setQueryData(['activityInfo'], (existingData:ActivityInfoArray) => {
+                    return existingData?.filter(item => item._id !== data.data._id);
+                });
+                toast.success("Data Successfully Delete ! ");
+                setIsLoading(false)
+             
+              },
+              onError: (error) => {
+                // Log and handle the error
+                console.error('Mutation error:', error);
+              },
+
+    })
     return ( 
         <>
+      
             <div className="w-full p-4 flex-col h-full flex bg-white shadow-md">
                 <div className="flex pb-4 flex-col space-y-4">
                     <div className="w-full flex justify-between">
