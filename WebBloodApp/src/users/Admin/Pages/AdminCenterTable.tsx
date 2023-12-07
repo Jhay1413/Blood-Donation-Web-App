@@ -28,7 +28,7 @@ const AdminCenterPage = () => {
           dataIndex: '_id',
           key: '_id',
           filteredValue: [searchedData],
-      onFilter:(value:any,record:any)=>{
+        onFilter:(value:any,record:any)=>{
         return (
           String(record.name)
           .toLowerCase()

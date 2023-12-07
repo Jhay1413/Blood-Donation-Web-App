@@ -17,13 +17,21 @@ const accountRoutes = require('./controller/AdminServices/AccountController');
 const donationRoutes = require('./controller/donation')
 const path = require('path');
 const app = express();
-
+const cron = require('node-cron');
+const checkDate = require('./cron');
 
 app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'));
 const PORT = 3001
 
+cron.schedule('*/5 * * * *', () => {
+    checkDate();
+  }, {
+    scheduled: true,
+    timezone: 'Asia/Manila', // Specify your timezone, e.g., 'America/New_York'
+  });
+  
 const connectDB = async()=>{
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URI);

@@ -1,5 +1,5 @@
 import { FaArrowRightToBracket } from 'react-icons/fa6';
-import { IoMdSearch,IoMdApps,IoIosList} from 'react-icons/io';
+import {IoMdApps,IoIosList} from 'react-icons/io';
 
 interface HeaderPageProps{
     
@@ -22,9 +22,7 @@ const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
                         </button>
                         
                     </div>
-                    <div className="py-2 px-2">
-                        <IoMdSearch/>
-                    </div> 
+                  
                 </div>
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
            

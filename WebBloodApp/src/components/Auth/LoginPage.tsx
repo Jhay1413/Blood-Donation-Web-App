@@ -82,7 +82,7 @@ export interface Credentials {
     return (
 
         <>
-            <div className='min-h-screen w-full bg-gray-100 flex items-center justify-center'>
+            <div className='min-h-screen w-full bg-red-900 flex items-center justify-center'>
                 <div className='w-3/4 grid grid-cols-2 shadow-lg'>
                     <div className='rounded-lg '>
                         <img src={loginSideImg} />

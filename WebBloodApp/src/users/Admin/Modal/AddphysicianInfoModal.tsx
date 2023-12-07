@@ -99,9 +99,23 @@ const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
                                         </div>
                                         <div className="flex flex-col col-span-2">
                                             <label>Assigned At:</label>
-                                            <Field type="string" name="assignedAt" className="p-2 border-2 rounded-lg" placeholder="Assigned At" />
+                                            <Field
+                                                as="select"  // Use 'as' prop to specify the type of form element
+                                                id="assignedAt"
+                                                name="assignedAt"
+                                                className="p-2 border-2 rounded-lg"
+                                                >
+                                                <option value="" disabled>
+                                                    Select an option
+                                                </option>
+                                                <option value="Eastern Visayas Medical Center">Eastern Visayas Medical Center</option>
+                                                <option value="Mother Of Mercy Hospital">Mother Of Mercy Hospital	</option>
+                                                <option value="Divine Word Hospital">Divine Word Hospital</option>
+                                                <option value="Tacloban City's Hospital">Tacloban City's Hospital</option>
+                                                </Field>
                                             <ErrorMessage name="assignedAt" component="div" className="text-red-500" />
                                         </div>
+                                       
                                     </div>
                                 </div>
                                 <div className="pt-4 w-full flex justify-end">
