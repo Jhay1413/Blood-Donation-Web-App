@@ -23,24 +23,19 @@ const AdminCenterPage = () => {
    
     //TABLE COLUMNS
       const columns = [
-        {
-          title: 'Blood Center ID',
-          dataIndex: '_id',
-          key: '_id',
-          filteredValue: [searchedData],
-        onFilter:(value:any,record:any)=>{
-        return (
-          String(record.name)
-          .toLowerCase()
-          .includes(value.toLowerCase()))
-      }
-      
-
-        },
+   
         {
           title: ' Name',
           dataIndex: 'name',
           key: 'name',
+          filteredValue: [searchedData],
+          onFilter:(value:any,record:any)=>{
+          return (
+            String(record.name)
+            .toLowerCase()
+            .includes(value.toLowerCase()))
+        }
+        
         },
         {
           title: 'Contact Number',

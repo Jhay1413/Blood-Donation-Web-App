@@ -13,10 +13,11 @@ const AdminPatientPage = () => {
   const [searchedData,setSearchData] = useState(""); 
   console.log(patientData)
       const columns = [
+       
         {
-          title: 'Patient ID',
-          dataIndex: '_id',
-          key: '_id',
+          title: 'First Name',
+          dataIndex: 'firstName',
+          key: 'firstName',
           filteredValue: [searchedData],
           onFilter:(value:any,record:any)=>{
             return (
@@ -27,11 +28,6 @@ const AdminPatientPage = () => {
               .toLowerCase()
               .includes(value.toLowerCase()))
             }
-        },
-        {
-          title: 'First Name',
-          dataIndex: 'firstName',
-          key: 'firstName',
         },
         {
           title: 'Last Name',

@@ -25,10 +25,12 @@ const DonationHistory = () => {
       setIsModalOpen(false);
     }
     const columns = [
+   
         {
-          title: 'ID',
-          dataIndex: '_id',
-          key: '_id',
+          title: 'First Name',
+          dataIndex: 'donor',
+          key: 'donor.firstName',
+          render: ((donor:postDonorInfo) =>donor?.firstName),
           filteredValue: [searchData],
           onFilter:(value:any,record:any)=>{
             return (
@@ -39,12 +41,7 @@ const DonationHistory = () => {
               .toLowerCase()
               .includes(value.toLowerCase()))
           }
-        },
-        {
-          title: 'First Name',
-          dataIndex: 'donor',
-          key: 'donor.firstName',
-          render: ((donor:postDonorInfo) =>donor?.firstName)
+
         },
         {
           title: 'Last Name',

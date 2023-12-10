@@ -28,7 +28,8 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
     const initialValues : preActivityInfo = {
         activity:"",
         time:"",
-        date: "",
+        dateFrom: "",
+        dateTo:"",
         status:"",
         location:{
             latitude:"",
@@ -97,7 +98,7 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                              {({ setFieldValue }) => (
                             <Form>
                                 <div className="flex flex-col">
-                                    <h1 className='py-4 text-2xl '>Donor Information</h1>
+                                    <h1 className='py-4 text-2xl '>Activity Information</h1>
                                     <div className='grid grid-cols-4 gap-4'>
                                         <div className="flex flex-col col-span-2">
                                             <label>Activity</label>
@@ -111,15 +112,30 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                                             <ErrorMessage name="time" component="div" className="text-red-500" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <label>Date</label>
-                                            <Field type="date" name="date" className="p-2 border-2 rounded-lg" placeholder="Donor date" />
-                                            <ErrorMessage name="age" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="flex flex-col ">
                                             <label>Status</label>
-                                            <Field type="text" name="status" className="p-2 border-2 rounded-lg" placeholder="Status" />
+                                            <Field
+                                                as="select"  // Use "select" as the type
+                                                name="status"
+                                                className="p-2 border-2 rounded-lg"
+                                            >
+                                                <option value="On-going" label="On-going" />
+                                                <option value="pending" label="Pending" />
+                                                <option value="end" label="End" />
+                                                {/* Add more options as needed */}
+                                            </Field>
                                             <ErrorMessage name="status" component="div" className="text-red-500" />
                                         </div>
+                                        <div className="flex flex-col">
+                                            <label>Date from</label>
+                                            <Field type="date" name="dateFrom" className="p-2 border-2 rounded-lg" placeholder="Donor date" />
+                                            <ErrorMessage name="age" component="div" className="text-red-500" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <label>Date to</label>
+                                            <Field type="date" name="dateTo" className="p-2 border-2 rounded-lg" placeholder="Donor date" />
+                                            <ErrorMessage name="age" component="div" className="text-red-500" />
+                                        </div>
+                                     
                                         <div className="flex flex-col">
                                             <label>Latitude</label>
                                             <Field type="text" name="location.latitude" className="p-2 border-2 rounded-lg" placeholder="Location"  />

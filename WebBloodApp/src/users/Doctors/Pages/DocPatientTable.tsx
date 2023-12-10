@@ -37,11 +37,7 @@ const DocPatientPage = () => {
    
     //TABLE COLUMNS
       const columns = [
-        {
-          title: 'Patient ID',
-          dataIndex: '_id',
-          key: '_id',
-        },
+      
         {
           title: 'First Name',
           dataIndex: 'firstName',

@@ -13,10 +13,11 @@ const CenterPatientPage = () => {
   const [selectedRecord ,setSelectedRecord ] = useState<PatientInfo | null>(null)
   const [searchedData,setSearchData] = useState("");  
       const columns = [
+    
         {
-          title: 'Patient ID',
-          dataIndex: '_id',
-          key: '_id',
+          title: 'First Name',
+          dataIndex: 'firstName',
+          key: 'firstName',
           filteredValue: [searchedData],
           onFilter:(value:any,record:any)=>{
             return (
@@ -27,11 +28,6 @@ const CenterPatientPage = () => {
               .toLowerCase()
               .includes(value.toLowerCase()))
           }
-        },
-        {
-          title: 'First Name',
-          dataIndex: 'firstName',
-          key: 'firstName',
         },
         {
           title: 'Last Name',

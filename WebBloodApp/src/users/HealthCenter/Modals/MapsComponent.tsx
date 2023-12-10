@@ -61,7 +61,7 @@ const MapComponent = ({ isModalOpen, cancelModal, setFieldValue }: ActivityModal
             setShowInfoWindow(false); // Hide the InfoWindow
             cancelModal(); // Close the map modal
         }
-    };
+    }; 
 
     return (
         <>

@@ -18,11 +18,7 @@ const ActivityPage = () => {
         setIsModalOpen(false);
     }
     const columns =[
-        {
-            title: 'Activity ID',
-            dataIndex: '_id',
-            key: '_id',
-        },
+    
         {
             title: 'Activity',
             dataIndex: 'activity',
@@ -32,6 +28,18 @@ const ActivityPage = () => {
             title: 'Time',
             dataIndex: 'time',
             key: 'time',
+        },
+        {
+            title: 'Date From ',
+            dataIndex: 'dateFrom',
+            key: 'dateFrom',
+            sorter: (a:any, b:any) => moment(a.date).unix() - moment(b.date).unix(),
+        },
+        {
+            title: 'Date To ',
+            dataIndex: 'dateTo',
+            key: 'dateTo',
+            sorter: (a:any, b:any) => moment(a.date).unix() - moment(b.date).unix(),
         },
         {
             title: 'Latitude',
@@ -45,12 +53,7 @@ const ActivityPage = () => {
             key: 'longitude',
 
           },
-        {
-            title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
-            sorter: (a:any, b:any) => moment(a.date).unix() - moment(b.date).unix(),
-        },
+      
         {
             title: 'Status',
             dataIndex: 'status',

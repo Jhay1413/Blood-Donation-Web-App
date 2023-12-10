@@ -15,8 +15,8 @@ const DocRequestPage = () => {
   const columns = [
     {
       title: 'Request ID',
-      dataIndex: '_id',
-      key: '_id',
+      dataIndex: 'requestId',
+      key: 'requestId',
       filteredValue: [searchedData],
       onFilter:(value:any,record:any)=>{
         return (

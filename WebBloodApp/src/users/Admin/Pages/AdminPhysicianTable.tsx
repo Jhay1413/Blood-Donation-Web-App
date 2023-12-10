@@ -24,10 +24,9 @@ const AdminPhysicianPage = () => {
     //TABLE COLUMNS
       const columns = [
         {
-          title: 'Physician ID',
-          dataIndex: '_id',
-          key: '_id',
-          
+          title: 'First Name',
+          dataIndex: 'firstName',
+          key: 'firstName',
           filteredValue: [searchedData],
           onFilter:(value:any,record:any)=>{
             return (
@@ -41,13 +40,6 @@ const AdminPhysicianPage = () => {
               .toLowerCase()
               .includes(value.toLowerCase()))
           }
- 
-
-        },
-        {
-          title: 'First Name',
-          dataIndex: 'firstName',
-          key: 'firstName',
         },
         {
           title: 'Last Name',

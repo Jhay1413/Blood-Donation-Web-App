@@ -17,10 +17,11 @@ const DonorPage = () => {
         setIsModalOpen(false);
     }
     const columns =[
+       
         {
-            title: 'Donor ID',
-            dataIndex: '_id',
-            key: '_id',
+            title: 'First Name',
+            dataIndex: 'firstName',
+            key: 'firstName',
             filteredValue: [searchedData],
             onFilter:(value:any,record:any)=>{
               return (
@@ -32,11 +33,6 @@ const DonorPage = () => {
                 .includes(value.toLowerCase()))
             }
             
-        },
-        {
-            title: 'First Name',
-            dataIndex: 'firstName',
-            key: 'firstName',
         },
         {
             title: 'Last Name',

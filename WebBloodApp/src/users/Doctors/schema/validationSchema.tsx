@@ -8,9 +8,7 @@ export const validationSchemaForAdding = Yup.object({
     age: Yup.number().positive('Age must be positive').integer('Age must be an integer'),
     contactNumber: Yup.string(),
     address: Yup.string(),
-    email: Yup.string().email('Invalid email address'),
-    password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match'),
+ 
   });
 
   export const validationSchemaForEditing = Yup.object({

@@ -7,7 +7,7 @@ import { AuthContextType } from "../../../components/AuthContenxt/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getDocData } from "../context/DocDataContext";
-import { AddingPatientInfo, AddingPatientInfoWithUserRoles } from "../../../components/Interface/Interface";
+import { AddingPatientInfo } from "../../../components/Interface/Interface";
 import { insertPatientInfo } from "../../../api/patientApi";
 
 
@@ -27,9 +27,6 @@ const PatientModal = ({isModalOpen,cancelModal,authData}:PatientModalProps) => {
         age: '',
         contactNumber: '',
         address:  '',
-        email: '',
-        password: '',
-        confirmPassword: '',
     }
     const contextValue = getDocData();
     const showToast  = () =>{
@@ -39,9 +36,9 @@ const PatientModal = ({isModalOpen,cancelModal,authData}:PatientModalProps) => {
         try {
             setIsLoading(true);
           
-            const patientInfoWithRoles:AddingPatientInfoWithUserRoles = {...values,userRoles:'Patient'}
+         
            
-            const response = await insertPatientInfo(patientInfoWithRoles);
+            const response = await insertPatientInfo(values);
             console.log(response)
             showToast();
         } catch (error) {
@@ -104,24 +101,7 @@ const PatientModal = ({isModalOpen,cancelModal,authData}:PatientModalProps) => {
                                         </div>
                                     </div>
                                     
-                                    <h1 className='py-4 text-2xl '>Patients Account</h1>
-                                    <div className='grid grid-cols-4 gap-4'>
-                                        <div className="flex flex-col col-span-2">
-                                            <label>Email Address</label>
-                                            <Field type="text" name="email" className="p-2 border-2 rounded-lg" placeholder="Email" />
-                                            <ErrorMessage name="email" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="flex flex-col col-span-1">
-                                            <label>Password</label>
-                                            <Field type="password" name="password" className="p-2 border-2 rounded-lg" placeholder="Password" />
-                                            <ErrorMessage name="password" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="flex flex-col col-span-1">
-                                            <label>Confirm Password</label>
-                                            <Field type="password" name="confirmPassword" className="p-2 border-2 rounded-lg" placeholder="Confirm Password" />
-                                            <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
-                                        </div>
-                                    </div>
+                                   
                                     
                                 </div>
                                 <div className="pt-4 w-full flex justify-end">

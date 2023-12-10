@@ -6,9 +6,7 @@ export interface AddingPatientInfo {
     age: number | '';
     contactNumber: number | '';
     address: string;
-    email: string | "";
-    password: string | "";
-    confirmPassword: string | "";
+   
 }
 export interface AddingPatientInfoWithUserRoles {
      firstName: string;
@@ -17,10 +15,7 @@ export interface AddingPatientInfoWithUserRoles {
     age: number | '';
     contactNumber: number | '';
     address: string;
-    email: string | "";
-    password: string | "";
-    confirmPassword: string | "";
-    userRoles: string
+   
 }
 export interface AddingPatientRequestInfo{
     _id:string,
@@ -165,9 +160,9 @@ export type DonorInfoArray = postDonorInfo [] | null
 
 export type preActivityInfo = {
     activity:string
-   
+    dateFrom:string,
+    dateTo:string,
     time:string
-    date:string
     status:string
     location:{
         latitude:number | ""
@@ -177,9 +172,9 @@ export type preActivityInfo = {
 }
 export type postActivityInfo = {
     _id:string,
-    activity:string
+    dateFrom:string,
+    dateTo:string,
     time:string
-    date:string
     status:string
     location:{
         latitude:number | ""

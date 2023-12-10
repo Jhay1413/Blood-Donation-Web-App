@@ -16,8 +16,8 @@ const CenterPendingRequestPage = () => {
     const columns = [
       {
         title: 'Request ID',
-        dataIndex: '_id',
-        key: '_id',
+        dataIndex: 'requestId',
+        key: 'requestId',
       },
       {
         title: 'First Name',
