@@ -57,7 +57,8 @@ router.post('/addNewActivity',async(req,res)=>{
     const {
         activity,
         time,
-        date,
+        dateFrom,
+        dateTo,
         status,
         location:{
             latitude,
@@ -69,7 +70,8 @@ router.post('/addNewActivity',async(req,res)=>{
         const newActivity = await BloodLettingActivityModel.create({
             activity,
             time,
-            date,
+            dateFrom,
+            dateTo,
             status,
             location:{
                 latitude,

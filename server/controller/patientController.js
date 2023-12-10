@@ -27,13 +27,14 @@ router.post('/insertPatientInfo',async(req,res)=>{
             address
         })
         if(newPatient){
-            const accountResponse = await createPatientAccount(email,password ,userRoles,newPatient._id)
+            /*const accountResponse = await createPatientAccount(email,password ,userRoles,newPatient._id)
             if(accountResponse){
-                res.status(201).json({message:'User Created Successfully'});
+              
             }
             else{
                 res.json("burnoks")
-            }
+            }*/
+            res.status(201).json({message:'User Created Successfully'});
         }
        
     } catch (error) {
