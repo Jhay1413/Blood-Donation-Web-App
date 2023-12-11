@@ -163,5 +163,30 @@ router.post('/addNewDonor',async(req,res)=>{
         console.log(error);
     }
 })
+router.delete('/deleteDonor/:id',async(req,res)=>{
+    const id = req.params.id
+    try {
+        const deleteData = await DonorModel.findByIdAndDelete(id);
+        if(deleteData){
+            res.status(201).json({message:"Data deleted !"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(501).json({message:"Data deleteion unsuccessfull!"})
+    }
+})
 
+router.put('/updateDonor',async(req,res)=>{
+    const {_id} = req.body;
+    
+    try {
+        const response = await DonorModel.findByIdAndUpdate({_id:_id},req.body);
+
+        if(response){
+            res.status(201).json({message:"success"})
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
 module.exports = router

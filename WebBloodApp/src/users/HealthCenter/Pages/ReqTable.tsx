@@ -10,6 +10,7 @@ import { useAuth } from "../../../components/AuthContenxt/AuthContext";
 const CenterRequestPage = () => {
   const queryClient = useQueryClient();
   const requestData = queryClient.getQueryData<PatientRequestInfo>(['allRequest']);
+  console.log(requestData);
   const [searchedData,setSearchData] = useState("");
   const{authContext} = useAuth();
   const userId = authContext?.userId || '';    //TABLE COLUMNS

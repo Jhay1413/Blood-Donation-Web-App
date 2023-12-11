@@ -1,89 +1,49 @@
 import { Modal, Spin } from "antd";
-import { ErrorMessage, Field, Formik,Form} from "formik";
+import { ErrorMessage, Field, Formik ,Form, } from "formik";
+import { postDonorInfo } from "../../../components/Interface/Interface";
 
-
-
-import 'react-toastify/dist/ReactToastify.css';
-import { DonorInfoArray,  preDonorInfo } from "../../../components/Interface/Interface";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addNewDonorInfo } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import { useState } from "react";
-import { validationSchemaForAdding } from "../schema/adminValidationSchema";
+import { useMutation } from "@tanstack/react-query";
+import { editDonor } from "../../../api/AdminAPI/AdminHealthCenterServices";
+import { toast } from "react-toastify";
 
-
-interface DonorModalProps{
-    isModalOpen : boolean
-    cancelModal:()=>void
+interface props {
+    isModalOpen:boolean
+    cancelModal :()=> void
+    donor:postDonorInfo
+}
+const DonorEditModal = ({isModalOpen,cancelModal,donor}:props) => {
    
-}   
-
-const DonorInfoModal = ({isModalOpen,cancelModal}:DonorModalProps) => {
-    const queryClient = useQueryClient();
-  
-
-    const[isLoading,setIsLoading] = useState(false)
-    const initialValues : preDonorInfo = {
-        firstName:"",
-        lastName:"",
-        contactNumber:"",
-        address: "",
-        age:  "",
-        sex:"",
-        DOB:"",
-        bloodType:"",
-        email: '',
-        password: '',
-        confirmPassword: '',
-    }
+    const[isLoading,setIsLoading] = useState(false);
    
-    const clearForm = () =>{
-     
-        cancelModal();
-    }
     const mutation = useMutation({
-        mutationFn: async (donorInfo:preDonorInfo) => {
-          // Log the data before making the API call
-          console.log('Data to be sent to the API:', donorInfo);
-    
-          // Make the API call to post the new todo
-          const response = await addNewDonorInfo(donorInfo);
-    
-          // Check for a successful response
-          if (response) {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['donorInfo'] });
-            return response; // Return the response data if needed
-          } else {
-            // Handle the API error
-            throw new Error('Failed to update data');
-          }
-        },
-        onSuccess: (data) => {
+        mutationFn: async(donor:postDonorInfo)=>{
 
-            queryClient.setQueryData(['donorInfo'], (existingData:DonorInfoArray) => {
-                return existingData?.concat(data);
-              });
-            setIsLoading(false);
+         await editDonor(donor);
+          
+        },
+        onSuccess() {
             cancelModal();
-          console.log('Mutation response data:', data);
+            toast.success("Data updated !");
         },
-        onError: (error) => {
-          // Log and handle the error
-          console.error('Mutation error:', error);
-        },
-      });
-    
+        onError(error){
+            console.log(error);
+        }
+    })
+
+ 
     return ( 
         <>
             <div className="w-full">
-                <Modal open={isModalOpen} onCancel={clearForm} width='50%' footer={null}>
+                <Modal open={isModalOpen} onCancel={cancelModal} width='50%' footer={null}>
                     <div className='w-full'>
                         <Formik
-                            initialValues={initialValues}
-                            validationSchema={validationSchemaForAdding}
-                            onSubmit={(values:preDonorInfo) => {
+                         enableReinitialize={true}
+                            initialValues={donor}
+                            
+                            onSubmit={(values:postDonorInfo) => {
                                 setIsLoading(true);
-                                
+                             
                                 // Call the mutation function when the form is submitted
                                 mutation.mutate(values)
                               }}
@@ -143,26 +103,6 @@ const DonorInfoModal = ({isModalOpen,cancelModal}:DonorModalProps) => {
                                             <ErrorMessage name="DOB" component="div" className="text-red-500" />
                                         </div>
                                     </div>
-                                    
-                                    <h1 className='py-4 text-2xl '>Donor Account</h1>
-                                    <div className='grid grid-cols-4 gap-4'>
-                                        <div className="flex flex-col col-span-2">
-                                            <label>Email Address</label>
-                                            <Field type="text" name="email" className="p-2 border-2 rounded-lg" placeholder="Email" />
-                                            <ErrorMessage name="email" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="flex flex-col col-span-1">
-                                            <label>Password</label>
-                                            <Field type="password" name="password" className="p-2 border-2 rounded-lg" placeholder="Password" />
-                                            <ErrorMessage name="password" component="div" className="text-red-500" />
-                                        </div>
-                                        <div className="flex flex-col col-span-1">
-                                            <label>Confirm Password</label>
-                                            <Field type="password" name="confirmPassword" className="p-2 border-2 rounded-lg" placeholder="Confirm Password" />
-                                            <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
-                                        </div>
-                                    </div>
-                                    
                                 </div>
                                 <div className="pt-4 w-full flex justify-end">
                                     <button className="px-4 py-2 bg-violet-500 text-white rounded-md" type="submit">{isLoading?<Spin/> : "Submit"}</button>
@@ -172,8 +112,9 @@ const DonorInfoModal = ({isModalOpen,cancelModal}:DonorModalProps) => {
                     </div>
                 </Modal>
             </div>
+        
         </>
      );
 }
  
-export default DonorInfoModal;
+export default DonorEditModal;

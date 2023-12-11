@@ -22,20 +22,18 @@ const s3Client = new S3({
 
 router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
 
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
 
+    const file =  req.file
+    const {patientId,bloodType,quantity,physicianId} = req.body
 
+    let counter = await Counter.findOne({ year: currentYear });
+    if (!counter) {
+      counter = new Counter({ year: currentYear });
+    }
+  
     try {
-      const currentDate = new Date();
-      const currentYear = currentDate.getFullYear();
-    
-      const file =  req.file
-      const {patientId,bloodType,quantity,physicianId} = req.body
-    
-      let counter = await Counter.findOne({ year: currentYear });
-        if (!counter) {
-          counter = new Counter({ year: currentYear });
-      }
-      console.log(`${currentYear}-${counter.count}`)
       if(!file){
         return res.status (400).send('No file uploaded.')
       }
@@ -49,7 +47,7 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
       
       if(data.$metadata.httpStatusCode === 200) {
             const newRequest = await PatientRequestModel.create({
-            
+                requestId :`${currentYear}-${counter.count}`,
                 bloodType:bloodType,
                 bloodQuantity:quantity,
                 fileKey : file.originalname,
@@ -60,7 +58,7 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
             if (newRequest){
                 res.status(201).json({message:'Request Created'});
                 counter.count++;
-                await counter.save();
+            await counter.save();
 
             }
             else{

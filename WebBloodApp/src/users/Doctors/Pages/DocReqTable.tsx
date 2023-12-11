@@ -11,7 +11,7 @@ const DocRequestPage = () => {
 
   const contextValue = getDocData()
 
-  
+  console.log(contextValue?.allRequest)
   const columns = [
     {
       title: 'Request ID',
@@ -50,7 +50,7 @@ const DocRequestPage = () => {
       key: 'bloodType',
     },
     {
-      title: 'Quantity', 
+      title: 'Milliliter', 
       dataIndex: 'bloodQuantity',
       key: 'bloodQuantity',
     },

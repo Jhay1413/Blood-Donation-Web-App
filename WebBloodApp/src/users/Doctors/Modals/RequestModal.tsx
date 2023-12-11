@@ -137,8 +137,8 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
                                                 <ErrorMessage name="bloodType" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex flex-col col-span-2">
-                                                <label>Quantity</label>
-                                                <Field type='text' name="quantity" className='p-2 border-2' placeholder='Blood Quantity'/>
+                                                <label>Milliliter</label>
+                                                <Field type='text' name="quantity" className='p-2 border-2' placeholder='Ml'/>
                                                 <ErrorMessage name="quantity" component="div" className="text-red-500" />
                                             </div>
                                             <div className="flex flex-col">

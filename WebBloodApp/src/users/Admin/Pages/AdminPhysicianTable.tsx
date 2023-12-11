@@ -1,4 +1,4 @@
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Modal, Space, Table } from "antd";
 import { PhysicianInfo, physicianInfoArray } from "../../../components/Interface/Interface";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -21,6 +21,7 @@ const AdminPhysicianPage = () => {
     _id: "",
 });
   const [isEditModalOpen,setEditModalIsOpen] = useState(false);
+  const [openDeleteModal,setOpenDeleteModal] = useState(false);
     //TABLE COLUMNS
       const columns = [
         {
@@ -63,7 +64,7 @@ const AdminPhysicianPage = () => {
           render: (text:string,record:PhysicianInfo)=>(
             <Space size="middle">
               <Button onClick={()=>editData(record)} key={text} >Edit</Button>
-              <Button type="primary" onClick={()=> mutation.mutate(record._id)}danger>Delete</Button>
+              <Button type="primary" onClick={()=>promptDelete(record)}danger>Delete</Button>
             </Space>
     
           )
@@ -72,6 +73,11 @@ const AdminPhysicianPage = () => {
 
 
       ];
+      const promptDelete = (record:PhysicianInfo) =>{
+        setSelectedData(record);
+        setOpenDeleteModal(true);
+       
+    }
       const onCloseEditModal = () =>{
         setEditModalIsOpen(false);
       }
@@ -84,13 +90,13 @@ const AdminPhysicianPage = () => {
         setIsModalOpen(false)
       } 
       const mutation = useMutation({
-        mutationFn: async (id:string) => {
+        mutationFn: async (data:PhysicianInfo) => {
            
           // Log the data before making the API call
-          console.log('Data to be sent to the API:', id);
+          console.log('Data to be sent to the API:', data._id);
     
           // Make the API call to post the new todo
-          const response = await deletePhysician(id);
+          const response = await deletePhysician(data._id);
     
           // Check for a successful response
           if (response) {
@@ -110,6 +116,7 @@ const AdminPhysicianPage = () => {
             return updatedData;
           });
           console.log('Mutation response data:', data);
+          setOpenDeleteModal(false);
          
         },
         onError: (error) => {
@@ -117,7 +124,14 @@ const AdminPhysicianPage = () => {
           console.error('Mutation error:', error);
         },
       });
-
+      const deleteData = () =>{
+        if (selectedData !== undefined) {
+          mutation.mutate(selectedData);
+        } else {
+          console.error('no data selected');
+          // Optionally, you can handle this case by showing a message or taking some other action.
+        }
+      };
     
     return ( 
         <>
@@ -154,7 +168,17 @@ const AdminPhysicianPage = () => {
             </div>
             <AddPhysicianModal isModalOpen={isModalOpen} onClose={onCloseModal}/>
             <EditPhysicianModal isEditModalOpen={isEditModalOpen} onClose={onCloseEditModal} selectedData = {selectedData} />
-         
+
+            <Modal open={openDeleteModal} onCancel={()=>setOpenDeleteModal(false)} footer={null}>
+                <div className="flex justify-center items-center flex-col">
+                    <div className="p-4 text-2xl">
+                        <h1>Confirm deletion of this data?</h1>
+                    </div>
+                    <div className="">
+                        <button className="p-2 bg-red-500 text-white rounded-md" onClick={deleteData}>Delete</button>
+                    </div>
+                </div>      
+              </Modal>       
         </>
      );
 }

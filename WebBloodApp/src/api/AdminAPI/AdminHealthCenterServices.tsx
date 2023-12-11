@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PreHealthCenterInfo,preActivityInfo,preDonorInfo,preHealthCenterAccount } from '../../components/Interface/Interface';
+import { PreHealthCenterInfo,postDonorInfo,preActivityInfo,preDonorInfo,preHealthCenterAccount } from '../../components/Interface/Interface';
 const centersApi = import.meta.env.VITE_ADMIN_API_HEALTHCENTERROUTES
 
 
@@ -78,5 +78,21 @@ export const getAllDonorInfo= async()=>{
         return response.data
     } catch (error) {
         return error
+    }
+}
+export const deleteDonor = async(id:string)=>{
+    try {
+        const response = await axios.delete(`${centersApi}/deleteDonor/${id}`)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+export const editDonor = async(values:postDonorInfo)=>{
+    try {
+        const response = await axios.put(`${centersApi}/updateDonor`,values);
+        return response
+    } catch (error) {
+        console.log(error);
     }
 }

@@ -36,7 +36,7 @@ const EditPhysicianModal = ({isEditModalOpen,onClose,selectedData}:Props)  => {
                                     <div className='grid grid-cols-4 gap-4'>
                                         <div className="flex flex-col col-span-2">
                                             <label>First Name</label>
-                                            <Field type="text" name="firstName" value = {selectedData.firstName}className="p-2 border-2 rounded-lg" placeholder="First Name" />
+                                            <Field type="text" name="firstName" className="p-2 border-2 rounded-lg" placeholder="First Name" />
                                             <ErrorMessage name="firstName" component="div" className="text-red-500" />
                                         </div>
                                         <div className="flex flex-col col-span-2">

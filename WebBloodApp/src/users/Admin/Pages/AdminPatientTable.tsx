@@ -9,7 +9,15 @@ const AdminPatientPage = () => {
   const queryClient = useQueryClient();
   const patientData = queryClient.getQueryData<PatientInfoArray>(['patientInfo']);
   const [isModalOpen,setIsModalOpen] = useState<boolean>(false);
-  const [selectedRecord ,setSelectedRecord ] = useState<PatientInfo | null>(null)
+  const [selectedRecord ,setSelectedRecord ] = useState<PatientInfo >({
+    _id:"",
+    firstName : "",
+    lastName : "",
+    sex: "",
+    age:"",
+    contactNumber:"",
+    address: "",
+  })
   const [searchedData,setSearchData] = useState(""); 
   console.log(patientData)
       const columns = [
@@ -103,7 +111,8 @@ const AdminPatientPage = () => {
                 <Table  columns={columns} dataSource={ patientData?.map((patient)=>({...patient,key:patient?._id}))} className="w-full overflow-scroll"/>
             </div>
         </div>
-        <HistoryModal isModalOpen = {isModalOpen} onClose = {onCloseModal} patientInfo={selectedRecord}/>
+        {patientData ?  <HistoryModal isModalOpen = {isModalOpen} onClose = {onCloseModal} patientInfo={selectedRecord}/> : ""}
+       
             
         </>
      );

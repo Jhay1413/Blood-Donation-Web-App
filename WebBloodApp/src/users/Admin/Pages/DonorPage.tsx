@@ -1,21 +1,38 @@
-import { Input, Table } from "antd";
+import { Button, Input, Modal, Space, Table } from "antd";
 
 import { useState } from "react";
 
-import { useQueryClient } from "@tanstack/react-query";
-import { DonorInfoArray} from "../../../components/Interface/Interface";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { DonorInfoArray, postDonorInfo} from "../../../components/Interface/Interface";
 import DonorInfoModal from "../Modal/DonorInfoModal";
+import { deleteDonor } from "../../../api/AdminAPI/AdminHealthCenterServices";
+import DonorEditModal from "../Modal/DonorEditModat";
 
 const DonorPage = () => {
 
     const [isModalOpen,setIsModalOpen] = useState(false);
     const queryClient = useQueryClient();
     const donorInfos = queryClient.getQueryData<DonorInfoArray>(['donorInfo']);
-    console.log(donorInfos);
+    const [dataSelectedDelete,setDataSelectedDelete] = useState<postDonorInfo>()
+    const [openDeleteModal,setOpenDeleteModal] = useState(false);
     const [searchedData,setSearchData] = useState("");
+  
+    const [isEditModalOpen,setIsEditModalOpen] = useState(false);
+    const [selectedEdit,setSelectedEdit] = useState<postDonorInfo>({
+        _id:"",
+        firstName:"",
+        lastName:"",
+        contactNumber:"",
+        address: "",
+        age:  "",
+        sex:"",
+        DOB:"",
+        bloodType:"",
+    })
     const onCloseAdd = () =>{
         setIsModalOpen(false);
     }
+    
     const columns =[
        
         {
@@ -59,8 +76,75 @@ const DonorPage = () => {
             dataIndex: 'age',
             key: 'age',
         },
-
+        {
+            title : 'Actions',
+            dataIndex : 'actions',
+            key:'actions',
+            render: (text:string,record:postDonorInfo)=>(
+              <Space size="middle">
+                <Button key={text} onClick={()=>promptDelete(record)} danger>Delete</Button>
+                <Button key={text} onClick={()=>promptEdit(record)} >Edit</Button>
+                
+                
+              </Space>
+      
+            )
+          }
     ] 
+
+    const promptEdit = (record:postDonorInfo) =>{
+        setIsEditModalOpen(true);
+        setSelectedEdit(record);
+    }
+    const onCloseEdit = () =>{
+        setIsEditModalOpen(false);
+       
+    }
+    const promptDelete = (record:postDonorInfo) =>{
+        setDataSelectedDelete(record);
+        setOpenDeleteModal(true);
+       
+    }
+    const mutation_delete =useMutation({
+        mutationFn: async (donorInfo:postDonorInfo) => {
+          // Log the data before making the API call
+          console.log('Data to be sent to the API:', donorInfo);
+    
+          // Make the API call to post the new todo
+          const response = await deleteDonor(donorInfo._id);
+    
+          // Check for a successful response
+          if (response) {
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ['donorInfo'] });
+            return response; // Return the response data if needed
+          } else {
+            // Handle the API error
+            throw new Error('Failed to update data');
+          }
+        },
+        onSuccess: (data) => {
+
+            queryClient.setQueryData(['donorInfo'], (existingData:DonorInfoArray) => {
+                return existingData?.filter(data=>data._id != dataSelectedDelete?._id);
+              });
+           
+            setOpenDeleteModal(false);
+          console.log('Mutation response data:', data);
+        },
+        onError: (error) => {
+          // Log and handle the error
+          console.error('Mutation error:', error);
+        },
+      });
+      const deleteData = () =>{
+        if (dataSelectedDelete !== undefined) {
+            mutation_delete.mutate(dataSelectedDelete);
+          } else {
+            console.error('no data selected');
+            // Optionally, you can handle this case by showing a message or taking some other action.
+          }
+        };
     return ( 
         <>
             <div className="w-full p-4 flex-col h-full flex bg-white shadow-md">
@@ -90,7 +174,21 @@ const DonorPage = () => {
                     <Table  columns={columns} dataSource={donorInfos?.map((request) =>({...request,key:request._id}))} className="w-full overflow-scroll"/>
                 </div>
             </div>
+             
+            <Modal open={openDeleteModal} onCancel={()=>setOpenDeleteModal(false)} footer={null}>
+                <div className="flex justify-center items-center flex-col">
+                    <div className="p-4 text-2xl">
+                        <h1>Confirm deletion of this data?</h1>
+                    </div>
+                    <div className="">
+                        <button className="p-2 bg-red-500 text-white rounded-md" onClick={deleteData}>Delete</button>
+                    </div>
+                </div>
+
+
+            </Modal>
             <DonorInfoModal isModalOpen={isModalOpen}  cancelModal={onCloseAdd}/>
+            <DonorEditModal isModalOpen={isEditModalOpen} cancelModal={onCloseEdit} donor={selectedEdit}/>          
         </>
      );
 }

@@ -12,7 +12,7 @@ interface Props {
 const HistoryModal = ({isModalOpen,onClose,patientInfo}:Props) => {
     const queryClient = useQueryClient();
     const requestData = queryClient.getQueryData<PatientRequestInfo>(['allRequest']);
-
+  
     const historyData = requestData?.filter(item => item.patient._id === patientInfo?._id)
     const columns = [
       {

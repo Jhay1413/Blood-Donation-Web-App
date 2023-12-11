@@ -14,11 +14,7 @@ const AdminAccountPage = () => {
     const [isModalOpen,setIsModalOpen] = useState<boolean>(false)
     //TABLE COLUMNS
       const healthCenterColumns = [
-        {
-          title: 'Account ID',
-          dataIndex: '_id',
-          key: '_id',
-        },
+       
         {
           title: 'Email',
           dataIndex: 'email',
