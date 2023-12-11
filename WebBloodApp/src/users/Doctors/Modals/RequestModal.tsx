@@ -127,7 +127,7 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
                                                 <label>Blood Type</label>
                                                 <Field as="select" className='p-2 border-2' placeholder='Patients First Name' name="bloodType">
                                                     <option >Select Blood Type</option>
-                                                    <option value="O">O</option>
+                                                    <option value="O">O-</option>
                                                     <option value="O+">O+</option>
                                                     <option value="A">A</option>
                                                     <option value="A+">A+</option>

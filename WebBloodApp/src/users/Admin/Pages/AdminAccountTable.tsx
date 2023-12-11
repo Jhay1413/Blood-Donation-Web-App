@@ -75,7 +75,7 @@ const AdminAccountPage = () => {
                   <h1 className="text-xl">Blood Center Accounts</h1>
                 </div>
                 <div className="w-full flex justify-end">
-                  <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {()=>setIsModalOpen(!isModalOpen)}>Add New</button>
+                  <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {()=>setIsModalOpen(true)}>Add New</button>
                 </div>
               
               </div>

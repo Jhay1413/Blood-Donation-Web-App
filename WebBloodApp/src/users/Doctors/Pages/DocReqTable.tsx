@@ -20,13 +20,13 @@ const DocRequestPage = () => {
       filteredValue: [searchedData],
       onFilter:(value:any,record:any)=>{
         return (
-          String(record.patient.firstName)
+          String(record?.patient?.firstName)
           .toLowerCase()
           .includes(value.toLowerCase()) ||
-          String(record.lastName)
+          String(record?.lastName)
           .toLowerCase()
           .includes(value.toLowerCase()) ||
-          String(record.status)
+          String(record?.status)
           .toLowerCase()
           .includes(value.toLowerCase()))
       }
