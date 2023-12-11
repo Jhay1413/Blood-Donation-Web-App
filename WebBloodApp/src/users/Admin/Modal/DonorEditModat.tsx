@@ -3,7 +3,7 @@ import { ErrorMessage, Field, Formik ,Form, } from "formik";
 import { postDonorInfo } from "../../../components/Interface/Interface";
 
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editDonor } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import { toast } from "react-toastify";
 
@@ -15,11 +15,19 @@ interface props {
 const DonorEditModal = ({isModalOpen,cancelModal,donor}:props) => {
    
     const[isLoading,setIsLoading] = useState(false);
-   
+    const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationFn: async(donor:postDonorInfo)=>{
 
-         await editDonor(donor);
+        const response =  await editDonor(donor);
+        if (response) {
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ['donorInfo'] });
+            return response; // Return the response data if needed
+          } else {
+            // Handle the API error
+            throw new Error('Failed to update data');
+          }
           
         },
         onSuccess() {
