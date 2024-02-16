@@ -22,7 +22,7 @@ router.post('/login',async(req,res)=>{
                 })
             }
             else{
-                res.json("Incorrect username or password")
+                res.status(500).json("Incorrect username or passwosssrd")
             }
         
     } catch (error) {

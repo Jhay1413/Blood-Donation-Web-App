@@ -1,10 +1,17 @@
 import { NavLink } from "react-router-dom";
 import { FaHouseChimney, FaRegFolderOpen,FaPerson, FaXmark} from "react-icons/fa6";
+import { IoExit } from "react-icons/io5";
 
 interface DoctorPageNavigationProps {
     onClick : ()=>void
 }
 const DoctorPageNavigation = ({onClick}:DoctorPageNavigationProps) => {
+
+    const logout = () =>{
+        localStorage.removeItem('token')
+
+        window.location.reload();
+    }
     return ( 
         <>
            <div className="w-full h-full flex-col">
@@ -80,7 +87,30 @@ const DoctorPageNavigation = ({onClick}:DoctorPageNavigationProps) => {
                         </li>   
                     </ul>
                 </div>
+                <div className="w-full py-4 pl-2 ">
+                <h1 className="text-gray-400 text-xs">Action</h1>
+            </div>
+                    <ul className="w-full flex flex-col text-gray-400 text-md space-y-2">
+                        <button onClick={logout}>
+                        <li className="w-full rounded-md hover:bg-gray-200 p-2 ">
+                          
+                          <div className="flex flex-row w-full justify-start items-center space-x-4">
+                              <div className="flex items-center justify-center text-xl">
+                                  <IoExit />
+                              </div>
+                              <div className="flex items-center justify-center">
+                                  <h1>Logout</h1>
+                              </div>
+                              
+                          </div>
+                          
+                 
+              </li>   
+                        </button>
+                       
+                        </ul>
            </div>
+           
         </>
      );
 }

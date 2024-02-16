@@ -9,7 +9,7 @@ export interface AddingPatientInfo {
    
 }
 export interface AddingPatientInfoWithUserRoles {
-     firstName: string;
+    firstName: string;
     lastName: string;
     sex: string;
     age: number | '';
@@ -164,6 +164,7 @@ export type preActivityInfo = {
     dateTo:string,
     time:string
     status:string
+    address:string
     location:{
         latitude:number | ""
         longitude:number | ""

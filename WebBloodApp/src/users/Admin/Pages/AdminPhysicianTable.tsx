@@ -5,6 +5,7 @@ import { useState } from "react";
 import AddPhysicianModal from "../Modal/AddphysicianInfoModal";
 import { deletePhysician } from "../../../api/AdminAPI/AdminPhysicianRequest";
 import EditPhysicianModal from "../Modal/EditPhysicianFormModal";
+import { IoAddSharp } from "react-icons/io5";
 
 
 const AdminPhysicianPage = () => {
@@ -152,9 +153,11 @@ const AdminPhysicianPage = () => {
                       </div>
                      
                       <div className="w-full flex justify-end">
-                        <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={()=>setIsModalOpen(!isModalOpen)}>Add Physician</button>
-                      </div>
-                    
+                        <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick={()=>setIsModalOpen(!isModalOpen)}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Physician</div>
+                            </button>
+                        </div>
                     </div>
                   
                     <div className="w-full">

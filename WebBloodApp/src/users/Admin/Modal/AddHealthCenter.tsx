@@ -78,7 +78,7 @@ const HealthCenterModal = ({isModalOpen,onClose}:Props) =>{
     return (
         <>
               <div className="w-full">
-            <Modal open={isModalOpen} onCancel={onClose} width='50%' footer={null}>
+            <Modal open={isModalOpen} onCancel={onClose} width='25%' footer={null}>
                     <div className="w-full">
                         <Formik
                             initialValues={initialValues}
@@ -94,12 +94,12 @@ const HealthCenterModal = ({isModalOpen,onClose}:Props) =>{
                                 <div className="flex flex-col">
                                     <h1 className='py-4 text-2xl '>Health Center Information</h1>
                                     <div className='grid grid-cols-3 gap-4'>
-                                        <div className="flex flex-col col-span-2">
+                                    <div className="flex flex-col col-span-3">
                                             <label htmlFor="name">Name</label>
                                             <Field type="text" id="name" name="name" placeholder="name" className="p-2 border-2 rounded-lg"/>
                                             <ErrorMessage name="name" component="div" className="text-red-500" />
                                         </div>
-                                        <div className="flex flex-col">
+                                        <div className="flex flex-col col-span-3">
                                             <label htmlFor="contact">Contact</label>
                                             <Field type="text" id="contact" name="contact" placeholder="contacts" className="p-2 border-2 rounded-lg"/>
                                             <ErrorMessage name="contact" component="div" className="text-red-500" />

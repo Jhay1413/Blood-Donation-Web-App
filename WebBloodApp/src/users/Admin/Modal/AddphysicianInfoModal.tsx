@@ -61,7 +61,7 @@ const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
     return ( 
         <>
             <div className="w-full">
-            <Modal open={isModalOpen} onCancel={onClose} width='50%' footer={null}>
+            <Modal open={isModalOpen} onCancel={onClose} width='40%' footer={null}>
                     <div className="w-full">
                         <Formik
                             initialValues={initialValues}
@@ -77,12 +77,12 @@ const AddPhysicianModal = ({isModalOpen,onClose}:Props) => {
                                 <div className="flex flex-col">
                                     <h1 className='py-4 text-2xl '>Physician Information</h1>
                                     <div className='grid grid-cols-4 gap-4'>
-                                        <div className="flex flex-col col-span-2">
+                                        <div className="flex flex-col col-span-4">
                                             <label>First Name</label>
                                             <Field type="text" name="firstName" className="p-2 border-2 rounded-lg" placeholder="First Name" />
                                             <ErrorMessage name="firstName" component="div" className="text-red-500" />
                                         </div>
-                                        <div className="flex flex-col col-span-2">
+                                        <div className="flex flex-col col-span-4">
                                             <label>Last Name</label>
                                             <Field type="text" name="lastName" className="p-2 border-2 rounded-lg" placeholder="Last Name" />
                                             <ErrorMessage name="lastName" component="div" className="text-red-500" />

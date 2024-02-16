@@ -15,6 +15,7 @@ const appRequestRoutes = require('./controller/AppController/AppRequest')
 const appAuthRoutes = require('./controller/AppController/AppAuth')
 const accountRoutes = require('./controller/AdminServices/AccountController');
 const donationRoutes = require('./controller/donation')
+const resetPasswordRoutes = require('./controller/Auth/resetPassword')
 const path = require('path');
 const app = express();
 const cron = require('node-cron');
@@ -25,12 +26,12 @@ app.use(cors())
 app.use(express.static('dist'));
 const PORT = 3001
 
-cron.schedule('*/5 * * * *', () => {
-    checkDate();
-  }, {
-    scheduled: true,
-    timezone: 'Asia/Manila', // Specify your timezone, e.g., 'America/New_York'
-  });
+// cron.schedule('*/5 * * * *', () => {
+//     checkDate();
+//   }, {
+//     scheduled: true,
+//     timezone: 'Asia/Manila', // Specify your timezone, e.g., 'America/New_York'
+//   });
   
 const connectDB = async()=>{
     try {
@@ -63,6 +64,9 @@ app.use('/api/appAuthRoutes',appAuthRoutes);
 app.use('/api/donationRoutes', donationRoutes )
 
 app.use('/api/accountRoutes',accountRoutes);
+
+//reset password
+app.use('/api/resetAuth',resetPasswordRoutes);
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname,'dist/index.html'));
 });

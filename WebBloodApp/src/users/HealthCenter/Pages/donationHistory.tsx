@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDonationById } from "../../../api/donationApi";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IoAddSharp } from "react-icons/io5";
 const DonationHistory = () => {
   const queryClient = useQueryClient();
   const donationData = queryClient.getQueryData<DonationInfoArray>(['donationList']);
@@ -125,7 +126,7 @@ const DonationHistory = () => {
 
         <>
           
-            <div className="w-full p-4 flex-col h-full flex bg-white shadow-md">
+            <div className="w-full p-4 flex-col flex bg-white shadow-md">
                 <div className="flex pb-4 flex-col space-y-4">
                     <div className="w-full flex justify-between">
                       <div className="w-full ">
@@ -142,8 +143,12 @@ const DonationHistory = () => {
                       </div>
                      
                       <div className="w-full flex justify-end">
-                        <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={()=>setIsModalOpen(true)}>Add Donate</button>
+                      <button className="p-2 bg-violet-500 w-46 rounded-md text-white flex justify-center items-center space-x-2" onClick={()=>setIsModalOpen(true)}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Donation</div>
+                            </button>
                       </div>
+                     
                     
                     </div>
                   

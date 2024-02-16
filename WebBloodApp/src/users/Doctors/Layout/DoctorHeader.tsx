@@ -1,6 +1,7 @@
 import { FaArrowRightToBracket } from 'react-icons/fa6';
 import { IoMdApps,IoIosList} from 'react-icons/io';
 import { getDocData } from '../context/DocDataContext';
+import { IoNotificationsSharp } from 'react-icons/io5';
 
 
 interface HeaderPageProps{
@@ -9,12 +10,7 @@ interface HeaderPageProps{
 }
 const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
  
-    const contextValue = getDocData();
-    const logout = () =>{
-        localStorage.removeItem('token')
-        contextValue?.handleSetIsLoading()
-        window.location.reload();
-    }
+  
 
     return ( 
         <>
@@ -31,7 +27,7 @@ const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
            
                 <IoMdApps/>
-                <button onClick={logout}><FaArrowRightToBracket/></button>
+                <button><IoNotificationsSharp /></button>
 
                 </div>
           

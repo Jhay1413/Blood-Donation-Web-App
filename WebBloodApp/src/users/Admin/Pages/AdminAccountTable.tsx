@@ -3,6 +3,7 @@ import { useState } from "react";
 import RegisterCenterModal from "../Modal/AddNewCenterAccount";
 import { useQueryClient } from "@tanstack/react-query";
 import { AccountArray, HealthCenterAccountArray, healthCenterInfoArray } from "../../../components/Interface/Interface";
+import { IoAddSharp } from "react-icons/io5";
 
 
 const AdminAccountPage = () => {
@@ -53,7 +54,10 @@ const AdminAccountPage = () => {
                   <h1 className="text-xl">Doctors Accounts</h1>
                 </div>
                 <div className="w-full flex justify-end">
-                  <button className="p-2 bg-violet-500 text-sm rounded-sm text-white">Add New</button>
+                <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick={()=>setIsModalOpen(true)}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Account</div>
+                  </button>
                 </div>
               
               </div>
@@ -75,7 +79,11 @@ const AdminAccountPage = () => {
                   <h1 className="text-xl">Blood Center Accounts</h1>
                 </div>
                 <div className="w-full flex justify-end">
-                  <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {()=>setIsModalOpen(true)}>Add New</button>
+    
+                  <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick={()=>setIsModalOpen(true)}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Account</div>
+                  </button>
                 </div>
               
               </div>

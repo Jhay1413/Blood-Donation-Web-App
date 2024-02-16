@@ -1,5 +1,6 @@
-import { FaArrowRightToBracket } from 'react-icons/fa6';
+
 import { IoMdApps,IoIosList} from 'react-icons/io';
+import { IoNotificationsSharp } from 'react-icons/io5';
 
 interface HeaderPageProps{
     
@@ -7,12 +8,6 @@ interface HeaderPageProps{
 }
 const AdminHeaderPage = ({onClick}:HeaderPageProps) => {
  
-   
-    const logout = () =>{
-        localStorage.removeItem('token')
-       
-        window.location.reload();
-    }
 
     return ( 
         <>
@@ -29,7 +24,7 @@ const AdminHeaderPage = ({onClick}:HeaderPageProps) => {
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
            
                 <IoMdApps/>
-                <button onClick={logout}><FaArrowRightToBracket/></button>
+                <button><IoNotificationsSharp /></button>
 
                 </div>
           

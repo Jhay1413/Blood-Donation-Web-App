@@ -1,4 +1,4 @@
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Modal, Space, Table } from "antd";
 import { useState } from "react";
 import {  getDocData } from "../context/DocDataContext";
 import { PatientInfo, PatientRequestValues, PhysicianInfo } from "../../../components/Interface/Interface";
@@ -7,11 +7,15 @@ import moment from 'moment';
 const DocRequestPage = () => {
 
   const [searchedData,setSearchData] = useState("");
-
+  const [isModalOpen,setIsModalOpen] = useState(false);
+  const [onCloseModal,setOnCloseModal] = useState(false);
+  const [selectedId,setSeletecId] = useState("");
 
   const contextValue = getDocData()
 
-  console.log(contextValue?.allRequest)
+  const onCloseModalFunc = () =>{
+    setIsModalOpen(false);
+  }
   const columns = [
     {
       title: 'Request ID',
@@ -78,13 +82,18 @@ const DocRequestPage = () => {
       render: (text:string,record:PatientRequestValues)=>(
         <Space size="middle">
           <Button onClick={()=>downloadFiles(record._id)} key={text}>Download File</Button>
-          <Button type="primary" onClick={()=>deleteRecord(record._id)} danger>Delete File</Button>
+          <Button type="primary" onClick={()=>preDeleteButton(record._id)} danger>Delete File</Button>
         </Space>
 
       )
     }
 
   ];
+const preDeleteButton = (id:string) =>{
+    setSeletecId(id);
+    setIsModalOpen(true);
+
+}
 const downloadFiles = async(id:string) =>{
   
   try {
@@ -94,15 +103,7 @@ const downloadFiles = async(id:string) =>{
     console.log(error)
   }
 }
-const deleteRecord =async(id:string)=>{
-  try {
-    const response = await deleteRequest(id);
-    console.log(response);
-    contextValue?.handleSetIsLoading();
-  } catch (error) {
-    console.log(error);
-  }
-}
+
   return ( 
     <>
       <div className="w-full p-4 flex-col flex  bg-white shadow-md">
@@ -121,10 +122,48 @@ const deleteRecord =async(id:string)=>{
         
         <div className="flex">
             <Table columns={columns} dataSource={contextValue?.allRequest?.map(request=>({...request,key:request._id}))} className="w-full"/>
+            <DeleteModal isModalOpen={isModalOpen} onCloseModalFunc={onCloseModalFunc} selectedId={selectedId}/>        
         </div>
+
       </div>
         
     </>
   );
+}
+
+interface DeleteModalProps{
+  isModalOpen : boolean
+  onCloseModalFunc:()=>void
+  selectedId: string
+
+}
+
+const DeleteModal = ({isModalOpen,onCloseModalFunc,selectedId}:DeleteModalProps) => {
+  const contextValue = getDocData()
+  const deleteRecord =async(id:string)=>{
+    try {
+      const response = await deleteRequest(id);
+      console.log(response);
+      contextValue?.handleSetIsLoading();
+      onCloseModalFunc();;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  return (
+          <>
+               <Modal open={isModalOpen} onCancel={onCloseModalFunc} width='40%' footer={null}>
+                  <div className="flex flex-col justify-center items-center w-full">
+                      <h1 className="text-2xl">Confirm to delete the data?</h1>
+                      <div className="flex w-1/2 justify-center items-center space-x-6 p-4 text-2xl">
+                        <button className="w-full bg-red-600 text-white p-1" onClick={()=>deleteRecord(selectedId)}>Confirm</button>
+                        <button className="w-full bg-green-600 text-white p-1">Cancel</button>
+                      </div>
+                  </div>
+              </Modal>
+          </>
+  )
+
 }
 export default DocRequestPage;

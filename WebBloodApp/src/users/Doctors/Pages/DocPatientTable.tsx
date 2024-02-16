@@ -7,6 +7,7 @@ import PatientEditModal from "../Modals/PatientEditModal";
 import { PatientInfo } from "../../../components/Interface/Interface";
 import { useState } from "react";
 import { deletePatientnfo } from "../../../api/patientApi";
+import { IoAddSharp } from "react-icons/io5";
 
 
 const DocPatientPage = () => {
@@ -137,7 +138,10 @@ const DocPatientPage = () => {
                         <h1 className="text-xl">List of Patients</h1>
                       </div>
                       <div className="w-full flex justify-end">
-                        <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={onOpen}>Add Patient</button>
+                      <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick={onOpen}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Patient</div>
+                      </button>
                       </div>
                     
                     </div>

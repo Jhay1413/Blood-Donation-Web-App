@@ -62,9 +62,9 @@ const RegisterCenterModal = ({isModalOpen,onClose,datalist}:Props) =>{
     return (
         <>
               <div className="w-full">
-                    <Modal open={isModalOpen} onCancel={onClose} width='50%' footer={null} title="Registration Form">
+                    <Modal open={isModalOpen} onCancel={onClose} width='25%' footer={null} title="Registration Form">
                         <div className="w-full">
-                            <select className="p-2 border-2 rounded-lg" onChange={handleSelectOnchange} value={selectedValue ? selectedValue : ''}>
+                            <select className="p-2 border-2 rounded-lg w-full" onChange={handleSelectOnchange} value={selectedValue ? selectedValue : ''}>
                                 <option value="">Select Blood Center</option>
                                 {datalist?.map((item)=>(
                                     <option key={item._id} value={item._id}>{item.name}</option>
@@ -95,17 +95,17 @@ const RegisterCenterModal = ({isModalOpen,onClose,datalist}:Props) =>{
                             >
                                 <Form>
                                     <div className='grid grid-cols-4 gap-4'>
-                                        <div className="flex flex-col col-span-2">
+                                        <div className="flex flex-col col-span-4">
                                             <label>Email Address</label>
                                             <Field type="text" name="email" className="p-2 border-2 rounded-lg" placeholder="Email" disabled = {selectedValue === ""}/>
                                             <ErrorMessage name="email" component="div" className="text-red-500" />
                                         </div>
-                                        <div className="flex flex-col col-span-1">
+                                        <div className="flex flex-col col-span-4">
                                             <label>Password</label>
                                             <Field type="password" name="password" className="p-2 border-2 rounded-lg" placeholder="Password" disabled = {selectedValue === ""}/>
                                             <ErrorMessage name="password" component="div" className="text-red-500" />
                                         </div>
-                                        <div className="flex flex-col col-span-1">
+                                        <div className="flex flex-col col-span-4">
                                             <label>Confirm Password</label>
                                             <Field type="password" name="confirmPassword" className="p-2 border-2 rounded-lg" placeholder="Confirm Password" disabled = {selectedValue === ""}/>
                                             <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { HealthCenterInfo, healthCenterInfoArray } from "../../../components/Interface/Interface";
 import StocksModal from "../Modal/StocksModal";
+import { IoAddSharp } from "react-icons/io5";
 
 
 const AdminCenterPage = () => {
@@ -84,7 +85,10 @@ const AdminCenterPage = () => {
                         />
                       </div>
                       <div className="w-full flex justify-end">
-                        <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick = {cancelModal}>Add New</button>
+                        <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick = {cancelModal}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Center</div>
+                            </button>
                       </div>
                     
                     </div>

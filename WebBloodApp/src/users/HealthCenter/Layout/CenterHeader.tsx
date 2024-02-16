@@ -1,16 +1,12 @@
-import { FaArrowRightToBracket } from 'react-icons/fa6';
+
 import {IoMdApps,IoIosList} from 'react-icons/io';
+import { IoNotificationsSharp } from 'react-icons/io5';
 
 interface HeaderPageProps{
     
     onClick : ()=> void;
 }
 const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
-    const logout = () =>{
-        localStorage.removeItem('token')
-       
-        window.location.reload();
-    }
 
     return ( 
         <>
@@ -27,7 +23,7 @@ const DoctorHeaderPage = ({onClick}:HeaderPageProps) => {
                 <div className="w-full flex flex-row justify-end items-center space-x-4">
            
                 <IoMdApps/>
-                <button onClick={logout}><FaArrowRightToBracket/></button>
+                <button><IoNotificationsSharp /></button>
 
                 </div>
           

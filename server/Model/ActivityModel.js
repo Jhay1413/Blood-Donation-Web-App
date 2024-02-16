@@ -2,6 +2,7 @@ const mongoose  = require('mongoose');
 
 const BloodLettingActivitySchema = new mongoose.Schema({
     activity : {type:String,require:true},
+    address:{type:String,require:true},
     location:{
         latitude:{type:Number,require:true},
         longitude:{type:Number,require:true},

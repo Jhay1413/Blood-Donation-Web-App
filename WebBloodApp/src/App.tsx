@@ -12,6 +12,7 @@ import InsideCenterRoutes from './components/Routes/InsideCenterRoutes'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LandingPage from './components/LadingPage'
 function App() {
  
   const allowedRoles = {
@@ -25,8 +26,8 @@ function App() {
       <Routes>
         <Route path = '/' element={<Layout/>}>
           {/* Public Route*/}
-          <Route index element={<LoginPage/>}/>
-          <Route path='/register' element={<RegistrationPage/>}/>
+          <Route index element={<LandingPage/>}/>
+          
           <Route path ='/unauthorized' element={<UnauthorizedPage/>}/>
 
           <Route element={<RequireAuth roles = {allowedRoles.user}/>}>

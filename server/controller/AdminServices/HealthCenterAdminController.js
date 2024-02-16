@@ -60,6 +60,7 @@ router.post('/addNewActivity',async(req,res)=>{
         dateFrom,
         dateTo,
         status,
+        address,
         location:{
             latitude,
             longitude
@@ -73,6 +74,7 @@ router.post('/addNewActivity',async(req,res)=>{
             dateFrom,
             dateTo,
             status,
+            address,
             location:{
                 latitude,
                 longitude

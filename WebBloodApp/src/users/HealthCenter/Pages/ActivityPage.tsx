@@ -1,4 +1,4 @@
-import { Button, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import { useState } from "react";
 import ActivityInfoModal from "../Modals/ActInfoModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -7,6 +7,7 @@ import moment from 'moment';
 import { deleteActivitiesById } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IoAddCircleOutline, IoAddSharp } from "react-icons/io5";
 const ActivityPage = () => {
     const queryClient = useQueryClient();
     const activities = queryClient.getQueryData<ActivityInfoArray>(['activityInfo']);
@@ -42,17 +43,10 @@ const ActivityPage = () => {
             sorter: (a:any, b:any) => moment(a.date).unix() - moment(b.date).unix(),
         },
         {
-            title: 'Latitude',
-            dataIndex: ['location', 'latitude'], // You can use the dataIndex property with an array path to access nested data
-            key: 'latitude',
-
-          },
-          {
-            title: 'Longitude',
-            dataIndex: ['location', 'longitude'], // You can use the dataIndex property with an array path to access nested data
-            key: 'longitude',
-
-          },
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+        },
       
         {
             title: 'Status',
@@ -121,8 +115,20 @@ const ActivityPage = () => {
                         <div className="w-full ">
                             <h1 className="text-xl">List of Activities</h1>
                         </div>
-                        <div className="w-full flex justify-end">
-                            <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={()=>setIsModalOpen(true)}>Add Activity</button>
+                        <div className="w-full justify-center items-center flex">
+                        <Input.Search 
+                          placeholder='searchbox'
+                          onChange={(e)=>{
+                           
+                          }}
+                          className='md:w-52 p-2'
+                        />
+                      </div>
+                        <div className="w-full flex justify-end ">
+                        <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick={()=>setIsModalOpen(true)}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Activity</div>
+                            </button>
                         </div>
                     </div>
                     <div className="w-full">

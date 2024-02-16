@@ -7,6 +7,7 @@ import { DonorInfoArray, postDonorInfo} from "../../../components/Interface/Inte
 import DonorInfoModal from "../Modal/DonorInfoModal";
 import { deleteDonor } from "../../../api/AdminAPI/AdminHealthCenterServices";
 import DonorEditModal from "../Modal/DonorEditModat";
+import { IoAddSharp } from "react-icons/io5";
 
 const DonorPage = () => {
 
@@ -163,7 +164,10 @@ const DonorPage = () => {
                         />
                       </div>
                         <div className="w-full flex justify-end">
-                            <button className="p-2 bg-violet-500 text-sm rounded-sm text-white" onClick={()=>setIsModalOpen(true)}>Add Donor</button>
+                            <button className="p-2 bg-violet-500 w-42 rounded-md text-white flex justify-center items-center space-x-2" onClick={()=>setIsModalOpen(true)}>
+                                <div className="text-3xl"><IoAddSharp /></div>
+                                <div className="text-md">Add Donor</div>
+                            </button>
                         </div>
                     </div>
                     <div className="w-full">

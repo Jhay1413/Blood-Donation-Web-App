@@ -31,6 +31,7 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
         dateFrom: "",
         dateTo:"",
         status:"",
+        address:"",
         location:{
             latitude:"",
             longitude:""
@@ -135,6 +136,12 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                                             <Field type="date" name="dateTo" className="p-2 border-2 rounded-lg" placeholder="Donor date" />
                                             <ErrorMessage name="age" component="div" className="text-red-500" />
                                         </div>
+                                        <div className="flex flex-col">
+                                            <label>Address</label>
+                                            <Field type="text" name="address" className="p-2 border-2 rounded-lg" placeholder="Activity address" />
+                                            <ErrorMessage name="age" component="div" className="text-red-500" />
+                                        </div>
+                                     
                                      
                                         <div className="flex flex-col">
                                             <label>Latitude</label>

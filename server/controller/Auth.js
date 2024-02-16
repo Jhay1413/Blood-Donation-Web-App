@@ -73,7 +73,7 @@ router.post('/login',async(req,res)=>{
                 })
             }
             else{
-                res.json("Incorrect username or password")
+                res.status(400).json("Incorrect username or password")
             }
         }
         else if(roles == "HealthCenter"){
@@ -91,7 +91,7 @@ router.post('/login',async(req,res)=>{
                 })
             }
             else{
-                res.json("Incorrect username or password")
+                res.status(400).json("Incorrect username or password")
             }
         }
         else if(roles == "Admin"){
@@ -108,7 +108,7 @@ router.post('/login',async(req,res)=>{
                 })
             }
             else{
-                res.json("Incorrect username or password")
+                res.status(400).json("Incorrect username or password")
             }
         }
     } catch (error) {

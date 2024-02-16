@@ -38,7 +38,7 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
         return res.status (400).send('No file uploaded.')
       }
       const params = {
-        Bucket:'blood-donation-bucket',
+        Bucket:'bloodapp',
         Key:file.originalname,
         Body:file.buffer,
         ACL:'public-read'
@@ -51,7 +51,7 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
                 bloodType:bloodType,
                 bloodQuantity:quantity,
                 fileKey : file.originalname,
-                bucket: 'blood-donation-bucket',
+                bucket: 'bloodapp',
                 physician:physicianId,
                 patient:patientId
             })

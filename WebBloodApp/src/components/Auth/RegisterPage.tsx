@@ -22,23 +22,19 @@ const RegistrationPage = () => {
         }))
     }
     const submitForm = async () =>{
-        console.log(userInfo)
         const response = await registerUser(userInfo);
-        console.log(response);
     }
     return ( 
         <>
-            <div className="h-screen w-full items-center justify-center flex bg-gray-100 ">
-                <div className="w-2/4 mx-auto grid grid-rows-2 flex bg-white w-full p-10 rounded-lg">
-                    <div className="flex items-center justify-center w-full">
-                        <h1 className="text-4xl">Registration Page</h1>
-                    </div>
-                    <div className="w-2/4 mx-auto flex flex-col items-center justify-center space-y-4">
-                        <input className="w-full p-2 border-2 rounded-lg" name="email" type="text" placeholder="Username" onChange={handleOnchange} />
-                        <input className="w-full p-2 border-2 rounded-lg" name="password" type="password" placeholder="Password"  onChange={handleOnchange}/>
-                        <button className="w-full p-2 border-2 rounded-lg bg-green-500 text-white" onClick={submitForm} >Register</button>
-                    </div>
-                </div>
+            <div className="flex flex-col items-center justify-center space-y-2">
+                <h1 className='text-2xl text-red-600 font-bold'>REGISTER ACCOUNT</h1>
+                <p className='text-sm text-gray-500'>Account Registration</p>
+            </div>
+           <div className="w-4/5 flex flex-col items-center justify-center space-y-4">
+                <input className="w-full p-2 border-2 rounded-lg" name="name" type="text" placeholder="Username" onChange={handleOnchange} />
+                <input className="w-full p-2 border-2 rounded-lg" name="password" type="password" placeholder="Password"  onChange={handleOnchange}/>
+                <input className="w-full p-2 border-2 rounded-lg" name="email" type="text" placeholder="Email" onChange={handleOnchange} />
+                <button className="w-full p-2 border-2 rounded-lg bg-green-500 text-white" onClick={submitForm} >Register</button>
             </div>
         </>
      );
