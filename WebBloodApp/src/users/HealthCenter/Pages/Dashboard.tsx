@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import { FaChild ,FaHandHoldingHeart,FaHouseMedical,FaWpforms} from "react-icons/fa6";
-import { DonationInfoArray, PatientInfo, PatientInfoArray, PatientRequestInfo, postDonorInfo } from "../../../components/Interface/Interface";
+import { ActivityInfoArray, DonationInfoArray, PatientInfo, PatientInfoArray, PatientRequestInfo, postDonorInfo } from "../../../components/Interface/Interface";
 import { useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 import { useAuth } from "../../../components/AuthContenxt/AuthContext";
@@ -10,6 +10,7 @@ const CenterDashboardPage = () => {
   
     const queryClient = useQueryClient();
     const requestData = queryClient.getQueryData<PatientRequestInfo>(['allRequest']);
+    const activities = queryClient.getQueryData<ActivityInfoArray>(['activityInfo']);
     const newReqData = requestData?.slice(0,3);
     const donationData = queryClient.getQueryData<DonationInfoArray>(['donationList']);
     const filteredDonation = donationData?.filter(data=>data.bloodCenter._id === userId)
@@ -138,7 +139,7 @@ const CenterDashboardPage = () => {
                             </div>
                     </div>
                     <div className="items-center justify-center flex text-4xl">
-                            <h1>{requestData?.length}</h1>
+                            <h1>{activities?.length}</h1>
                     </div>
                 </div>
             </div>

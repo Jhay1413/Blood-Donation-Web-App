@@ -29,7 +29,8 @@ const DocPatientPage = () => {
     const [openEditModal,setOpenEditModal] = useState<boolean>(false);
     const contextValue = getDocData()
     const {authContext} = useAuth()
-  
+    
+    
    
     //FILTERED DATA FOR TABLE SEARCH
     const filteredPatients = searchedData 

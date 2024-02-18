@@ -108,10 +108,15 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                                         </div>
                                        
                                         <div className="flex flex-col">
-                                            <label>Time</label>
-                                            <Field type="text" name="time" className="p-2 border-2 rounded-lg" placeholder="time" />
+                                            <div className="flex justify-between">
+                                                <label>Time</label>
+                                                <label className="text-gray-400">Hour:min AM/PM</label>
+                                            </div>
+                                           
+                                            <Field type="text" name="time" className="p-2 border-2 rounded-lg" placeholder="Hour:min AM/PM" />
                                             <ErrorMessage name="time" component="div" className="text-red-500" />
                                         </div>
+                                        
                                         <div className="flex flex-col">
                                             <label>Status</label>
                                             <Field
@@ -119,9 +124,9 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                                                 name="status"
                                                 className="p-2 border-2 rounded-lg"
                                             >
-                                                <option value="On-going" label="On-going" />
                                                 <option value="pending" label="Pending" />
-                                                <option value="end" label="End" />
+                                               
+                
                                                 {/* Add more options as needed */}
                                             </Field>
                                             <ErrorMessage name="status" component="div" className="text-red-500" />
@@ -156,7 +161,7 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                                             <ErrorMessage name="location.longitude" component="div" className="text-red-500" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <label>View on maps</label>
+                                            <label>Select Area</label>
                                             <div className="flex flex-row justify-start space-x-4">
                                                 
                                                 <div className="text-2xl flex justify-center border-2 p-1"  onClick={()=>setOpenMapModal(true)}>

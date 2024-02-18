@@ -26,12 +26,12 @@ app.use(cors())
 app.use(express.static('dist'));
 const PORT = 3001
 
-// cron.schedule('*/5 * * * *', () => {
-//     checkDate();
-//   }, {
-//     scheduled: true,
-//     timezone: 'Asia/Manila', // Specify your timezone, e.g., 'America/New_York'
-//   });
+ cron.schedule('*/1 * * * *', () => {
+     checkDate();
+   }, {
+     scheduled: true,
+     timezone: 'Asia/Manila', 
+   });
   
 const connectDB = async()=>{
     try {
