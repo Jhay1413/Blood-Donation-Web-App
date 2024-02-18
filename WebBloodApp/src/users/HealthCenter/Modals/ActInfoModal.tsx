@@ -143,13 +143,13 @@ const ActivityInfoModal = ({isModalOpen,cancelModal}:ActivityModalProps) => {
                                         </div>
                                      
                                      
-                                        <div className="flex flex-col">
+                                        <div className="flex flex-col hidden">
                                             <label>Latitude</label>
                                             <Field type="text" name="location.latitude" className="p-2 border-2 rounded-lg" placeholder="Location"  />
                                            
                                             <ErrorMessage name="location.latitude" component="div" className="text-red-500" />
                                         </div>
-                                        <div className="flex flex-col">
+                                        <div className="flex flex-col hidden">
                                             <label>Longitude</label>
                                             <Field type="text" name="location.longitude" className="p-2 border-2 rounded-lg" placeholder="Location" />
                                            
