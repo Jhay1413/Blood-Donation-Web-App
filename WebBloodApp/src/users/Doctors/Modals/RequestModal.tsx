@@ -28,7 +28,6 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
         contactNumber: '',
         address:'',
         bloodType:'',
-        quantity:'',
         physician:''
     }
     const [file,setFile] = useState<null | File>(null)
@@ -55,7 +54,6 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
                     formData.append('file',file)
                     formData.append('patientId',values._id)
                     formData.append('bloodType',values.bloodType)
-                    formData.append('quantity',values.quantity)
                     formData.append('physicianId',userId)
                     const response = await addNewRequest(formData);
                     console.log(response)
@@ -136,27 +134,22 @@ const RequestModal = ({isModalOpen,cancelModal,selectedPatient}:RequestModalProp
                                                 </Field>
                                                 <ErrorMessage name="bloodType" component="div" className="text-red-500" />
                                             </div>
-                                            <div className="flex flex-col col-span-2">
-                                                <label>Milliliter</label>
-                                                <Field type='text' name="quantity" className='p-2 border-2' placeholder='Ml'/>
-                                                <ErrorMessage name="quantity" component="div" className="text-red-500" />
-                                            </div>
                                             <div className="flex flex-col">
-      <label>Upload File</label>
-      <Field
-        type="file"
-        name="file"
-        className="p-2 border-2 rounded-lg"
-        onChange= {(event:ChangeEvent<HTMLInputElement>) => event.target.files ? setFile(event.target.files[0]): null}
-      />
-      <ErrorMessage name="file" component="div" className="text-red-500" />
-    </div>
+                                                <label>Upload File</label>
+                                                <Field
+                                                    type="file"
+                                                    name="file"
+                                                    className="p-2 border-2 rounded-lg"
+                                                    onChange= {(event:ChangeEvent<HTMLInputElement>) => event.target.files ? setFile(event.target.files[0]): null}
+                                                />
+                                                <ErrorMessage name="file" component="div" className="text-red-500" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="pt-4 w-full flex justify-end">
+                                        <div className="pt-4 w-full flex justify-end">
 
-                                        <button className="px-4 py-2 bg-violet-500 text-white rounded-md" type="submit">{isLoading ? <Spin/> : 'Submit'}</button>
-                                    </div>
+                                            <button className="px-4 py-2 bg-violet-500 text-white rounded-md" type="submit">{isLoading ? <Spin/> : 'Submit'}</button>
+                                        </div>
                                 </div>
                             </Form>
                         </Formik>        

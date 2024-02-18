@@ -26,7 +26,6 @@ export interface AddingPatientRequestInfo{
     contactNumber:number | '',
     address:string,
     bloodType:string,
-    quantity:string
     physician: string
 }
 export type PatientInfo = {
@@ -59,7 +58,6 @@ export type physicianInfoArray = PhysicianInfo[] | null
 
 export type PatientRequestValues = {
     _id:string
-    bloodQuantity : string  ,
     bloodType : string ,
     bucket: string ,
     fileKey: string,

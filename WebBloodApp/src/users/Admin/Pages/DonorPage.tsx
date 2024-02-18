@@ -152,7 +152,7 @@ const DonorPage = () => {
                 <div className="flex pb-4 flex-col space-y-4">
                     <div className="w-full flex justify-between">
                         <div className="w-full ">
-                            <h1 className="text-xl">List of Request</h1>
+                            <h1 className="text-xl">List of Donors</h1>
                         </div>
                         <div className="w-full justify-center items-center flex">
                         <Input.Search 

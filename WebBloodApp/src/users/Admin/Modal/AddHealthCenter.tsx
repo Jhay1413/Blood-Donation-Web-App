@@ -92,7 +92,7 @@ const HealthCenterModal = ({isModalOpen,onClose}:Props) =>{
                         >
                             <Form>
                                 <div className="flex flex-col">
-                                    <h1 className='py-4 text-2xl '>Health Center Information</h1>
+                                    <h1 className='py-4 text-2xl '>Blood Center Information</h1>
                                     <div className='grid grid-cols-3 gap-4'>
                                     <div className="flex flex-col col-span-3">
                                             <label htmlFor="name">Name</label>

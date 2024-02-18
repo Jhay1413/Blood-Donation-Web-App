@@ -28,6 +28,5 @@ export const validationSchemaForAdding = Yup.object({
     age: Yup.number().positive('Age must be positive').integer('Age must be an integer'),
     contactNumber: Yup.string().required('Contact Number is required'),
     address: Yup.string().required('Address is required'),
-    bloodType:Yup.string().required('BloodType is required'),
-    quantity:Yup.string().required('Quantity is required')
+    bloodType:Yup.string().required('BloodType is required')
   });

@@ -9,7 +9,6 @@ const getPhilippineTime = () => {
 const PatientRequestSchema = new mongoose.Schema({
     requestId:{type:String,required:true},
     bloodType:{type:String,required:true},
-    bloodQuantity:{type:String,require:true},
     fileKey : {type:String,required:true},
     bucket : {type:String,required:true},
     status : {type:String,required:true},

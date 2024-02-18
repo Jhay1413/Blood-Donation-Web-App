@@ -48,7 +48,6 @@ router.post('/addNewRequest',upload.single('file'),async (req,res)=>{
             const newRequest = await PatientRequestModel.create({
               requestId :`${currentYear}-${counter.count}`,
                 bloodType:bloodType,
-                bloodQuantity:quantity,
                 fileKey : file.originalname,
                 bucket: 'bloodapp',
                 physician:physicianId,

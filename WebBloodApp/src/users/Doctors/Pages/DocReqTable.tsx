@@ -54,11 +54,6 @@ const DocRequestPage = () => {
       key: 'bloodType',
     },
     {
-      title: 'Milliliter', 
-      dataIndex: 'bloodQuantity',
-      key: 'bloodQuantity',
-    },
-    {
       title: 'Status', 
       dataIndex: 'status',
       key: 'status',
