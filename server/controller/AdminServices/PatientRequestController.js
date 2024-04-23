@@ -13,7 +13,7 @@ const Counter = require('../../Model/counter');
 const s3Client = new S3({
     forcePathStyle: false, // Configures to use subdomain/virtual calling format.
     endpoint: process.env.BUCKET_ENDPOINT,
-    region: "SGP1",
+    region: "auto",
     credentials: {
       accessKeyId: process.env.BUCKET_ACCESS_KEY,
       secretAccessKey: process.env.BUCKET_PRIVATE_KEY
